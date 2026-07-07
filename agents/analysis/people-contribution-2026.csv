@@ -1,0 +1,15 @@
+name,agent_id,evidence_score,evidence_project_count,self_declared_project_count,load_delta_project_count,domain_leader_count,domain_partner_count,top_projects
+李颖,subagent-li-ying,101.5,5,4,1,2,10,AIOS / AI Workflow / AI Worker:46.5; 2026车展DEMO:24.5; Figma / 创意研究画板:16.5; 红旗8397:8.0; 设计系统 / 动效平台化:6.0
+李玮,subagent-li-wei,76.0,6,3,3,6,11,2026车展DEMO:18.0; 红旗8397:16.0; 设计系统 / 动效平台化:12.0; AIOS / AI Workflow / AI Worker:12.0; 理想游戏上车:9.0
+李苏南,subagent-li-sunan,58.0,6,5,1,6,14,东风8397:31.5; 东风4SR / 8295 4SR:11.0; 奔腾E541 / 奔腾实验室:7.0; Figma / 创意研究画板:4.0; 设计系统 / 动效平台化:3.0
+韩康佳,subagent-han-kangjia,55.5,6,2,4,2,8,红旗8397:17.0; Figma / 创意研究画板:13.5; 东风8397:9.0; 广汽音频可视化:7.0; 设计系统 / 动效平台化:6.0
+张劲,subagent-zhang-jin,34.5,4,3,1,4,16,红旗8397:19.0; 设计系统 / 动效平台化:6.5; AIOS / AI Workflow / AI Worker:4.5; Figma / 创意研究画板:4.5
+张云豪,subagent-zhang-yunhao,18.0,6,3,3,3,9,红旗8397:5.0; 奔腾E541 / 奔腾实验室:3.0; 2026车展DEMO:3.0; AIOS / AI Workflow / AI Worker:3.0; 东风8397:2.0
+张帆,subagent-zhang-fan,14.0,2,3,-1,1,9,AIOS / AI Workflow / AI Worker:12.0; 红旗8397:2.0
+顾颖芝,subagent-gu-yingzhi,13.0,4,3,1,4,8,红旗8397:5.0; AIOS / AI Workflow / AI Worker:3.0; 设计系统 / 动效平台化:3.0; 2026车展DEMO:2.0
+余宗历,subagent-yu-zongli,13.0,2,1,1,0,12,奔驰HMI:8.0; Figma / 创意研究画板:5.0
+孙若一,subagent-sun-ruoyi,10.0,4,5,-1,0,0,AIOS / AI Workflow / AI Worker:3.0; Figma / 创意研究画板:3.0; 理想游戏上车:2.0; 东风8397:2.0
+刘锦峰,subagent-liu-jinfeng,4.0,2,2,0,0,0,红旗8397:2.0; 东风8397:2.0
+李昊星,subagent-li-haoxing,3.0,1,0,1,0,0,AIOS / AI Workflow / AI Worker:3.0
+陈宁子,subagent-chen-ningzi,3.0,1,0,1,0,0,AIOS / AI Workflow / AI Worker:3.0
+杜馨柯,subagent-du-xinke,0.0,0,0,0,0,0,""

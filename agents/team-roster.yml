@@ -1,0 +1,251 @@
+version: 1
+generated_from:
+  platform: feishu
+  chat_name: Unity HMI Design
+  chat_id: oc_f2f29a95d46e0fcabfaff1636bbbfada
+  captured_at: 2026-07-04
+
+domain_formation:
+  source: DDD Formation Management 2026Q3-Q4
+  file: agents/domain-formation.yml
+  source_wiki_url: https://yousandi.feishu.cn/wiki/TjrKw0xHXiLa2MkGgSjc2YQQnqe#mindmap
+  captured_at: 2026-07-06
+
+organization_teams:
+  source: 2026 HMI 设计团队组织架构规划
+  file: agents/organization-teams.yml
+  source_slides_url: https://yousandi.feishu.cn/slides/Iq3isxlkslOtcWdoPtac2gQ7nPg
+  captured_at: 2026-07-06
+
+lead_agent:
+  id: master-yangfan
+  name: 杨帆
+  role: master_agent
+  feishu:
+    open_id: ou_ab5cf61968f074140a3e2d73d8035a9c
+    tenant_key: 108b64a0970cd75d
+  responsibilities:
+    - requirement_intake
+    - task_decomposition
+    - assignment
+    - feedback_acceptance
+    - escalation
+  ai_worker:
+    status: planned
+    endpoint: null
+    routing_key: yangfan-ai-worker
+    notes: Connect this to 杨帆's personal AI worker when available.
+
+subagents:
+  - id: subagent-yu-zongli
+    name: 余宗历
+    feishu:
+      open_id: ou_01722b414592fecb51b5340cf4058d85
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/yu-zongli.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: yu-zongli-ai-worker
+
+  - id: subagent-li-sunan
+    name: 李苏南
+    feishu:
+      open_id: ou_18812a2ca4748dc683cd04029dd0e70d
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/li-sunan.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: li-sunan-ai-worker
+
+  - id: subagent-han-kangjia
+    name: 韩康佳
+    feishu:
+      open_id: ou_51ffbe7308fbb641a65eb15d3fa2021e
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/han-kangjia.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: han-kangjia-ai-worker
+
+  - id: subagent-gu-yingzhi
+    name: 顾颖芝
+    feishu:
+      open_id: ou_2bf8fe6c956f4dc994847f6a4c9d8dcc
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/gu-yingzhi.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: gu-yingzhi-ai-worker
+
+  - id: subagent-zhang-jie
+    name: 张婕
+    employment:
+      status: departure_planned
+      employment_type: null
+      start_date: null
+      source: manager_supplied
+      notes: 即将离职；不纳入新的项目工作担当分析或后续任务分配。
+    project_assignments: []
+    feishu:
+      open_id: ou_bdefa45bc7f6bb146473878136cd5095
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/zhang-jie.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: zhang-jie-ai-worker
+
+  - id: subagent-li-ying
+    name: 李颖
+    employment:
+      status: active
+      employment_type: null
+      start_date: null
+      source: pending_feishu_or_manager_confirmation
+    project_assignments:
+      - name: AI Worker 对接测试
+        role: first_integration_tester
+        status: planned
+        source: manager_supplied
+    feishu:
+      open_id: ou_150073c653d69ae2230f5a70b06f1d90
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/li-ying.md
+    ai_worker:
+      status: testing_planned
+      endpoint: null
+      routing_key: li-ying-ai-worker
+      feishu_bot_name: fufu 001
+      worker_type: feishu_ai_bot
+      priority: first_integration_target
+      source: manager_supplied
+
+  - id: subagent-li-wei
+    name: 李玮
+    feishu:
+      open_id: ou_5de227ce3782ed0f198131c2317d2a33
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/li-wei.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: li-wei-ai-worker
+
+  - id: subagent-zhang-yunhao
+    name: 张云豪
+    feishu:
+      open_id: ou_2eb1838c04f94da5b2f4e42574f49a1a
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/zhang-yunhao.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: zhang-yunhao-ai-worker
+
+  - id: subagent-zhang-jin
+    name: 张劲
+    feishu:
+      open_id: ou_31ea317afe2ea32f637de72e613a2db9
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/zhang-jin.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: zhang-jin-ai-worker
+
+  - id: subagent-zhang-fan
+    name: 张帆
+    feishu:
+      open_id: ou_e16bdf7c1be402a79e35c6f13e1c464d
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/zhang-fan.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: zhang-fan-ai-worker
+
+  - id: subagent-chen-ningzi
+    name: 陈宁子
+    employment:
+      status: official_start_scheduled
+      employment_type: intern_converted_to_full_time
+      start_date: 2026-07-06
+      source: manager_supplied
+    project_assignments: []
+    feishu:
+      open_id: ou_411511bb2196345e57a880f7cd040214
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/chen-ningzi.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: chen-ningzi-ai-worker
+
+  - id: subagent-liu-jinfeng
+    name: 刘锦峰
+    feishu:
+      open_id: ou_d805446cab590db8d825a1baa8a447e3
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/liu-jinfeng.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: liu-jinfeng-ai-worker
+
+  - id: subagent-sun-ruoyi
+    name: 孙若一
+    employment:
+      status: active
+      employment_type: intern_converted_to_full_time
+      start_date: 2026-06
+      start_date_precision: month_early
+      source: manager_supplied
+    project_assignments: []
+    feishu:
+      open_id: ou_bf49041b9844a4db721bf0d555e4a6f1
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/sun-ruoyi.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: sun-ruoyi-ai-worker
+
+  - id: subagent-du-xinke
+    name: 杜馨柯
+    employment:
+      status: active
+      employment_type: intern
+      start_date: 2026-06-15
+      source: manager_supplied
+    project_assignments: []
+    feishu:
+      open_id: ou_96402586bcd418a01e7c40b69eda7d58
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/du-xinke.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: du-xinke-ai-worker
+
+  - id: subagent-li-haoxing
+    name: 李昊星
+    feishu:
+      open_id: ou_3fcdca125879f6b6c4c7337afc6ff061
+      tenant_key: 108b64a0970cd75d
+    profile: agents/subagents/li-haoxing.md
+    ai_worker:
+      status: planned
+      endpoint: null
+      routing_key: li-haoxing-ai-worker
+
+shared_bots:
+  - id: bot-design-weekly
+    name: 设计团队周会
+    app_id: cli_a8b5049bb027d00d
+    member_id: ou_5a391e76d662cbe9b6fcf41bd289d32a
+    tenant_key: 108b64a0970cd75d
+    usage: meeting_and_team_context

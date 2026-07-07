@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026 项目负载分析</title>
+  <style>
+    body { margin: 0; background: #f6f7f9; color: #20242b; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    header { padding: 28px 40px; background: #17202d; color: white; }
+    h1 { margin: 0 0 8px; font-size: 34px; }
+    p { margin: 0; color: #667085; }
+    header p { color: #cbd5e1; }
+    main { padding: 24px 40px 48px; max-width: 1440px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(160px, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .metric, .panel { background: white; border: 1px solid #d8dde6; border-radius: 8px; box-shadow: 0 12px 28px rgba(31,42,55,.08); }
+    .metric { padding: 16px; }
+    .metric strong { display: block; font-size: 30px; }
+    .metric span { color: #667085; font-size: 13px; }
+    .panel { padding: 16px; margin-top: 16px; overflow: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th, td { padding: 10px; border-bottom: 1px solid #e5e7eb; text-align: left; vertical-align: top; font-size: 14px; }
+    th { background: #f8fafc; color: #475467; position: sticky; top: 0; }
+    .bar { height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; min-width: 120px; }
+    .bar span { display: block; height: 100%; background: #2368a2; }
+    .warn { color: #9a3412; font-weight: 650; }
+    .ok { color: #166534; font-weight: 650; }
+    .muted { color: #667085; }
+    @media (max-width: 900px) { header, main { padding-left: 18px; padding-right: 18px; } .grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>2026 项目负载与贡献分析</h1>
+    <p>基于飞书群、会议、云盘搜索、Figma 链接和手填负载。Sheet/Base 明细未授权，当前为可见证据分。</p>
+  </header>
+  <main>
+    <section class="grid">
+      <div class="metric"><strong>209</strong><span>群消息</span></div>
+      <div class="metric"><strong>259</strong><span>飞书会议</span></div>
+      <div class="metric"><strong>966</strong><span>去重云盘结果</span></div>
+      <div class="metric"><strong>14</strong><span>参与分析成员</span></div>
+    </section>
+
+    <section class="panel">
+      <h2>项目热度</h2>
+      <table>
+        <thead><tr><th>项目</th><th>证据量</th><th>证据条</th><th>主要贡献人</th></tr></thead>
+        <tbody>
+          <tr><td>AIOS / AI Workflow / AI Worker</td><td><div class="bar"><span style="width:100%"></span></div>184</td><td>云盘181 / 会议2 / 群1</td><td>李颖、张帆、李玮、张劲</td></tr>
+          <tr><td>2026车展DEMO</td><td><div class="bar"><span style="width:98%"></span></div>181</td><td>云盘137 / 会议35 / 群9</td><td>李颖、李玮、张云豪、顾颖芝</td></tr>
+          <tr><td>红旗8397</td><td><div class="bar"><span style="width:93%"></span></div>171</td><td>云盘143 / 会议28</td><td>张劲、韩康佳、李玮、李颖</td></tr>
+          <tr><td>东风8397</td><td><div class="bar"><span style="width:66%"></span></div>122</td><td>云盘96 / 会议22 / 群4</td><td>李苏南、韩康佳、张云豪、孙若一</td></tr>
+          <tr><td>Figma / 创意研究画板</td><td><div class="bar"><span style="width:60%"></span></div>111</td><td>云盘102 / 会议1 / 群6 / Figma2</td><td>李颖、韩康佳、李玮、余宗历</td></tr>
+          <tr><td>奔腾E541 / 奔腾实验室</td><td><div class="bar"><span style="width:59%"></span></div>109</td><td>云盘96 / 会议12 / 群1</td><td>李苏南、张云豪</td></tr>
+          <tr><td>东风4SR / 8295 4SR</td><td><div class="bar"><span style="width:58%"></span></div>106</td><td>云盘92 / 会议11 / 群3</td><td>李苏南</td></tr>
+          <tr><td>设计系统 / 动效平台化</td><td><div class="bar"><span style="width:55%"></span></div>102</td><td>云盘102</td><td>李玮、张劲、韩康佳、李颖</td></tr>
+          <tr><td>理想游戏上车</td><td><div class="bar"><span style="width:48%"></span></div>88</td><td>云盘70 / 会议16 / 群2</td><td>李玮、孙若一</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>个人贡献与手填偏差</h2>
+      <table>
+        <thead><tr><th>成员</th><th>贡献分</th><th>可见项目 / 手填项目</th><th>偏差</th><th>主要项目</th></tr></thead>
+        <tbody>
+          <tr><td>李颖</td><td>101.5</td><td>5 / 4</td><td class="warn">+1</td><td>AIOS、车展DEMO、Figma研究、红旗8397</td></tr>
+          <tr><td>李玮</td><td>76.0</td><td>6 / 3</td><td class="warn">+3</td><td>车展DEMO、红旗8397、设计系统、AIOS、理想游戏</td></tr>
+          <tr><td>李苏南</td><td>58.0</td><td>6 / 5</td><td class="warn">+1</td><td>东风8397、东风4SR、奔腾E541</td></tr>
+          <tr><td>韩康佳</td><td>55.5</td><td>6 / 2</td><td class="warn">+4</td><td>红旗8397、Figma研究、东风8397、广汽音频</td></tr>
+          <tr><td>张劲</td><td>34.5</td><td>4 / 3</td><td class="warn">+1</td><td>红旗8397、设计系统、AIOS、Figma研究</td></tr>
+          <tr><td>张云豪</td><td>18.0</td><td>6 / 3</td><td class="warn">+3</td><td>红旗8397、奔腾E541、车展DEMO、AIOS</td></tr>
+          <tr><td>张帆</td><td>14.0</td><td>2 / 3</td><td class="ok">-1</td><td>AIOS、红旗8397</td></tr>
+          <tr><td>顾颖芝</td><td>13.0</td><td>4 / 3</td><td class="warn">+1</td><td>红旗8397、AIOS、设计系统、车展DEMO</td></tr>
+          <tr><td>余宗历</td><td>13.0</td><td>2 / 1</td><td class="warn">+1</td><td>奔驰HMI、Figma研究</td></tr>
+          <tr><td>孙若一</td><td>10.0</td><td>4 / 5</td><td class="ok">-1</td><td>AIOS、Figma研究、理想游戏、东风8397</td></tr>
+          <tr><td>刘锦峰</td><td>4.0</td><td>2 / 2</td><td>0</td><td>红旗8397、东风8397</td></tr>
+          <tr><td>李昊星</td><td>3.0</td><td>1 / 0</td><td class="warn">+1</td><td>AIOS / AI Worker</td></tr>
+          <tr><td>陈宁子</td><td>3.0</td><td>1 / 0</td><td class="warn">+1</td><td>AIOS / AI Worker</td></tr>
+          <tr><td>杜馨柯</td><td>0.0</td><td>0 / 0</td><td>0</td><td class="muted">暂无可见项目证据</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>授权限制</h2>
+      <p>当前飞书用户授权中没有 <code>sheets:spreadsheet:read</code> 和 <code>base:table:read</code>。因此红旗8397工时报表、甘特图、任务记录 Base 尚未进入明细计算。当前结果应视为“可见证据分”，后续可用导出的 xlsx/csv 或管理员开通 scope 后升级为“工时/任务分”。</p>
+    </section>
+  </main>
+</body>
+</html>

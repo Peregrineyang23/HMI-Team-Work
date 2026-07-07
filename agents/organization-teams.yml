@@ -1,0 +1,74 @@
+version: 1
+source:
+  platform: feishu
+  type: slides
+  title: 2026 HMI 设计团队组织架构规划
+  slides_url: https://yousandi.feishu.cn/slides/Iq3isxlkslOtcWdoPtac2gQ7nPg
+  xml_presentation_id: Iq3isxlkslOtcWdoPtac2gQ7nPg
+  source_revision_id: 773
+  synced_revision_id: 773
+  captured_at: 2026-07-06
+  notes: Source slides describe the three-team model, but personnel assignments are updated here from manager instructions.
+
+teams:
+  - id: team-ai-efficiency
+    name: AI提效
+    team_type: ai_worker_coordination
+    owner_agent: subagent-li-ying
+    owner_name: 李颖
+    mandate:
+      - Coordinate all future AI worker organization.
+      - Manage AI worker onboarding, routing, and collaboration rules.
+      - Connect AI workers back to domain and management teams.
+    human_members:
+      - subagent-li-ying
+    ai_workers:
+      - id: fufu-001
+        name: fufu 001
+        platform: feishu
+        owner_agent: subagent-li-ying
+        status: testing_planned
+    membership_rule: Li Ying owns AI worker organization; AI workers join this stream as they come online.
+
+  - id: team-super-collaboration
+    name: 超级合作
+    team_type: human_collaboration
+    owner_agent: subagent-li-sunan
+    owner_name: 李苏南
+    mandate:
+      - Organize human-to-human super collaboration.
+      - Coordinate cross-project and cross-domain human collaboration.
+      - Explore high-bandwidth human collaboration practices.
+    human_members:
+      - subagent-li-sunan
+      - subagent-liu-jinfeng
+      - subagent-chen-ningzi
+      - subagent-li-haoxing
+      - subagent-sun-ruoyi
+      - subagent-du-xinke
+    membership_rule: Super collaboration is composed of humans and managed by Li Sunan; Liu Jinfeng, Chen Ningzi, Li Haoxing, Sun Ruoyi, and Du Xinke operate under Li Sunan's architecture for cross-project collaboration and execution support.
+
+  - id: team-domain-driven
+    name: 领域驱动
+    team_type: domain_driven_delivery
+    owner_agent: master-yangfan
+    owner_name: 杨帆
+    mandate:
+      - Drive domain learning, innovation, and delivery efficiency.
+      - Carry domain ownership defined in agents/domain-formation.yml.
+      - Build domain agents, skills, and knowledge bases.
+    human_members:
+      - subagent-yu-zongli
+      - subagent-han-kangjia
+      - subagent-gu-yingzhi
+      - subagent-li-wei
+      - subagent-zhang-yunhao
+      - subagent-zhang-jin
+      - subagent-zhang-fan
+    transition_members:
+      - agent_id: subagent-zhang-jie
+        name: 张婕
+        status: departure_planned
+        assignment_policy: do_not_assign_new_work
+        source: manager_supplied
+    membership_rule: Everyone not assigned to AI efficiency or Li Sunan's super-collaboration architecture is grouped into the domain-driven team.

@@ -1,0 +1,266 @@
+version: 0.1
+created_at: 2026-07-07
+timezone: Asia/Shanghai
+purpose: >
+  Small-sample 2026H1 performance scoring basis for Unity HMI Design.
+  Designed to compare Lynn/Li Ying, Zhang Jin, Li Wei, and Li Sunan after
+  each person provides equivalent self-mined evidence packages.
+
+principles:
+  - evidence_score_is_not_performance_score
+  - compare_people_only_after_source_coverage_is_normalized
+  - separate_quantity_quality_impact_and_confidence
+  - local_artifacts_must_be_indexed_before_high_confidence_scoring
+  - self_claimed_metrics_require_cross_validation_for_bonus_points
+
+evaluation_dimensions:
+  ui_ue_output_quality:
+    weight: 0.50
+    max_points: 50
+    subitems:
+      output_volume:
+        max_points: 15
+        evidence:
+          - figma_versions
+          - source_files
+          - final_exports
+          - project_assignments
+        notes: Figma saves and local files must be deduplicated by project and time window.
+      design_quality:
+        max_points: 20
+        evidence:
+          - review_pass_records
+          - customer_feedback
+          - rework_count
+          - adopted_deliverables
+        notes: Quality should not be inferred from volume alone.
+      design_consistency:
+        max_points: 10
+        evidence:
+          - design_system_usage
+          - component_library_updates
+          - spec_compliance_reviews
+      documentation_and_source_handoff:
+        max_points: 5
+        evidence:
+          - handoff_docs
+          - source_file_structure
+          - naming_quality
+          - downstream_feedback
+
+  execution:
+    weight: 0.20
+    max_points: 20
+    subitems:
+      schedule_delivery:
+        max_points: 10
+        evidence:
+          - jira_status_transition
+          - gantt_records
+          - delivery_deadline
+          - meeting_checkpoint
+      risk_and_blocker_closure:
+        max_points: 6
+        evidence:
+          - blocker_records
+          - issue_comments
+          - meeting_action_items
+      requirement_understanding:
+        max_points: 4
+        evidence:
+          - requirement_trace
+          - accepted_design_solution
+
+  capability_ai_and_methodology:
+    weight: 0.15
+    max_points: 15
+    subitems:
+      research_and_analysis:
+        max_points: 7
+        evidence:
+          - research_docs
+          - data_analysis
+          - design_insights
+      innovation:
+        max_points: 4
+        evidence:
+          - new_interaction_model
+          - workflow_innovation
+          - measurable_improvement
+      design_assets_and_sharing:
+        max_points: 2
+        evidence:
+          - reusable_methodology
+          - sharing_materials
+          - adoption_by_others
+      ai_tool_leverage:
+        max_points: 2
+        evidence:
+          - ai_tool_scripts
+          - run_logs
+          - users_or_projects_reused
+          - before_after_efficiency_estimate
+
+  collaboration:
+    weight: 0.10
+    max_points: 10
+    subitems:
+      cross_role_communication:
+        max_points: 4
+        evidence:
+          - meeting_organizer
+          - decision_records
+          - cross_team_feedback
+      feedback_response_iteration:
+        max_points: 3
+        evidence:
+          - figma_comments_resolved
+          - jira_comments
+          - version_iterations
+      team_contribution:
+        max_points: 3
+        evidence:
+          - mentoring_records
+          - shared_tools
+          - team_training
+
+  responsibility:
+    weight: 0.05
+    max_points: 5
+    subitems:
+      process_compliance:
+        max_points: 3
+        evidence:
+          - process_records
+          - violation_records
+          - manager_confirmation
+      work_attitude:
+        max_points: 2
+        evidence:
+          - attendance_records
+          - manager_confirmation
+
+evidence_confidence:
+  high:
+    criteria:
+      - raw_export_available
+      - source_accessible_or_hash_verified
+      - project_and_person_resolved
+      - timestamp_in_period
+    multiplier: 1.0
+  medium:
+    criteria:
+      - structured_claim_available
+      - verification_method_provided
+      - raw_source_not_attached
+    multiplier: 0.75
+  low:
+    criteria:
+      - narrative_only
+      - no_raw_source
+      - project_mapping_unclear
+    multiplier: 0.4
+
+deduplication_rules:
+  figma_versions:
+    method: group_by_file_author_and_time_window
+    default_time_window_minutes: 20
+    warning: Version saves are iteration signals, not direct effort hours.
+  ae_autosaves:
+    method: count_as_iteration_strength_not_independent_projects
+    max_credit_ratio_against_project_file: 0.25
+  media_encoder_exports:
+    method: group_by_source_project_visual_content_and_date
+    warning: Multi-bitrate exports should not be scored as separate designs.
+  blender_files:
+    method: classify_as_final_delivery_working_version_template_or_third_party
+    required_fields:
+      - file_hash
+      - created_at
+      - modified_at
+      - project_id
+      - adoption_status
+  audio_files:
+    method: group_by_interaction_style_master_and_final_adoption
+  agent_code:
+    method: score_by_running_module_reuse_and_business_link_not_raw_loc
+
+score_bands:
+  A:
+    range: "90-100"
+    conditions:
+      - key_project_owner_or_platform_level_contribution
+      - at_least_three_high_or_medium_confidence_source_types
+      - no_major_quality_or_collaboration_risk
+      - clear_team_or_cross_team_impact
+  B_plus:
+    range: "85-89"
+    conditions:
+      - stable_multi_project_delivery
+      - evidence_is_sufficient
+      - clear_domain_strength
+      - platform_level_or_measurable_impact_not_fully_proven
+  B:
+    range: "75-84"
+    conditions:
+      - core_tasks_completed
+      - normal_evidence_coverage
+      - collaboration_and_quality_stable
+  C:
+    range: "60-74"
+    conditions:
+      - delivery_exists_but_evidence_or_quality_is_weak
+      - repeated_minor_delay_or_rework
+  D:
+    range: "<60"
+    conditions:
+      - core_tasks_not_delivered
+      - major_quality_or_collaboration_risk
+      - evidence_does_not_support_basic_delivery
+
+bonus_policy:
+  recommended_cap: 5
+  allow_exception_with_manager_approval: true
+  evidence_required:
+    external_praise:
+      - source_quote_or_meeting_record
+    reusable_methodology:
+      - document
+      - adoption_record
+    major_design_initiative:
+      - project_scope
+      - owner_role
+      - outcome
+    business_or_user_metric_lift:
+      - before_after_metric
+      - stakeholder_confirmation
+
+small_sample_comparison:
+  people:
+    - name: 李颖
+      lane: AI / workflow platform contribution
+      current_cloud_evidence_score: 101.5
+      current_status: self_package_audited_needs_raw_local_index
+    - name: 张劲
+      lane: framework / complex system / infrastructure
+      current_cloud_evidence_score: 34.5
+      current_status: waiting_for_self_package
+    - name: 李玮
+      lane: visual / 3D / engineering delivery
+      current_cloud_evidence_score: 76.0
+      current_status: waiting_for_self_package
+    - name: 李苏南
+      lane: organization / collaboration / design management
+      current_cloud_evidence_score: 58.0
+      current_status: waiting_for_self_package
+  warning: >
+    Do not compare final performance scores from self packages until all four
+    people have the same minimum source coverage: cloud evidence, local artifact
+    index, task/project records, and manager validation.
+
+recommended_next_steps:
+  - Export raw Figma version/comment JSON for each self package.
+  - Export local artifact index CSV with path, hash, timestamps, project mapping, and adoption status.
+  - Add Jira or Gantt status transition records where available.
+  - Attach key review conclusions or stakeholder praise for bonus claims.
+  - Normalize project aliases before comparing people.

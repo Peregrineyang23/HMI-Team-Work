@@ -1,0 +1,269 @@
+version: 1
+source:
+  platform: feishu
+  type: mindnote
+  title: DDD Formation Management 2026Q3-Q4
+  wiki_url: https://yousandi.feishu.cn/wiki/TjrKw0xHXiLa2MkGgSjc2YQQnqe#mindmap
+  wiki_node_token: TjrKw0xHXiLa2MkGgSjc2YQQnqe
+  mindnote_token: EdlIbwskCmvQSlnz5M7cEug4n3b
+  captured_at: 2026-07-06
+
+role_names:
+  domain_director: Domain Director
+  team_leader: Team Leader
+  team_partner: Team Partner
+
+domain_director:
+  name: 杨帆
+  agent_id: master-yangfan
+  feishu_open_id: ou_ab5cf61968f074140a3e2d73d8035a9c
+
+unmatched_members:
+  - feishu_open_id: ou_ab9c9839cec158f67bb6a25297bbf492
+    source_domain: DD015
+    role: team_partner
+    reason: Mentioned in mindnote but not found in current Unity HMI Design roster.
+
+transition_members:
+  - agent_id: subagent-zhang-jie
+    name: 张婕
+    status: departure_planned
+    source: manager_supplied
+    assignment_policy: do_not_assign_new_work
+    roles_to_migrate:
+      leader: []
+      partner: [DD006, DD009, DD010, DS002, DM005]
+    notes: 即将离职；保留原始领域记录用于迁移，不纳入新的项目工作担当分析。
+
+domains:
+  - code: DD001
+    group: Design Domain
+    name: Launcher
+    description: 状态栏，快速设置负一屏，Widget，Dock，空调，Car Desktop/ wallpaper
+    team_leader: subagent-li-wei
+    team_partners: [subagent-li-sunan, subagent-zhang-yunhao, subagent-zhang-jin, subagent-zhang-fan, subagent-han-kangjia]
+    domain_director: master-yangfan
+
+  - code: DD002
+    group: Design Domain
+    name: Car setting
+    description: 整车技术与车控车设
+    team_leader: subagent-zhang-jin
+    team_partners: [subagent-li-wei, subagent-han-kangjia, subagent-zhang-yunhao, subagent-zhang-jin]
+    domain_director: master-yangfan
+
+  - code: DD003
+    group: Design Domain
+    name: Navigation
+    description: 导航/车道级导航
+    team_leader: subagent-gu-yingzhi
+    team_partners: [subagent-li-sunan, subagent-yu-zongli, subagent-li-ying]
+    domain_director: master-yangfan
+
+  - code: DD004
+    group: Design Domain
+    name: ADAS
+    description: 智驾，行泊一体
+    team_leader: subagent-li-sunan
+    team_partners: [subagent-li-wei, subagent-zhang-yunhao, subagent-zhang-jin, subagent-gu-yingzhi, subagent-han-kangjia, subagent-yu-zongli]
+    domain_director: master-yangfan
+
+  - code: DD005
+    group: Design Domain
+    name: Media
+    description: 媒体/音频可视化
+    team_leader: subagent-han-kangjia
+    team_partners: [subagent-gu-yingzhi, subagent-li-ying, subagent-zhang-fan]
+    domain_director: master-yangfan
+
+  - code: DD006
+    group: Design Domain
+    name: AI center / AI Desktop
+    description: AI 桌面 / AI新交互/动态壁纸
+    team_leader: subagent-li-ying
+    team_partners: [subagent-li-sunan, subagent-zhang-jin, subagent-li-wei, subagent-han-kangjia, subagent-zhang-jie, subagent-zhang-yunhao, subagent-gu-yingzhi]
+    domain_director: master-yangfan
+
+  - code: DD009
+    group: Design Domain
+    name: UX Framework
+    description: 交互框架/信息架构/尺寸/布局/适配/优先级/画板模板/Unity设计工程架构
+    team_leader: subagent-zhang-jin
+    team_partners: [subagent-li-ying, subagent-zhang-jie, subagent-li-sunan, subagent-gu-yingzhi]
+    domain_director: master-yangfan
+
+  - code: DD010
+    group: Design Domain
+    name: Car Visualization
+    description: 车辆可视化
+    team_leader: subagent-li-wei
+    team_partners: [subagent-zhang-yunhao, subagent-li-ying, subagent-zhang-jie, subagent-li-sunan, subagent-zhang-fan]
+    domain_director: master-yangfan
+
+  - code: DD012
+    group: Design Domain
+    name: Motion/Animation
+    description: 动效/动画设计/开机动动画/影视后期
+    team_leader: subagent-zhang-yunhao
+    team_partners: [subagent-zhang-jin, subagent-li-wei, subagent-li-ying, subagent-li-sunan, subagent-yu-zongli, subagent-zhang-fan]
+    domain_director: master-yangfan
+
+  - code: DD013
+    group: Design Domain
+    name: Smart Cockpit
+    description: 仪表，副驾，HUD，后排屏智能硬件
+    team_leader: subagent-zhang-jin
+    team_partners: [subagent-li-ying, subagent-han-kangjia, subagent-li-sunan, subagent-yu-zongli]
+    domain_director: master-yangfan
+
+  - code: DD014
+    group: Design Domain
+    name: Character Design
+    description: 角色设计/角色动作/服装/道具设计/语音交互
+    team_leader: subagent-han-kangjia
+    team_partners: [subagent-li-wei, subagent-zhang-yunhao, subagent-zhang-fan]
+    domain_director: master-yangfan
+
+  - code: DD015
+    group: Design Domain
+    name: Movie Creative
+    description: 分镜设计/创意与编剧/Montage desktop
+    team_leader: subagent-zhang-fan
+    team_partners: [subagent-gu-yingzhi, "unmatched:ou_ab9c9839cec158f67bb6a25297bbf492", subagent-li-ying, subagent-zhang-yunhao]
+    domain_director: master-yangfan
+
+  - code: DD016
+    group: Design Domain
+    name: Creative Design
+    description: 创意/品牌/设计语言
+    team_leader: subagent-gu-yingzhi
+    team_partners: [subagent-li-ying, subagent-zhang-fan, subagent-li-wei]
+    domain_director: master-yangfan
+
+  - code: DD017
+    group: Design Domain
+    name: Game Design
+    description: 游戏设计/游戏市场
+    team_leader: subagent-li-wei
+    team_partners: [subagent-zhang-jin, subagent-han-kangjia, subagent-li-sunan, subagent-yu-zongli]
+    domain_director: master-yangfan
+
+  - code: DD018
+    group: Design Domain
+    name: Design Support
+    description: 设计支持：产品及售前/品牌/市场/营销
+    team_leader: subagent-li-wei
+    team_partners: [subagent-li-sunan, subagent-zhang-yunhao, subagent-zhang-jin, subagent-yu-zongli, subagent-zhang-fan]
+    domain_director: master-yangfan
+
+  - code: DS001
+    group: Design System
+    name: UI kit
+    description: 组件库
+    team_leader: subagent-li-sunan
+    team_partners: [subagent-gu-yingzhi, subagent-yu-zongli, subagent-zhang-jin]
+    domain_director: master-yangfan
+
+  - code: DS002
+    group: Design System
+    name: Style Library
+    description: 风格库
+    team_leader: subagent-gu-yingzhi
+    team_partners: [subagent-han-kangjia, subagent-zhang-jie, subagent-zhang-jin]
+    domain_director: master-yangfan
+
+  - code: DS003
+    group: Design System
+    name: Icon Library
+    description: 图标库
+    team_leader: subagent-gu-yingzhi
+    team_partners: [subagent-zhang-jin, subagent-li-ying, subagent-yu-zongli]
+    domain_director: master-yangfan
+
+  - code: DS004
+    group: Design System
+    name: Image Library
+    description: 图片库
+    team_leader: subagent-li-sunan
+    team_partners: [subagent-li-sunan, subagent-zhang-jin]
+    domain_director: master-yangfan
+
+  - code: DS005
+    group: Design System
+    name: Motion Library
+    description: 动效/动画设计
+    team_leader: subagent-zhang-yunhao
+    team_partners: [subagent-zhang-jin, subagent-yu-zongli, subagent-zhang-fan]
+    domain_director: master-yangfan
+
+  - code: DS006
+    group: Design System
+    name: 3D Assets Library
+    description: 三维资产库，DCC
+    team_leader: subagent-zhang-yunhao
+    team_partners: [subagent-zhang-jin, subagent-li-wei]
+    domain_director: master-yangfan
+
+  - code: DS007
+    group: Design System
+    name: 3D Engine Library
+    description: Unity / Unreal 工程库
+    team_leader: subagent-li-wei
+    team_partners: [subagent-li-sunan, subagent-gu-yingzhi, subagent-yu-zongli]
+    domain_director: master-yangfan
+
+  - code: DS008
+    group: Design System
+    name: HMI Agents
+    description: HMI Agents
+    team_leader: null
+    team_partners: []
+    domain_director: master-yangfan
+
+  - code: DM001
+    group: Design Management
+    name: Congnative Align
+    description: 认知对齐/汽车文化/设计知识库/对标/培训/招聘
+    team_leader: subagent-li-sunan
+    team_partners: [subagent-li-wei, subagent-zhang-jin, subagent-gu-yingzhi]
+    domain_director: master-yangfan
+
+  - code: DM002
+    group: Design Management
+    name: Action Plan
+    description: 行动方案
+    team_leader: subagent-li-sunan
+    team_partners: [subagent-li-wei, subagent-zhang-jin]
+    domain_director: master-yangfan
+
+  - code: DM003
+    group: Design Management
+    name: Design Specifiction
+    description: 设计规范
+    team_leader: subagent-li-sunan
+    team_partners: [subagent-li-wei, subagent-zhang-yunhao]
+    domain_director: master-yangfan
+
+  - code: DM004
+    group: Design Management
+    name: Workflow
+    description: 设计工作流，工具链，HMI Studio
+    team_leader: subagent-li-ying
+    team_partners: [subagent-han-kangjia, subagent-li-sunan, subagent-yu-zongli]
+    domain_director: master-yangfan
+
+  - code: DM005
+    group: Design Management
+    name: File Management
+    description: 文档管理
+    team_leader: subagent-zhang-jin
+    team_partners: [subagent-li-ying, subagent-zhang-jie, subagent-yu-zongli, subagent-li-sunan, subagent-li-wei]
+    domain_director: master-yangfan
+
+  - code: DM006
+    group: Design Management
+    name: Realtime Task Management
+    description: 实时任务管理
+    team_leader: subagent-li-wei
+    team_partners: [subagent-li-sunan, subagent-zhang-jin, subagent-zhang-fan]
+    domain_director: master-yangfan

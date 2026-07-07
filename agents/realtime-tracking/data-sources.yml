@@ -1,0 +1,193 @@
+version: 1
+generated_at: 2026-07-07
+timezone: Asia/Shanghai
+owner_agent: master-yangfan
+
+principles:
+  - 只采集业务项目证据，不把证据分当作绩效分。
+  - 本地文件默认不扫描；只有显式配置的项目目录才允许进入索引。
+  - 微信等私人或半私人协作工具只接收用户主动导出的项目记录，不直接读取本机聊天数据库。
+  - 飞书、Jira、Figma、文件系统、AI 生成工具输出统一归一化为 evidence/event/artifact。
+  - 张婕、李达不进入新任务分配与新负载估算；历史证据仅用于迁移背景。
+
+refresh_policy:
+  dashboard_state: every_15_minutes
+  local_artifacts: every_60_minutes_when_roots_configured
+  feishu:
+    im_messages: every_30_minutes
+    meetings: every_6_hours
+    drive: every_2_hours
+    sheets_base: manual_until_scope_granted
+  jira: every_15_minutes_when_token_configured
+  exported_chat_logs: manual_import
+
+sources:
+  feishu_im:
+    enabled: true
+    connector: lark-im
+    scope: Unity HMI Design group
+    chat_id: oc_f2f29a95d46e0fcabfaff1636bbbfada
+    entity_outputs: [event, evidence]
+    evidence_types:
+      - chat_message
+      - project_decision
+      - blocker_signal
+      - review_request
+    identity_field: sender.open_id
+    privacy: group_business_messages_only
+    status: available
+
+  feishu_meetings:
+    enabled: true
+    connector: lark-vc
+    scope: ended_meetings_visible_to_current_identity
+    entity_outputs: [event, evidence, task_signal]
+    evidence_types:
+      - meeting
+      - meeting_summary
+      - action_item
+      - risk_signal
+    identity_field: organizer_open_id
+    status: available_title_level
+    limitation: 当前已覆盖会议标题和组织者；参会人快照、妙记和逐字稿需要按会议展开。
+
+  feishu_drive:
+    enabled: true
+    connector: lark-drive
+    scope: resources_visible_to_current_identity
+    entity_outputs: [artifact, evidence]
+    evidence_types:
+      - document
+      - spreadsheet
+      - base
+      - slide
+      - asset_link
+    identity_fields: [owner_open_id, last_editor_open_id]
+    status: available_search_level
+
+  feishu_sheets_base:
+    enabled: false
+    connector: lark-sheets/lark-base
+    scope: project_workhour_and_task_records
+    entity_outputs: [task, effort_estimate, evidence]
+    required_scopes:
+      - sheets:spreadsheet:read
+      - base:table:read
+    status: blocked_by_read_scope
+    strong_evidence_entries:
+      - 工时报表 红旗8397设计项目
+      - 红旗8397项目_总工时统计表_正确分类.xlsx
+      - 红旗8397设计项目甘特图
+      - 红旗8397 实现问题/任务记录
+
+  figma:
+    enabled: true
+    connector: link_metadata_or_future_figma_api
+    scope: discovered_project_links
+    entity_outputs: [artifact, evidence, review_event]
+    evidence_types:
+      - design_file
+      - figjam_board
+      - comment_thread
+      - version_checkpoint
+    status: limited_to_discovered_links
+
+  jira:
+    enabled: false
+    connector: jira_api
+    auth_env:
+      site_url: JIRA_SITE_URL
+      email: JIRA_EMAIL
+      api_token: JIRA_API_TOKEN
+    entity_outputs: [task, event, evidence, effort_estimate]
+    evidence_types:
+      - issue
+      - status_transition
+      - assignment
+      - comment
+      - story_point
+      - sprint
+      - blocker
+    identity_fields: [assignee, reporter, commenter]
+    status: pending_credentials
+
+  local_artifacts:
+    enabled: true
+    connector: tools/scan-local-artifacts.py
+    mode: explicit_roots_only
+    entity_outputs: [artifact, evidence]
+    evidence_types:
+      - source_asset
+      - render_export
+      - prototype_build
+      - iteration_snapshot
+    watch_roots:
+      - id: local-design-artifacts-sample
+        enabled: false
+        root_path: null
+        owner_agent: null
+        owner_name: null
+        notes: 将 root_path 改为明确项目目录后再启用，例如 /Volumes/Project/HMI/红旗8397。
+        file_extensions:
+          - .blend
+          - .max
+          - .ma
+          - .mb
+          - .aep
+          - .psd
+          - .psb
+          - .sketch
+          - .fig
+          - .ai
+          - .fbx
+          - .obj
+          - .glb
+          - .gltf
+          - .unity
+          - .prefab
+          - .png
+          - .jpg
+          - .jpeg
+          - .mp4
+          - .mov
+          - .json
+          - .csv
+          - .xlsx
+          - .pdf
+        exclude_dirs:
+          - .git
+          - Library
+          - node_modules
+          - __pycache__
+          - .Trash
+
+  ai_generation_exports:
+    enabled: false
+    connector: local_artifacts_or_manual_export
+    tools: [Lovart, Midjourney, Seedream, Photoshop AI, other]
+    entity_outputs: [artifact, evidence]
+    evidence_types:
+      - prompt
+      - generation
+      - selected_output
+      - remix_or_variation
+      - manual_retouch
+    status: pending_export_folder_convention
+
+  wechat_exports:
+    enabled: false
+    connector: manual_export_only
+    entity_outputs: [event, evidence]
+    evidence_types:
+      - project_decision
+      - issue_escalation
+      - delivery_confirmation
+    privacy: 用户主动导出的项目群重点记录；不扫描私人聊天数据库。
+    status: pending_user_supplied_exports
+
+output_locations:
+  local_artifact_index_json: tmp/local-artifact-index.json
+  local_artifact_index_csv: tmp/local-artifact-index.csv
+  normalized_evidence_jsonl: tmp/realtime-tracking/evidence.jsonl
+  dashboard_state_json: tmp/realtime-tracking/dashboard-state.json
+  dashboard_html: agents/realtime-tracking/realtime-task-dashboard.html

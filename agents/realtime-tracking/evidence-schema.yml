@@ -1,0 +1,200 @@
+version: 1
+generated_at: 2026-07-07
+timezone: Asia/Shanghai
+
+entities:
+  Project:
+    required: [project_id, name, status]
+    fields:
+      project_id: stable_slug
+      name: display_name
+      aliases: keyword_list
+      status: active | paused | delivered | unknown
+      owner_agent: nullable_agent_id
+      domain_refs: domain_codes
+      source_refs: evidence_source_ids
+
+  Task:
+    required: [task_id, project_id, title, status]
+    fields:
+      task_id: stable_external_or_generated_id
+      project_id: project_id
+      title: task_title
+      status: todo | doing | review | blocked | done | unknown
+      accountable_agent: exactly_one_agent_id_when_assigned
+      collaborators: agent_id_list
+      source_system: feishu | jira | local | figma | ai_generation | wechat_export | manual
+      external_url: nullable_url
+      due_at: nullable_datetime
+      priority: p0 | p1 | p2 | p3 | unknown
+      confidence: 0.0_to_1.0
+
+  Person:
+    required: [agent_id, name, status]
+    fields:
+      agent_id: roster_agent_id
+      name: display_name
+      open_id: nullable_feishu_open_id
+      organization_team: team_id
+      status: active | transition | departed
+      assignment_policy: assignable | do_not_assign_new_work
+
+  Evidence:
+    required: [evidence_id, source_id, evidence_type, observed_at]
+    fields:
+      evidence_id: deterministic_hash
+      source_id: configured_data_source_id
+      source_system: feishu | jira | local | figma | ai_generation | wechat_export | manual
+      evidence_type: see_evidence_types
+      observed_at: datetime
+      captured_at: datetime
+      project_candidates: list_of_project_confidence
+      person_candidates: list_of_person_confidence
+      task_candidates: list_of_task_confidence
+      artifact_id: nullable_artifact_id
+      title: string
+      summary: string
+      url: nullable_url
+      raw_ref: local_path_or_external_id
+      dedupe_key: deterministic_string
+      evidence_score: visible_evidence_weight
+      estimated_effort: nullable_effort_points_or_hours
+      confidence: 0.0_to_1.0
+      manual_adjustment: nullable_adjustment_record
+
+  Artifact:
+    required: [artifact_id, source_system, artifact_type, title]
+    fields:
+      artifact_id: deterministic_hash
+      source_system: feishu | local | figma | ai_generation | manual
+      artifact_type: source_asset | render_export | prototype_build | document | board | prompt | unknown
+      title: string
+      path_or_url: string
+      extension: nullable_extension
+      size_bytes: nullable_integer
+      modified_at: nullable_datetime
+      owner_agent: nullable_agent_id
+      project_id: nullable_project_id
+      version_hint: nullable_string
+
+  Event:
+    required: [event_id, event_type, observed_at]
+    fields:
+      event_id: deterministic_hash
+      event_type: created | modified | commented | assigned | status_changed | reviewed | exported | blocked | delivered
+      project_id: nullable_project_id
+      task_id: nullable_task_id
+      actor_agent: nullable_agent_id
+      source_system: source_system
+      observed_at: datetime
+      summary: string
+      confidence: 0.0_to_1.0
+
+  EffortEstimate:
+    required: [estimate_id, project_id, person_agent_id]
+    fields:
+      estimate_id: deterministic_hash
+      project_id: project_id
+      person_agent_id: agent_id
+      window_start: date
+      window_end: date
+      evidence_score: numeric_visible_signal
+      estimated_effort: numeric_effort_signal
+      manual_adjustment: numeric_adjustment
+      confidence: 0.0_to_1.0
+      notes: string
+
+evidence_types:
+  chat_message:
+    base_weight: 1.0
+    default_confidence: 0.45
+    effort_multiplier: 0.2
+  meeting:
+    base_weight: 2.0
+    default_confidence: 0.55
+    effort_multiplier: 0.5
+  meeting_summary:
+    base_weight: 2.5
+    default_confidence: 0.70
+    effort_multiplier: 0.7
+  drive_document:
+    base_weight: 3.0
+    default_confidence: 0.65
+    effort_multiplier: 0.8
+  sheet_or_base_task:
+    base_weight: 4.0
+    default_confidence: 0.85
+    effort_multiplier: 1.0
+  jira_issue:
+    base_weight: 4.0
+    default_confidence: 0.85
+    effort_multiplier: 1.0
+  jira_transition:
+    base_weight: 2.0
+    default_confidence: 0.80
+    effort_multiplier: 0.5
+  local_source_asset:
+    base_weight: 2.5
+    default_confidence: 0.60
+    effort_multiplier: 0.8
+  local_render_export:
+    base_weight: 2.0
+    default_confidence: 0.55
+    effort_multiplier: 0.5
+  figma_design_file:
+    base_weight: 3.0
+    default_confidence: 0.70
+    effort_multiplier: 0.9
+  ai_generation_output:
+    base_weight: 1.5
+    default_confidence: 0.50
+    effort_multiplier: 0.4
+  manual_load_entry:
+    base_weight: 2.0
+    default_confidence: 0.75
+    effort_multiplier: 1.0
+
+confidence_rules:
+  project_match:
+    exact_project_id_or_jira_key: 0.95
+    configured_alias_in_title_or_path: 0.80
+    keyword_in_summary_only: 0.55
+    folder_context_only: 0.45
+  person_match:
+    roster_open_id: 0.95
+    configured_jira_account: 0.90
+    folder_name_or_filename: 0.55
+    last_editor_name_only: 0.70
+  task_match:
+    jira_issue_key: 0.95
+    feishu_base_row_id: 0.90
+    title_similarity: 0.55
+
+dedupe_rules:
+  - 优先使用外部系统稳定 ID，例如 Jira issue id、飞书 message id、drive token、Figma file key。
+  - 本地文件使用 absolute_path + modified_at + size_bytes 生成 artifact_id。
+  - 同一 artifact 的多次修改保留最新状态，同时把 modified 事件追加到 event 流。
+  - 同一会议在 VC 搜索与妙记中重复出现时，以 meeting_id 合并。
+
+score_separation:
+  evidence_score:
+    definition: 当前系统可见的可追溯证据强度。
+    warning: 不能作为绩效分或真实工时。
+  estimated_effort:
+    definition: 结合 Jira story point、工时报表、任务状态、文件迭代和会议动作项推断的工作量信号。
+    warning: 没有工时表或任务系统时仅作方向性估算。
+  confidence:
+    definition: 归因到项目、人员、任务的可信度。
+  manual_adjustment:
+    definition: 杨帆或项目 owner 对系统漏算/误算的人工校正。
+    audit: 必须保留调整人、时间、原因和影响范围。
+
+assignment_guardrails:
+  exactly_one_accountable_subagent: true
+  excluded_from_new_assignment:
+    - name: 张婕
+      agent_id: subagent-zhang-jie
+      reason: departure_planned
+    - name: 李达
+      agent_id: null
+      reason: departed_not_in_roster

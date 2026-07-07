@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unity HMI Design 团队组织架构</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #20242b;
+      --muted: #667085;
+      --line: #d8dde6;
+      --blue: #2368a2;
+      --green: #34765c;
+      --gold: #8a6422;
+      --red: #a63f3f;
+      --orange: #b35c21;
+      --shadow: 0 12px 28px rgba(31, 42, 55, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #17202d;
+      color: #fff;
+      padding: 28px clamp(18px, 4vw, 56px);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 750;
+    }
+
+    header p {
+      max-width: 960px;
+      margin-top: 10px;
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+
+    main {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 24px clamp(14px, 3vw, 36px) 48px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button,
+    input {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 6px;
+      min-height: 38px;
+      padding: 8px 12px;
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button.active {
+      border-color: #17202d;
+      background: #17202d;
+      color: #fff;
+    }
+
+    input {
+      width: min(320px, 100%);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .master {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(240px, 420px) 1fr;
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+
+    .master-card {
+      background: #fff;
+      border: 2px solid #17202d;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .master-card .eyebrow,
+    .team .eyebrow,
+    .member .eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .master-card h2 {
+      margin-top: 4px;
+      font-size: 30px;
+    }
+
+    .master-note {
+      background: #eef2f6;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .org-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(260px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .team {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--blue);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+      min-height: 420px;
+    }
+
+    .team.ai {
+      border-top-color: var(--green);
+    }
+
+    .team.collab {
+      border-top-color: var(--gold);
+    }
+
+    .team.domain {
+      border-top-color: var(--blue);
+    }
+
+    .team h2 {
+      margin-top: 2px;
+      font-size: 22px;
+    }
+
+    .mandate {
+      margin: 10px 0 14px;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .owner {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      margin: 12px 0;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+    }
+
+    .avatar {
+      display: inline-grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 50%;
+      background: #17202d;
+      color: #fff;
+      font-weight: 750;
+      flex: 0 0 auto;
+    }
+
+    .member-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .member {
+      border: 1px solid var(--line);
+      border-left: 5px solid #9aa5b1;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .member[data-load="critical_overload_risk"] {
+      border-left-color: var(--red);
+    }
+
+    .member[data-load="high_overload_risk"],
+    .member[data-load="strategic_overload_risk"] {
+      border-left-color: var(--orange);
+    }
+
+    .member[data-load="high_load"],
+    .member[data-load="medium_high_load"],
+    .member[data-load="broad_partner_load"] {
+      border-left-color: var(--gold);
+    }
+
+    .member[data-load="onboarding_capacity"],
+    .member[data-load="unassigned_capacity"] {
+      border-left-color: var(--green);
+    }
+
+    .member.transition {
+      opacity: 0.72;
+      border-style: dashed;
+    }
+
+    .member h3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 17px;
+    }
+
+    .role {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      background: #eef2f6;
+      color: #334155;
+      padding: 3px 8px;
+      font-size: 12px;
+    }
+
+    .chip.warn {
+      background: #fff0e6;
+      color: #9a3412;
+    }
+
+    .chip.danger {
+      background: #ffecec;
+      color: #991b1b;
+    }
+
+    .chip.good {
+      background: #eaf6ef;
+      color: #166534;
+    }
+
+    details {
+      margin-top: 8px;
+    }
+
+    summary {
+      color: var(--blue);
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .detail-body {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .detail-body ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+    }
+
+    .footer-notes {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .note-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .note-panel h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .note-panel ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .summary-grid,
+      .org-grid,
+      .legend,
+      .footer-notes,
+      .master {
+        grid-template-columns: 1fr;
+      }
+
+      .team {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Unity HMI Design 团队组织架构</h1>
+    <p>基于 2026 三团队模型、DDD 领域阵型与项目担当分析生成。李达已离职，张婕即将离职，均不纳入新的个人负载分析；张婕仅保留为职责迁移提醒。</p>
+  </header>
+
+  <main>
+    <section class="toolbar" aria-label="筛选工具">
+      <div class="filters">
+        <button class="active" data-filter="all" type="button">全部</button>
+        <button data-filter="owner" type="button">Owner</button>
+        <button data-filter="overload" type="button">高负载</button>
+        <button data-filter="capacity" type="button">可承接容量</button>
+        <button data-filter="transition" type="button">过渡/排除</button>
+      </div>
+      <input id="search" type="search" placeholder="搜索成员、项目、领域代码">
+    </section>
+
+    <section class="summary-grid" aria-label="团队摘要">
+      <div class="metric"><strong>1</strong><span>Master agent：杨帆</span></div>
+      <div class="metric"><strong>3</strong><span>组织流：AI提效 1 / 超级合作 6 / 领域驱动 7</span></div>
+      <div class="metric"><strong>14</strong><span>本次 active 分析成员</span></div>
+      <div class="metric"><strong>29</strong><span>DDD / DS / DM 领域条目</span></div>
+    </section>
+
+    <section class="master" aria-label="Master agent">
+      <div class="master-card">
+        <div class="eyebrow">Master Agent</div>
+        <h2>杨帆</h2>
+        <p class="role">需求 intake / 任务分解 / 优先级仲裁 / 交付验收 / 跨 agent 升级</p>
+        <div class="chips">
+          <span class="chip">Domain Director</span>
+          <span class="chip">领域驱动 owner</span>
+          <span class="chip">最终验收</span>
+        </div>
+      </div>
+      <div class="master-note">
+        <h2>当前组织判断</h2>
+        <p>高负载集中在李苏南、张劲、李玮、李颖四个关键节点。超级合作团队已扩展为李苏南架构下的 6 人协作池，用于承接跨项目执行、资料整理、项目支援协调和新人 onboarding；领域驱动保持领域 owner 与核心交付聚焦。</p>
+      </div>
+    </section>
+
+    <section class="org-grid" aria-label="三团队组织架构">
+      <article class="team ai" data-team="AI提效">
+        <div class="eyebrow">AI Worker Coordination</div>
+        <h2>AI提效</h2>
+        <ul class="mandate">
+          <li>组织未来所有 AI worker 接入</li>
+          <li>管理 AI worker onboarding、路由与协作规则</li>
+          <li>连接 AI worker 与领域/管理团队</li>
+        </ul>
+        <div class="owner">
+          <span class="avatar">颖</span>
+          <div>
+            <strong>李颖</strong>
+            <div class="role">Owner / first integration tester</div>
+          </div>
+        </div>
+        <div class="member-list">
+          <article class="member" data-name="李颖 AI提效 owner fufu 001 DD006 DM004 AIOS AI workflow 红旗8397 AI桌面" data-category="owner overload" data-load="strategic_overload_risk">
+            <h3>李颖 <span class="chip warn">战略高负载</span></h3>
+            <p class="role">AI提效 owner；fufu 001 首个飞书 AI worker 测试对象</p>
+            <div class="chips">
+              <span class="chip">Projects 4</span>
+              <span class="chip">Leader 2</span>
+              <span class="chip">Partner 10</span>
+              <span class="chip good">AI worker: fufu 001</span>
+            </div>
+            <details>
+              <summary>查看职责</summary>
+              <div class="detail-body">
+                <p>项目：车展DEMO、AIOS 平台化、红旗8397 AI桌面、AI workflow。</p>
+                <p>Leader：DD006、DM004。建议聚焦 AI 平台化主线，减少非 AI 支援。</p>
+              </div>
+            </details>
+          </article>
+        </div>
+      </article>
+
+      <article class="team collab" data-team="超级合作">
+        <div class="eyebrow">Human Collaboration</div>
+        <h2>超级合作</h2>
+        <ul class="mandate">
+          <li>组织人类之间的高密度协作</li>
+          <li>协调跨项目、跨领域任务</li>
+          <li>沉淀评审、对齐、支援池机制</li>
+        </ul>
+        <div class="owner">
+          <span class="avatar">苏</span>
+          <div>
+            <strong>李苏南</strong>
+            <div class="role">Owner / cross-project collaboration</div>
+          </div>
+        </div>
+        <div class="member-list">
+          <article class="member" data-name="李苏南 超级合作 owner 奔腾E541 东风M18 东风8397 东风4SR DD004 DS001 DS004 DM001 DM002 DM003" data-category="owner overload" data-load="critical_overload_risk">
+            <h3>李苏南 <span class="chip danger">关键过载风险</span></h3>
+            <p class="role">超级合作 owner；组织机制与设计管理关键节点</p>
+            <div class="chips">
+              <span class="chip">Projects 5</span>
+              <span class="chip">Leader 6</span>
+              <span class="chip">Partner 14</span>
+            </div>
+            <details>
+              <summary>查看职责</summary>
+              <div class="detail-body">
+                <p>项目：奔腾E541、东风M18、东风8397、东风4SR、超级合作组。</p>
+                <p>建议保留机制 owner，项目执行拆二级 owner。</p>
+              </div>
+            </details>
+          </article>
+
+          <article class="member" data-name="孙若一 超级合作 李苏南架构 东风 上汽 大众美术TA 理想游戏 东风8397支援" data-category="capacity" data-load="super_collaboration_support_capacity">
+            <h3>孙若一 <span class="chip good">协作支援池</span></h3>
+            <p class="role">李苏南架构下的跨项目支援；项目支援经验多</p>
+            <div class="chips"><span class="chip">Projects 5</span><span class="chip">Leader 0</span><span class="chip">Partner 0</span></div>
+          </article>
+
+          <article class="member" data-name="刘锦峰 超级合作 李苏南架构 红旗8397 SR 总结视频 东风8397 SR 美术调优" data-category="capacity" data-load="super_collaboration_support_capacity">
+            <h3>刘锦峰 <span class="chip good">协作支援池</span></h3>
+            <p class="role">李苏南架构下的 SR / 美术调优 / 总结视频支援</p>
+            <div class="chips"><span class="chip">Projects 2</span><span class="chip">Leader 0</span><span class="chip">Partner 0</span></div>
+          </article>
+
+          <article class="member" data-name="陈宁子 超级合作 李苏南架构 2026-07-06 正式入职 onboarding" data-category="capacity" data-load="onboarding_capacity">
+            <h3>陈宁子 <span class="chip good">Onboarding</span></h3>
+            <p class="role">李苏南架构下 onboarding；低风险资料整理、项目复盘与 AI worker 数据集维护</p>
+            <div class="chips"><span class="chip">Projects 0</span><span class="chip">Leader 0</span><span class="chip">Partner 0</span></div>
+          </article>
+
+          <article class="member" data-name="杜馨柯 超级合作 李苏南架构 实习生 2026-06-15 onboarding" data-category="capacity" data-load="onboarding_capacity">
+            <h3>杜馨柯 <span class="chip good">Onboarding</span></h3>
+            <p class="role">李苏南架构下实习生培养；建议绑定导师和单一协作职责</p>
+            <div class="chips"><span class="chip">Projects 0</span><span class="chip">Leader 0</span><span class="chip">Partner 0</span></div>
+          </article>
+
+          <article class="member" data-name="李昊星 超级合作 李苏南架构 未分配 capacity" data-category="capacity" data-load="super_collaboration_unassigned_capacity">
+            <h3>李昊星 <span class="chip good">未分配容量</span></h3>
+            <p class="role">李苏南架构下容量池；需补充能力画像后再做具体分配</p>
+            <div class="chips"><span class="chip">Projects 0</span><span class="chip">Leader 0</span><span class="chip">Partner 0</span></div>
+          </article>
+        </div>
+      </article>
+
+      <article class="team domain" data-team="领域驱动">
+        <div class="eyebrow">Domain Driven Delivery</div>
+        <h2>领域驱动</h2>
+        <ul class="mandate">
+          <li>推动领域学习、创新与增效</li>
+          <li>承接 DDD / DS / DM 领域阵型</li>
+          <li>建设领域 Agent / Skill / Knowledge Base</li>
+        </ul>
+        <div class="owner">
+          <span class="avatar">帆</span>
+          <div>
+            <strong>杨帆</strong>
+            <div class="role">Owner / Domain Director</div>
+          </div>
+        </div>
+        <div class="member-list">
+          <article class="member" data-name="李玮 领域驱动 红旗8397蒙太奇 红旗DLP游戏 理想游戏商城 DD001 DD010 DD017 DD018 DS007 DM006" data-category="overload" data-load="high_overload_risk">
+            <h3>李玮 <span class="chip warn">高过载风险</span></h3>
+            <p class="role">Launcher / Car Visualization / Game / Engine / Realtime Task</p>
+            <div class="chips"><span class="chip">Projects 3</span><span class="chip">Leader 6</span><span class="chip">Partner 11</span></div>
+            <details><summary>查看建议</summary><div class="detail-body">建议拆 DD018 Design Support 或 DM006 Realtime Task Management 的执行层给新人或支援成员。</div></details>
+          </article>
+
+          <article class="member" data-name="张劲 领域驱动 红旗8397蒙太奇 设计系统 动效平台化 东风M18-3 DD002 DD009 DD013 DM005" data-category="overload" data-load="critical_overload_risk">
+            <h3>张劲 <span class="chip danger">关键过载风险</span></h3>
+            <p class="role">Car setting / UX Framework / Smart Cockpit / File Management</p>
+            <div class="chips"><span class="chip">Projects 3</span><span class="chip">Leader 4</span><span class="chip">Partner 16</span></div>
+            <details><summary>查看建议</summary><div class="detail-body">Partner 覆盖最高。张婕迁出的 DM005、DD009 等职责不要默认继续叠加到张劲。</div></details>
+          </article>
+
+          <article class="member" data-name="顾颖芝 领域驱动 红旗8397 金葵花 天工品牌 车展DEMO 美术天空盒 DD003 DD016 DS002 DS003" data-category="overload" data-load="high_load">
+            <h3>顾颖芝 <span class="chip warn">高覆盖</span></h3>
+            <p class="role">Navigation / Creative Design / Style Library / Icon Library</p>
+            <div class="chips"><span class="chip">Projects 3</span><span class="chip">Leader 4</span><span class="chip">Partner 8</span></div>
+          </article>
+
+          <article class="member" data-name="张云豪 领域驱动 红旗8397 东风8397开机动画 捷途灯语 DD012 DS005 DS006" data-category="overload" data-load="high_load">
+            <h3>张云豪 <span class="chip warn">高覆盖</span></h3>
+            <p class="role">Motion / Motion Library / 3D Assets Library</p>
+            <div class="chips"><span class="chip">Projects 3</span><span class="chip">Leader 3</span><span class="chip">Partner 9</span></div>
+          </article>
+
+          <article class="member" data-name="余宗历 领域驱动 奔驰HMI Navigation ADAS Motion Smart Cockpit DS001 DS003 DS005 DS007 DM004 DM005" data-category="overload" data-load="broad_partner_load">
+            <h3>余宗历 <span class="chip warn">广覆盖协作者</span></h3>
+            <p class="role">无 leader；12 个 partner 角色</p>
+            <div class="chips"><span class="chip">Projects 1</span><span class="chip">Leader 0</span><span class="chip">Partner 12</span></div>
+          </article>
+
+          <article class="member" data-name="韩康佳 领域驱动 红旗8397音频可视化 角色设计 广汽音频可视化 DD005 DD014" data-category="normal" data-load="balanced_specialist_load">
+            <h3>韩康佳 <span class="chip">聚焦专家</span></h3>
+            <p class="role">Media / Character Design</p>
+            <div class="chips"><span class="chip">Projects 2</span><span class="chip">Leader 2</span><span class="chip">Partner 8</span></div>
+          </article>
+
+          <article class="member" data-name="张帆 领域驱动 红旗报奖 红旗8397总结视频 东风 DD015 Movie Creative" data-category="normal" data-load="medium_high_load">
+            <h3>张帆 <span class="chip warn">中高负载</span></h3>
+            <p class="role">Movie Creative / 总结视频 / 报奖材料</p>
+            <div class="chips"><span class="chip">Projects 3</span><span class="chip">Leader 1</span><span class="chip">Partner 9</span></div>
+          </article>
+
+          <article class="member transition" data-name="张婕 即将离职 transition DD006 DD009 DD010 DS002 DM005" data-category="transition" data-load="transition">
+            <h3>张婕 <span class="chip">即将离职</span></h3>
+            <p class="role">不纳入新任务；保留 DD006、DD009、DD010、DS002、DM005 迁移提醒</p>
+            <div class="chips"><span class="chip">Do not assign</span><span class="chip">职责待迁移</span></div>
+          </article>
+        </div>
+      </article>
+    </section>
+
+    <section class="legend" aria-label="图例">
+      <div class="legend-item"><span class="swatch" style="background: var(--red)"></span>关键过载风险</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--orange)"></span>高过载或战略高负载</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--gold)"></span>高覆盖 / 中高负载</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--green)"></span>可培养或待绑定容量</div>
+    </section>
+
+    <section class="footer-notes">
+      <article class="note-panel">
+        <h2>AI Worker 可接管</h2>
+        <ul>
+          <li>每周从 feedback 模板抽取项目状态、blocker 和待验收项。</li>
+          <li>为 DD006、DM004、DS008、DM005 建立知识库索引。</li>
+          <li>检查 requirement 是否具备 owner、deadline、验收标准与反馈渠道。</li>
+        </ul>
+      </article>
+      <article class="note-panel">
+        <h2>超级合作适合承接</h2>
+        <ul>
+          <li>跨项目设计评审组织和冲突协调。</li>
+          <li>东风8397、红旗8397、车展 DEMO、设计系统平台化支援池。</li>
+          <li>交付物定义、评审节奏、文件命名、反馈口径沉淀。</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const buttons = Array.from(document.querySelectorAll("[data-filter]"));
+    const search = document.querySelector("#search");
+    const members = Array.from(document.querySelectorAll(".member"));
+    let activeFilter = "all";
+
+    function matchesFilter(member) {
+      const categories = (member.dataset.category || "").split(/\s+/);
+      if (activeFilter === "all") return true;
+      if (activeFilter === "overload") {
+        return categories.includes("overload");
+      }
+      return categories.includes(activeFilter);
+    }
+
+    function matchesSearch(member) {
+      const query = search.value.trim().toLowerCase();
+      if (!query) return true;
+      return (member.dataset.name || member.textContent).toLowerCase().includes(query);
+    }
+
+    function applyFilters() {
+      members.forEach((member) => {
+        member.classList.toggle("hidden", !(matchesFilter(member) && matchesSearch(member)));
+      });
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        buttons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        activeFilter = button.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    search.addEventListener("input", applyFilters);
+  </script>
+</body>
+</html>

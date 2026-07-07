@@ -1,0 +1,348 @@
+version: 1
+generated_at: 2026-07-06
+timezone: Asia/Shanghai
+
+sources:
+  historical_project_table:
+    platform: feishu
+    type: slides
+    title: 2026 HMI 设计团队组织架构规划
+    slide: 2
+    local_snapshot: tmp/org-structure-slides.xml
+    source_period: 2026Q1-Q2
+    notes: 作为历史项目担当线索使用，不直接等同于 2026Q3-Q4 承诺。
+  domain_formation:
+    file: agents/domain-formation.yml
+    source_period: 2026Q3-Q4
+  organization_teams:
+    file: agents/organization-teams.yml
+    source_period: 2026
+  roster:
+    file: agents/team-roster.yml
+
+analysis_policy:
+  excluded_from_workload_analysis:
+    - name: 李达
+      reason: 已离职；仅保留为旧 Slides 历史记录，不在当前 roster 中。
+      source: manager_supplied
+    - agent_id: subagent-zhang-jie
+      name: 张婕
+      reason: 即将离职；不纳入新的项目工作担当分析或后续任务分配。
+      source: manager_supplied
+  project_records_are_historical: true
+  domain_roles_are_current_planning: true
+  workload_signal_weights:
+    current_project_item: 2
+    domain_leader_role: 3
+    domain_partner_role: 1
+    organization_owner_role: 4
+    ai_worker_owner_role: 4
+
+excluded_historical_records:
+  - name: 李达
+    current_roster_status: departed_not_in_roster
+    historical_project_assignments:
+      - 车展游戏+车衣
+      - 东风8397
+  - agent_id: subagent-zhang-jie
+    name: 张婕
+    current_roster_status: departure_planned
+    historical_project_assignments:
+      - 东风8397设计支持
+      - 红旗8397角色落地
+    domain_roles_to_migrate:
+      leader: []
+      partner: [DD006, DD009, DD010, DS002, DM005]
+
+members:
+  - agent_id: subagent-li-sunan
+    name: 李苏南
+    organization_team: 超级合作
+    organization_role: owner
+    historical_project_assignments:
+      - 奔腾E541
+      - 东风M18
+      - 东风8397
+      - 东风4SR
+      - 超级合作组
+    domain_roles:
+      leader: [DD004, DS001, DS004, DM001, DM002, DM003]
+      partner: [DD001, DD003, DD006, DD009, DD010, DD012, DD013, DD017, DD018, DS004, DS007, DM004, DM005, DM006]
+    load_indicators:
+      historical_project_count: 5
+      domain_leader_count: 6
+      domain_partner_count: 14
+      qualitative_load: critical_overload_risk
+    notes:
+      - 同时承担超级合作 owner 与高密度 Design Management / Design System 领域职责。
+      - 适合保留跨项目协作机制、规范、行动方案等组织型职责，项目交付需要明确二级 owner。
+
+  - agent_id: subagent-li-wei
+    name: 李玮
+    organization_team: 领域驱动
+    organization_role: domain_driven_member
+    historical_project_assignments:
+      - 红旗8397蒙太奇落地
+      - 红旗DLP游戏
+      - 理想游戏商城
+    domain_roles:
+      leader: [DD001, DD010, DD017, DD018, DS007, DM006]
+      partner: [DD002, DD004, DD006, DD012, DD014, DD016, DS006, DM001, DM002, DM003, DM005]
+    load_indicators:
+      historical_project_count: 3
+      domain_leader_count: 6
+      domain_partner_count: 11
+      qualitative_load: high_overload_risk
+    notes:
+      - 项目覆盖游戏、蒙太奇、Launcher、Car Visualization、Engine Library 与实时任务管理。
+      - 建议把 DD018 Design Support 或 DM006 Realtime Task Management 的执行层拆给新成员承接。
+
+  - agent_id: subagent-zhang-jin
+    name: 张劲
+    organization_team: 领域驱动
+    organization_role: domain_driven_member
+    historical_project_assignments:
+      - 红旗8397蒙太奇落地
+      - 设计系统/动效平台化
+      - 东风M18-3
+    domain_roles:
+      leader: [DD002, DD009, DD013, DM005]
+      partner: [DD001, DD002, DD004, DD006, DD012, DD017, DD018, DS001, DS002, DS003, DS004, DS005, DS006, DM001, DM002, DM006]
+    load_indicators:
+      historical_project_count: 3
+      domain_leader_count: 4
+      domain_partner_count: 16
+      qualitative_load: critical_overload_risk
+    notes:
+      - Partner 覆盖面最高，且承担 UX Framework、Smart Cockpit、File Management 等基础设施型领域。
+      - 张婕离职后，DM005 partner 迁移不要继续叠加到张劲身上。
+
+  - agent_id: subagent-li-ying
+    name: 李颖
+    organization_team: AI提效
+    organization_role: owner
+    historical_project_assignments:
+      - 车展DEMO
+      - AIOS 平台化
+      - 红旗8397 AI桌面
+      - AI workflow
+    current_special_assignments:
+      - AI Worker 对接测试
+      - fufu 001 首个飞书 AI worker 测试
+    domain_roles:
+      leader: [DD006, DM004]
+      partner: [DD003, DD005, DD009, DD010, DD012, DD013, DD015, DD016, DS003, DM005]
+    load_indicators:
+      historical_project_count: 4
+      domain_leader_count: 2
+      domain_partner_count: 10
+      qualitative_load: strategic_overload_risk
+    notes:
+      - AI提效 owner、AI workflow、DD006 AI center 与 fufu 001 测试高度相关，应集中成一条 AI 平台化主线。
+      - 非 AI 主线项目支持建议减少，释放首个 AI worker 集成窗口。
+
+  - agent_id: subagent-gu-yingzhi
+    name: 顾颖芝
+    organization_team: 领域驱动
+    organization_role: domain_driven_member
+    historical_project_assignments:
+      - 红旗8397-金葵花-天工品牌创意
+      - 车展DEMO
+      - 美术天空盒支援
+    domain_roles:
+      leader: [DD003, DD016, DS002, DS003]
+      partner: [DD004, DD005, DD006, DD009, DD015, DS001, DS007, DM001]
+    load_indicators:
+      historical_project_count: 3
+      domain_leader_count: 4
+      domain_partner_count: 8
+      qualitative_load: high_load
+    notes:
+      - 品牌创意、导航、风格库、图标库职责清晰，适合继续作为视觉语言与创意判断节点。
+
+  - agent_id: subagent-zhang-yunhao
+    name: 张云豪
+    organization_team: 领域驱动
+    organization_role: domain_driven_member
+    historical_project_assignments:
+      - 红旗8397
+      - 东风8397开机动画
+      - 捷途灯语
+    domain_roles:
+      leader: [DD012, DS005, DS006]
+      partner: [DD001, DD002, DD004, DD006, DD010, DD014, DD015, DD018, DM003]
+    load_indicators:
+      historical_project_count: 3
+      domain_leader_count: 3
+      domain_partner_count: 9
+      qualitative_load: high_load
+    notes:
+      - 动效、3D 资产与开机动画职责集中，适合承接动效平台化的专家审查而非所有执行。
+
+  - agent_id: subagent-yu-zongli
+    name: 余宗历
+    organization_team: 领域驱动
+    organization_role: domain_driven_member
+    historical_project_assignments:
+      - 奔驰HMI
+    domain_roles:
+      leader: []
+      partner: [DD003, DD004, DD012, DD013, DD017, DD018, DS001, DS003, DS005, DS007, DM004, DM005]
+    load_indicators:
+      historical_project_count: 1
+      domain_leader_count: 0
+      domain_partner_count: 12
+      qualitative_load: broad_partner_load
+    notes:
+      - 领域覆盖广但无 leader 角色，可选择一个成熟方向升级为二级 owner，减少只做支援的碎片化。
+
+  - agent_id: subagent-han-kangjia
+    name: 韩康佳
+    organization_team: 领域驱动
+    organization_role: domain_driven_member
+    historical_project_assignments:
+      - 红旗8397音频可视化+角色设计落地
+      - 广汽音频可视化
+    domain_roles:
+      leader: [DD005, DD014]
+      partner: [DD001, DD002, DD004, DD006, DD013, DD017, DS002, DM004]
+    load_indicators:
+      historical_project_count: 2
+      domain_leader_count: 2
+      domain_partner_count: 8
+      qualitative_load: balanced_specialist_load
+    notes:
+      - 媒体、音频可视化、角色设计方向聚焦，可作为 AI 角色/语音交互素材库的共同 owner。
+
+  - agent_id: subagent-zhang-fan
+    name: 张帆
+    organization_team: 领域驱动
+    organization_role: domain_driven_member
+    historical_project_assignments:
+      - 红旗报奖
+      - 红旗8397 总结视频
+      - 东风
+    domain_roles:
+      leader: [DD015]
+      partner: [DD001, DD005, DD010, DD012, DD014, DD016, DD018, DS005, DM006]
+    load_indicators:
+      historical_project_count: 3
+      domain_leader_count: 1
+      domain_partner_count: 9
+      qualitative_load: medium_high_load
+    notes:
+      - Movie Creative 与总结视频、报奖材料自然匹配，适合沉淀为项目复盘/传播模板能力。
+
+  - agent_id: subagent-sun-ruoyi
+    name: 孙若一
+    organization_team: 超级合作
+    organization_role: super_collaboration_member
+    employment_context:
+      employment_type: intern_converted_to_full_time
+      start_date: 2026-06
+    historical_project_assignments:
+      - 东风
+      - 上汽
+      - 大众美术TA支援
+      - 理想游戏支援
+      - 东风8397支援
+    domain_roles:
+      leader: []
+      partner: []
+    load_indicators:
+      historical_project_count: 5
+      domain_leader_count: 0
+      domain_partner_count: 0
+      qualitative_load: super_collaboration_support_capacity
+    notes:
+      - 项目支援很多，已转入李苏南架构下的超级合作支援池；可优先承接跨项目执行、资料整理和项目支援协调。
+
+  - agent_id: subagent-liu-jinfeng
+    name: 刘锦峰
+    organization_team: 超级合作
+    organization_role: super_collaboration_member
+    historical_project_assignments:
+      - 红旗8397 SR+总结视频支援
+      - 东风8397 SR 美术调优
+    domain_roles:
+      leader: []
+      partner: []
+    load_indicators:
+      historical_project_count: 2
+      domain_leader_count: 0
+      domain_partner_count: 0
+      qualitative_load: super_collaboration_support_capacity
+    notes:
+      - SR 与美术调优经验适合在李苏南架构下作为跨项目视觉执行与复盘支援能力沉淀。
+
+  - agent_id: subagent-chen-ningzi
+    name: 陈宁子
+    organization_team: 超级合作
+    organization_role: super_collaboration_member
+    employment_context:
+      employment_type: intern_converted_to_full_time
+      official_start_date: 2026-07-06
+    historical_project_assignments: []
+    domain_roles:
+      leader: []
+      partner: []
+    load_indicators:
+      historical_project_count: 0
+      domain_leader_count: 0
+      domain_partner_count: 0
+      qualitative_load: onboarding_capacity
+    notes:
+      - 2026-07-06 正式入职，适合在李苏南架构下从低风险资料整理、项目复盘和 AI worker 数据集维护开始承接。
+
+  - agent_id: subagent-du-xinke
+    name: 杜馨柯
+    organization_team: 超级合作
+    organization_role: super_collaboration_member
+    employment_context:
+      employment_type: intern
+      start_date: 2026-06-15
+    historical_project_assignments: []
+    domain_roles:
+      leader: []
+      partner: []
+    load_indicators:
+      historical_project_count: 0
+      domain_leader_count: 0
+      domain_partner_count: 0
+      qualitative_load: onboarding_capacity
+    notes:
+      - 实习生阶段适合在李苏南架构下绑定导师和单一协作职责，不宜直接进入多项目并行。
+
+  - agent_id: subagent-li-haoxing
+    name: 李昊星
+    organization_team: 超级合作
+    organization_role: super_collaboration_member
+    historical_project_assignments: []
+    domain_roles:
+      leader: []
+      partner: []
+    load_indicators:
+      historical_project_count: 0
+      domain_leader_count: 0
+      domain_partner_count: 0
+      qualitative_load: super_collaboration_unassigned_capacity
+    notes:
+      - 当前没有历史项目或领域绑定记录，先纳入李苏南架构下的超级合作容量池，补充能力画像后再做具体分配。
+
+recommendations:
+  overload_relief:
+    - Move execution-level support away from 李苏南、张劲、李玮 and keep them as mechanism/domain reviewers where possible.
+    - Do not migrate 张婕's partner roles to 张劲 by default; split them across 李颖、顾颖芝、李玮、余宗历 or onboarding members by domain fit.
+  ai_worker_takeover:
+    - AI workflow progress collection and reminder drafting.
+    - Domain knowledge-base indexing for DD006, DM004, DS008, DM005.
+    - Project status normalization from feedback templates.
+    - Repetitive slide/table extraction and weekly workload delta reports.
+  super_collaboration_candidates:
+    - Cross-project review scheduling.
+    - Multi-domain design critique sessions.
+    - Project support pool coordination for 东风8397、红旗8397、车展 DEMO and design system work.
+  urgent_data_gaps:
+    - Confirm whether 2026Q1-Q2 historical project assignments are still active.
+    - Add ability profiles and super-collaboration operating lanes for 陈宁子、刘锦峰、孙若一、杜馨柯、李昊星.
+    - Decide new owner or migration path for Zhang Jie's partner roles before new tasks are dispatched.

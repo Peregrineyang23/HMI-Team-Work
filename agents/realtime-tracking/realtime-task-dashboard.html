@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>实时任务跟踪看板</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --ink: #20242b;
+      --muted: #667085;
+      --line: #d8dde6;
+      --panel: #ffffff;
+      --navy: #17202d;
+      --blue: #2368a2;
+      --teal: #0f766e;
+      --green: #15803d;
+      --amber: #b45309;
+      --red: #b42318;
+      --violet: #6d28d9;
+      --shadow: 0 12px 28px rgba(31, 42, 55, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+    }
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 22px 40px;
+    }
+    .header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1480px;
+      margin: 0 auto;
+    }
+    h1 { margin: 0 0 6px; font-size: 30px; line-height: 1.2; }
+    h2 { margin: 0 0 14px; font-size: 18px; }
+    h3 { margin: 0; font-size: 15px; }
+    p { margin: 0; color: var(--muted); }
+    header p { color: #cbd5e1; }
+    .updated { text-align: right; color: #cbd5e1; font-size: 13px; line-height: 1.7; }
+    main { max-width: 1480px; margin: 0 auto; padding: 22px 40px 46px; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .metric, .panel, .lane, .source, .risk {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .metric { padding: 14px; min-height: 92px; }
+    .metric strong { display: block; font-size: 28px; line-height: 1.2; }
+    .metric span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
+    .metric small { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(340px, .8fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .panel { padding: 16px; overflow: hidden; }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .segments {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 13px;
+      cursor: default;
+    }
+    button.active { background: var(--navy); color: white; border-color: var(--navy); }
+    .lanes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .lane { padding: 14px; box-shadow: none; }
+    .lane-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .owner { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .status {
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: white;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .doing { background: var(--blue); }
+    .review { background: var(--violet); }
+    .blocked { background: var(--red); }
+    .watch { background: var(--amber); }
+    .done { background: var(--green); }
+    .lane-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .mini {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 8px;
+      min-height: 58px;
+    }
+    .mini strong { display: block; font-size: 18px; }
+    .mini span { color: var(--muted); font-size: 12px; }
+    .bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 8px 0 6px;
+    }
+    .bar span { display: block; height: 100%; background: var(--blue); }
+    .lane-foot {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .list { display: grid; gap: 10px; }
+    .risk, .source { padding: 12px; box-shadow: none; }
+    .risk-head, .source-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .tag {
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 12px;
+      background: #eef2f6;
+      color: #344054;
+      white-space: nowrap;
+    }
+    .tag.red { background: #fee4e2; color: var(--red); }
+    .tag.amber { background: #fef3c7; color: var(--amber); }
+    .tag.green { background: #dcfce7; color: var(--green); }
+    .tag.violet { background: #ede9fe; color: var(--violet); }
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .source strong { display: block; }
+    .source span, .risk p { font-size: 13px; line-height: 1.5; }
+    table { width: 100%; border-collapse: collapse; min-width: 840px; }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    th { background: #f8fafc; color: #475467; position: sticky; top: 0; }
+    .scroll { overflow: auto; }
+    .score { font-weight: 700; }
+    .red-text { color: var(--red); font-weight: 700; }
+    .amber-text { color: var(--amber); font-weight: 700; }
+    .green-text { color: var(--green); font-weight: 700; }
+    .mt { margin-top: 16px; }
+    @media (max-width: 1180px) {
+      .metrics { grid-template-columns: repeat(3, 1fr); }
+      .layout { grid-template-columns: 1fr; }
+      .lanes { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      header, main { padding-left: 16px; padding-right: 16px; }
+      .header-row { display: block; }
+      .updated { text-align: left; margin-top: 10px; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .source-grid { grid-template-columns: 1fr; }
+      .toolbar { display: block; }
+      .segments { margin-top: 10px; }
+      h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-row">
+      <div>
+        <h1>实时任务跟踪看板</h1>
+        <p>Unity HMI Design · master agent 杨帆 · 证据、任务、负载与风险分离追踪</p>
+      </div>
+      <div class="updated">
+        <div>生成时间：2026-07-07</div>
+        <div>时区：Asia/Shanghai</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="metrics">
+      <div class="metric"><strong>12</strong><span>项目映射</span><small>来自 project-map.yml</small></div>
+      <div class="metric"><strong>4</strong><span>高负载主线</span><small>AIOS、车展、红旗、东风</small></div>
+      <div class="metric"><strong>1,437</strong><span>已知证据</span><small>飞书/云盘/会议/Figma seed</small></div>
+      <div class="metric"><strong>0</strong><span>本地 artifact</span><small>等待显式目录启用</small></div>
+      <div class="metric"><strong>4</strong><span>强证据待授权</span><small>Sheet/Base 明细</small></div>
+      <div class="metric"><strong>3</strong><span>接入待办</span><small>Jira、本地、AI 导出</small></div>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="toolbar">
+          <h2>项目泳道</h2>
+          <div class="segments">
+            <button class="active">2026 YTD</button>
+            <button>14 天</button>
+            <button>风险</button>
+            <button>低置信度</button>
+          </div>
+        </div>
+        <div class="lanes">
+          <article class="lane">
+            <div class="lane-head">
+              <div>
+                <h3>AIOS / AI Workflow / AI Worker</h3>
+                <div class="owner">owner：李颖 · AI提效</div>
+              </div>
+              <span class="status doing">doing</span>
+            </div>
+            <div class="bar"><span style="width: 100%"></span></div>
+            <div class="lane-grid">
+              <div class="mini"><strong>184</strong><span>evidence</span></div>
+              <div class="mini"><strong>4</strong><span>doing</span></div>
+              <div class="mini"><strong>1</strong><span>review</span></div>
+              <div class="mini"><strong>0</strong><span>blocked</span></div>
+            </div>
+            <div class="lane-foot">
+              <div>confidence：0.68<br>estimated_effort：待工时/任务校准</div>
+              <div>下一步：fufu 001 接入测试、AI worker 数据集沉淀</div>
+            </div>
+          </article>
+
+          <article class="lane">
+            <div class="lane-head">
+              <div>
+                <h3>2026车展DEMO</h3>
+                <div class="owner">owner：李颖 · 跨领域交付</div>
+              </div>
+              <span class="status review">review</span>
+            </div>
+            <div class="bar"><span style="width: 98%"></span></div>
+            <div class="lane-grid">
+              <div class="mini"><strong>181</strong><span>evidence</span></div>
+              <div class="mini"><strong>3</strong><span>doing</span></div>
+              <div class="mini"><strong>2</strong><span>review</span></div>
+              <div class="mini"><strong>1</strong><span>blocked</span></div>
+            </div>
+            <div class="lane-foot">
+              <div>confidence：0.64<br>manual_adjustment：待确认</div>
+              <div>下一步：本地导出物、评审结论、最终交付目录接入</div>
+            </div>
+          </article>
+
+          <article class="lane">
+            <div class="lane-head">
+              <div>
+                <h3>红旗8397</h3>
+                <div class="owner">owner：张劲 · 领域驱动</div>
+              </div>
+              <span class="status blocked">blocked</span>
+            </div>
+            <div class="bar"><span style="width: 93%"></span></div>
+            <div class="lane-grid">
+              <div class="mini"><strong>171</strong><span>evidence</span></div>
+              <div class="mini"><strong>3</strong><span>doing</span></div>
+              <div class="mini"><strong>2</strong><span>review</span></div>
+              <div class="mini"><strong>2</strong><span>blocked</span></div>
+            </div>
+            <div class="lane-foot">
+              <div>confidence：0.66<br>estimated_effort：Sheet/Base 待接入</div>
+              <div>下一步：工时报表、甘特图、任务记录 Base scope</div>
+            </div>
+          </article>
+
+          <article class="lane">
+            <div class="lane-head">
+              <div>
+                <h3>东风8397</h3>
+                <div class="owner">owner：李苏南 · 超级合作</div>
+              </div>
+              <span class="status doing">doing</span>
+            </div>
+            <div class="bar"><span style="width: 66%"></span></div>
+            <div class="lane-grid">
+              <div class="mini"><strong>122</strong><span>evidence</span></div>
+              <div class="mini"><strong>2</strong><span>doing</span></div>
+              <div class="mini"><strong>1</strong><span>review</span></div>
+              <div class="mini"><strong>1</strong><span>blocked</span></div>
+            </div>
+            <div class="lane-foot">
+              <div>confidence：0.60<br>collaboration：超级合作支援池</div>
+              <div>下一步：Jira key、本地 DCC 目录、会议 action item</div>
+            </div>
+          </article>
+
+          <article class="lane">
+            <div class="lane-head">
+              <div>
+                <h3>设计系统 / 动效平台化</h3>
+                <div class="owner">owner：李玮 · 领域驱动</div>
+              </div>
+              <span class="status watch">watch</span>
+            </div>
+            <div class="bar"><span style="width: 55%"></span></div>
+            <div class="lane-grid">
+              <div class="mini"><strong>102</strong><span>evidence</span></div>
+              <div class="mini"><strong>2</strong><span>doing</span></div>
+              <div class="mini"><strong>2</strong><span>review</span></div>
+              <div class="mini"><strong>0</strong><span>blocked</span></div>
+            </div>
+            <div class="lane-foot">
+              <div>confidence：0.58<br>manual_adjustment：需要拆分平台/执行</div>
+              <div>下一步：组件库、动效库、3D 资产库的任务粒度</div>
+            </div>
+          </article>
+
+          <article class="lane">
+            <div class="lane-head">
+              <div>
+                <h3>理想游戏上车</h3>
+                <div class="owner">owner：李玮 · Game Design</div>
+              </div>
+              <span class="status review">review</span>
+            </div>
+            <div class="bar"><span style="width: 48%"></span></div>
+            <div class="lane-grid">
+              <div class="mini"><strong>88</strong><span>evidence</span></div>
+              <div class="mini"><strong>1</strong><span>doing</span></div>
+              <div class="mini"><strong>2</strong><span>review</span></div>
+              <div class="mini"><strong>0</strong><span>blocked</span></div>
+            </div>
+            <div class="lane-foot">
+              <div>confidence：0.57<br>estimated_effort：待 Jira/本地补强</div>
+              <div>下一步：虚拟控制器、游戏商城、交付确认归档</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <aside class="list">
+        <section class="panel">
+          <h2>风险队列</h2>
+          <div class="list">
+            <article class="risk">
+              <div class="risk-head"><strong>Sheet/Base 明细未授权</strong><span class="tag red">P0</span></div>
+              <p>红旗8397工时报表、甘特图、任务记录 Base 仍是强证据入口，尚未进入 estimated_effort。</p>
+            </article>
+            <article class="risk">
+              <div class="risk-head"><strong>本地 DCC 产出未接入</strong><span class="tag amber">P1</span></div>
+              <p>Blender、AE、Photoshop、3ds Max、Sketch、Unity 导出物需要配置项目目录后扫描。</p>
+            </article>
+            <article class="risk">
+              <div class="risk-head"><strong>手填与可见证据偏差</strong><span class="tag amber">P1</span></div>
+              <p>李玮、韩康佳、张云豪等存在可见项目数高于手填项目数，需要 owner 复核主责与支援。</p>
+            </article>
+            <article class="risk">
+              <div class="risk-head"><strong>Jira 任务状态缺口</strong><span class="tag violet">P1</span></div>
+              <p>issue、assignee、transition、comment、story point 未接入前，WIP 和 cycle time 只能估算。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>数据源健康</h2>
+          <div class="source-grid">
+            <article class="source">
+              <div class="source-head"><strong>飞书群</strong><span class="tag green">online</span></div>
+              <span>209 条消息 · Unity HMI Design</span>
+            </article>
+            <article class="source">
+              <div class="source-head"><strong>飞书会议</strong><span class="tag green">online</span></div>
+              <span>259 场 · 标题/组织者级</span>
+            </article>
+            <article class="source">
+              <div class="source-head"><strong>飞书云盘</strong><span class="tag green">online</span></div>
+              <span>966 去重结果 · search level</span>
+            </article>
+            <article class="source">
+              <div class="source-head"><strong>Figma</strong><span class="tag amber">limited</span></div>
+              <span>3 个链接 · 非 workspace 全量</span>
+            </article>
+            <article class="source">
+              <div class="source-head"><strong>Jira</strong><span class="tag amber">pending</span></div>
+              <span>等待 site/token/key 映射</span>
+            </article>
+            <article class="source">
+              <div class="source-head"><strong>本地 artifact</strong><span class="tag amber">ready</span></div>
+              <span>扫描器已就绪 · 目录未启用</span>
+            </article>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="panel mt">
+      <div class="toolbar">
+        <h2>人员负载与校正</h2>
+        <div class="segments">
+          <button class="active">全部</button>
+          <button>AI提效</button>
+          <button>超级合作</button>
+          <button>领域驱动</button>
+        </div>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>成员</th>
+              <th>团队</th>
+              <th>evidence_score</th>
+              <th>estimated_effort</th>
+              <th>confidence</th>
+              <th>manual_adjustment</th>
+              <th>偏差与管理动作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>李颖</td><td>AI提效</td><td class="score">101.5</td><td>待校准</td><td>0.68</td><td>0</td><td>保护 AI Worker 主线，减少非 AI 临时支援。</td></tr>
+            <tr><td>李玮</td><td>领域驱动</td><td class="score">76.0</td><td>待校准</td><td>0.64</td><td class="amber-text">待复核</td><td>可见项目 6，高于手填 3；拆分主责与支援。</td></tr>
+            <tr><td>李苏南</td><td>超级合作</td><td class="score">58.0</td><td>待校准</td><td>0.62</td><td>0</td><td>组织职责与项目交付并行，建议二级 owner 分担。</td></tr>
+            <tr><td>韩康佳</td><td>领域驱动</td><td class="score">55.5</td><td>待校准</td><td>0.61</td><td class="amber-text">待复核</td><td>可见项目 6，高于手填 2；本地/评审工作需补证。</td></tr>
+            <tr><td>张劲</td><td>领域驱动</td><td class="score">34.5</td><td>待校准</td><td>0.59</td><td>0</td><td>红旗、设计系统、基础设施职责集中，关注 partner 过宽。</td></tr>
+            <tr><td>张云豪</td><td>领域驱动</td><td class="score">18.0</td><td>待校准</td><td>0.54</td><td class="amber-text">待复核</td><td>多项目支援型负载，需区分短时支持和主责。</td></tr>
+            <tr><td>孙若一</td><td>超级合作</td><td class="score">10.0</td><td>待校准</td><td>0.48</td><td class="amber-text">待补证</td><td>手填项目高于可见项目，可能在非飞书/本地流程。</td></tr>
+            <tr><td>杜馨柯</td><td>超级合作</td><td class="score">0.0</td><td>待校准</td><td>0.30</td><td>0</td><td>当前不宜直接承担多项目并行，适合 onboarding 任务。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel mt">
+      <h2>任务状态种子</h2>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>任务</th>
+              <th>项目</th>
+              <th>accountable</th>
+              <th>状态</th>
+              <th>证据源</th>
+              <th>confidence</th>
+              <th>下一步</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>fufu 001 AI worker 接入测试</td><td>AIOS / AI Workflow</td><td>李颖</td><td class="green-text">doing</td><td>飞书文档、云盘、手填</td><td>0.72</td><td>补 worker endpoint 与测试反馈。</td></tr>
+            <tr><td>红旗8397任务明细校准</td><td>红旗8397</td><td>张劲</td><td class="red-text">blocked</td><td>Sheet/Base 强入口</td><td>0.86</td><td>开通 scope 或导出 xlsx/csv。</td></tr>
+            <tr><td>本地 DCC artifact 索引</td><td>跨项目</td><td>杨帆</td><td class="amber-text">todo</td><td>scan-local-artifacts.py</td><td>0.65</td><td>配置显式项目目录。</td></tr>
+            <tr><td>设计系统任务粒度拆分</td><td>设计系统 / 动效平台化</td><td>李玮</td><td class="amber-text">review</td><td>云盘、领域阵型</td><td>0.58</td><td>拆 UI kit、Motion Library、3D Assets lanes。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

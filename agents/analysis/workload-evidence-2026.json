@@ -1,0 +1,1648 @@
+{
+  "version": 1,
+  "generated_at": "2026-07-06T20:48:20+08:00",
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-07-06",
+    "timezone": "Asia/Shanghai"
+  },
+  "sources": {
+    "im_messages": {
+      "path": "tmp/2026-source-index/im_messages_2026.json",
+      "count": 209
+    },
+    "drive_search_results": {
+      "path": "tmp/2026-source-index/drive_searches_2026.json",
+      "unique_results": 797
+    },
+    "vc_meetings": {
+      "path": "tmp/2026-source-index/vc_meetings_2026.json",
+      "count": 259
+    },
+    "figma_links": {
+      "path": "tmp/2026-source-index/figma_links_2026.json",
+      "count": 3
+    }
+  },
+  "scoring_model": {
+    "drive_edit_doc": 3.0,
+    "drive_owner_doc_when_not_editor": 1.5,
+    "meeting_organizer": 2.0,
+    "chat_project_message": 1.0,
+    "self_declared_project": 2.0,
+    "notes": [
+      "Scores quantify visible evidence, not final performance.",
+      "Drive search is limited to resources visible to the authenticated user.",
+      "Meeting contribution is currently based on organizer/title evidence; participant-level detail requires meeting detail expansion.",
+      "Sheet/Base workhour and task records are not included until sheets:spreadsheet:read and base:table:read are authorized."
+    ]
+  },
+  "projects": [
+    {
+      "project_id": "aios-ai-workflow",
+      "project_name": "AIOS / AI Workflow / AI Worker",
+      "evidence": {
+        "drive_docs": 181,
+        "meetings": 2,
+        "chat_messages": 1,
+        "figma_links": 0,
+        "self_declared": 3,
+        "total": 184
+      },
+      "people": {
+        "李颖": {
+          "score": 46.5,
+          "drive_edit_docs": 13,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 3,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张帆": {
+          "score": 12.0,
+          "drive_edit_docs": 4,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李玮": {
+          "score": 12.0,
+          "drive_edit_docs": 2,
+          "drive_owner_docs": 4,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张劲": {
+          "score": 4.5,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "孙若一": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李昊星": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "韩康佳": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "顾颖芝": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张云豪": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "陈宁子": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "fufu 001 飞书智能机器人架构总结",
+          "url": "https://yousandi.feishu.cn/wiki/D1NzwEISji82x7kCCEMckz5Ontq"
+        },
+        {
+          "source": "drive_docs",
+          "title": "fufu 001 飞书智能机器人架构总结",
+          "url": "https://yousandi.feishu.cn/wiki/D1NzwEISji82x7kCCEMckz5Ontq"
+        },
+        {
+          "source": "drive_docs",
+          "title": "飞书 CLI 安装与 AI Agent 对接教程",
+          "url": "https://yousandi.feishu.cn/docx/KahhduoL8oUFC3xnABOcXH3GnEc"
+        },
+        {
+          "source": "drive_docs",
+          "title": "飞书 CLI 安装与 AI Agent 对接教程",
+          "url": "https://yousandi.feishu.cn/docx/KahhduoL8oUFC3xnABOcXH3GnEc"
+        },
+        {
+          "source": "drive_docs",
+          "title": "AI 工具管理",
+          "url": "https://yousandi.feishu.cn/base/KFw0bq8kCawsBOsFWSncAcVCnfc"
+        },
+        {
+          "source": "drive_docs",
+          "title": "AI 工具管理",
+          "url": "https://yousandi.feishu.cn/base/KFw0bq8kCawsBOsFWSncAcVCnfc"
+        },
+        {
+          "source": "drive_docs",
+          "title": "AI 工具管理",
+          "url": "https://yousandi.feishu.cn/base/KFw0bq8kCawsBOsFWSncAcVCnfc"
+        },
+        {
+          "source": "drive_docs",
+          "title": "2026汽车HMI产品手册更新",
+          "url": "https://yousandi.feishu.cn/wiki/BGXAwwowJio1XpkBpE8cSYbUnnh"
+        }
+      ]
+    },
+    {
+      "project_id": "auto-show-demo",
+      "project_name": "2026车展DEMO",
+      "evidence": {
+        "drive_docs": 137,
+        "meetings": 35,
+        "chat_messages": 9,
+        "figma_links": 0,
+        "self_declared": 2,
+        "total": 181
+      },
+      "people": {
+        "李颖": {
+          "score": 24.5,
+          "drive_edit_docs": 7,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李玮": {
+          "score": 18.0,
+          "drive_edit_docs": 5,
+          "drive_owner_docs": 0,
+          "chat_messages": 3,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张云豪": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "顾颖芝": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "【2026年车展PR】 Unity与红旗前瞻设计首发",
+          "url": "https://yousandi.feishu.cn/wiki/PkVjwoiJWistnpkFgpKcIxQlnvd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "2026北京车展培训文档",
+          "url": "https://yousandi.feishu.cn/wiki/Np4pwh8p2iiHamkpzC4cafamnnf#DRbpdCq7qoz7Awx59NScb0chnLd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "台架情况说明",
+          "url": "https://yousandi.feishu.cn/wiki/Bt12wJtQois50pkn1sIch8Y4nxf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "文字记录：Demo01 进展SyncUp 2026年3月20日",
+          "url": "https://yousandi.feishu.cn/docx/SvZgd8lQRot8BYx2kPEcKONJndg#doxcne5feCC2jVhHIPlbfp3I3eg"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风8397hmi 架构评审",
+          "url": "https://yousandi.feishu.cn/wiki/Y4e4wm03diL77gknSEBcbbIyn7g"
+        },
+        {
+          "source": "drive_docs",
+          "title": "2026车展HMI Demo设计规划",
+          "url": "https://yousandi.feishu.cn/wiki/O6rWwsvititIrpkUwF4cU6eHnke"
+        },
+        {
+          "source": "drive_docs",
+          "title": "2026车展HMI Demo设计规划",
+          "url": "https://yousandi.feishu.cn/wiki/O6rWwsvititIrpkUwF4cU6eHnke"
+        },
+        {
+          "source": "drive_docs",
+          "title": "北京车展 HMIDemo 文档汇总",
+          "url": "https://yousandi.feishu.cn/wiki/Uw9dwZtU2icZUpkm81YcAYxEnne"
+        }
+      ]
+    },
+    {
+      "project_id": "hongqi-8397",
+      "project_name": "红旗8397",
+      "evidence": {
+        "drive_docs": 143,
+        "meetings": 28,
+        "chat_messages": 0,
+        "figma_links": 0,
+        "self_declared": 8,
+        "total": 171
+      },
+      "people": {
+        "张劲": {
+          "score": 19.0,
+          "drive_edit_docs": 3,
+          "drive_owner_docs": 4,
+          "chat_messages": 0,
+          "meeting_organizer": 1,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "韩康佳": {
+          "score": 17.0,
+          "drive_edit_docs": 5,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李玮": {
+          "score": 16.0,
+          "drive_edit_docs": 3,
+          "drive_owner_docs": 2,
+          "chat_messages": 0,
+          "meeting_organizer": 1,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李颖": {
+          "score": 8.0,
+          "drive_edit_docs": 2,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "顾颖芝": {
+          "score": 5.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张云豪": {
+          "score": 5.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "刘锦峰": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张帆": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李苏南": {
+          "score": 1.5,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 实现问题/任务记录",
+          "url": "https://yousandi.feishu.cn/wiki/HceCw4w2SiXwdTkwdjeceI2XnQd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 实现问题/任务记录",
+          "url": "https://yousandi.feishu.cn/wiki/HceCw4w2SiXwdTkwdjeceI2XnQd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 实现问题/任务记录",
+          "url": "https://yousandi.feishu.cn/wiki/HceCw4w2SiXwdTkwdjeceI2XnQd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 POC Stories",
+          "url": "https://yousandi.feishu.cn/wiki/WpmewUR4ui62PokAmYwccQUjnrd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 动态壁纸Action Plan",
+          "url": "https://yousandi.feishu.cn/wiki/T0Ciw1qgfi7lX3kXgjQcEFP0ngh"
+        },
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 动态壁纸Action Plan",
+          "url": "https://yousandi.feishu.cn/wiki/T0Ciw1qgfi7lX3kXgjQcEFP0ngh"
+        },
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 周报",
+          "url": "https://yousandi.feishu.cn/wiki/SEP8wvgnFi47mCkJGcccyz29nXf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "红旗8397 周报",
+          "url": "https://yousandi.feishu.cn/wiki/SEP8wvgnFi47mCkJGcccyz29nXf"
+        }
+      ]
+    },
+    {
+      "project_id": "dongfeng-8397",
+      "project_name": "东风8397",
+      "evidence": {
+        "drive_docs": 96,
+        "meetings": 22,
+        "chat_messages": 4,
+        "figma_links": 0,
+        "self_declared": 4,
+        "total": 122
+      },
+      "people": {
+        "李苏南": {
+          "score": 31.5,
+          "drive_edit_docs": 6,
+          "drive_owner_docs": 7,
+          "chat_messages": 1,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "韩康佳": {
+          "score": 9.0,
+          "drive_edit_docs": 3,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张云豪": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "孙若一": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "刘锦峰": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "张婕 26Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/NmL5dWkt6o1PwLxVrQec0XSWnXg#H5BMdfsdZoG00exjneQcKUshnsd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "黄东俊 - AI 任务管理 v.2026-05-11",
+          "url": "https://yousandi.feishu.cn/base/LZPQblsnqaZ2OUssSR0cGjfRnfb"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风8397 二期汇报_20260623",
+          "url": "https://yousandi.feishu.cn/wiki/DeGQw7KgOiLEXtko5MRcco5wnEe"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风8397 二期汇报_20260623",
+          "url": "https://yousandi.feishu.cn/wiki/DeGQw7KgOiLEXtko5MRcco5wnEe"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风8397 二期汇报_20260623",
+          "url": "https://yousandi.feishu.cn/wiki/DeGQw7KgOiLEXtko5MRcco5wnEe"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风 8397 二期方案汇报_20260430",
+          "url": "https://yousandi.feishu.cn/wiki/WgVuwwvlxiR9KLkQ8Amcehudn1g"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风 8397 二期方案汇报_20260430",
+          "url": "https://yousandi.feishu.cn/wiki/WgVuwwvlxiR9KLkQ8Amcehudn1g"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风8397 二期汇报_20260520.pdf",
+          "url": "https://yousandi.feishu.cn/wiki/Ym2VwFbHUi39y4kse6ZcgWzFnSf"
+        }
+      ]
+    },
+    {
+      "project_id": "research-figma",
+      "project_name": "Figma / 创意研究画板",
+      "evidence": {
+        "drive_docs": 102,
+        "meetings": 1,
+        "chat_messages": 6,
+        "figma_links": 2,
+        "self_declared": 0,
+        "total": 111
+      },
+      "people": {
+        "李颖": {
+          "score": 16.5,
+          "drive_edit_docs": 5,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "韩康佳": {
+          "score": 13.5,
+          "drive_edit_docs": 4,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李玮": {
+          "score": 9.0,
+          "drive_edit_docs": 2,
+          "drive_owner_docs": 2,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "余宗历": {
+          "score": 5.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 2,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张劲": {
+          "score": 4.5,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李苏南": {
+          "score": 4.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 1,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "孙若一": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "AI OS Demo for 2026 – Figma",
+          "url": "https://yousandi.feishu.cn/docx/PEc2doTEdo5GCExpxvAciUB7nKd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "AI OS Demo for 2026 – Figma",
+          "url": "https://yousandi.feishu.cn/docx/PEc2doTEdo5GCExpxvAciUB7nKd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "D01 FL1 UEUI figma输入",
+          "url": "https://yousandi.feishu.cn/wiki/VSOOwmZESiS2NmkgwExc7darnWg"
+        },
+        {
+          "source": "drive_docs",
+          "title": "T1J FL3 UEUI figma",
+          "url": "https://yousandi.feishu.cn/wiki/Iti8wY6bWiPQqskHjHOcN13UnVf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "AI Studio Figma2Tuanjie",
+          "url": "https://yousandi.feishu.cn/wiki/GwAvwv2HQiW5lVkrKwCc8XCLnUd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "智能纪要：FigmaUnityBridge需求交流 2026年6月3日",
+          "url": "https://yousandi.feishu.cn/docx/XcLqdrs5moosjcxXC5ocBlfgnUf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "Figma convert for Unity",
+          "url": "https://yousandi.feishu.cn/wiki/Pra6wC8Yxi18KYkzaGcchm74nie"
+        },
+        {
+          "source": "drive_docs",
+          "title": "文字记录：FigmaUnityBridge需求交流 2026年6月3日",
+          "url": "https://yousandi.feishu.cn/docx/DOS9d78tRoO3MIxM6j2cagTQnQf"
+        }
+      ]
+    },
+    {
+      "project_id": "benteng-e541",
+      "project_name": "奔腾E541 / 奔腾实验室",
+      "evidence": {
+        "drive_docs": 96,
+        "meetings": 12,
+        "chat_messages": 1,
+        "figma_links": 0,
+        "self_declared": 1,
+        "total": 109
+      },
+      "people": {
+        "李苏南": {
+          "score": 7.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 1,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张云豪": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "张婕 26Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/NmL5dWkt6o1PwLxVrQec0XSWnXg#H5BMdfsdZoG00exjneQcKUshnsd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "张婕- Q4 okr review",
+          "url": "https://yousandi.feishu.cn/docx/F2dzdjCBUokZQ9xVMftclEQPnib#HWYRdPwTeoFpMExmCh5ctXFJndh"
+        },
+        {
+          "source": "drive_docs",
+          "title": "黄东俊 - AI 任务管理 v.2026-05-11",
+          "url": "https://yousandi.feishu.cn/base/LZPQblsnqaZ2OUssSR0cGjfRnfb"
+        },
+        {
+          "source": "drive_docs",
+          "title": "杨帆 2026Q1 OKR review",
+          "url": "https://yousandi.feishu.cn/docx/HnOVdkvqAoljCpxkzRccjvybnT7#NisLdRVsnoeGyOxa0rVcIvvDndb"
+        },
+        {
+          "source": "drive_docs",
+          "title": "宁博 +Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/X1qAdIKIWoD31JxopjNcMBBsnsf#HRHadXtGXohF5wxG4HrcgnucnQf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "奔腾E541实车数据对比",
+          "url": "https://yousandi.feishu.cn/wiki/Mg5QwSFRBijDrokKkNOcoL0qnjh"
+        },
+        {
+          "source": "drive_docs",
+          "title": "奔腾E541 项目亮点",
+          "url": "https://yousandi.feishu.cn/wiki/O3XiwETMki41AokoyknczaXWnYd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "【对外】一汽奔腾E541",
+          "url": "https://yousandi.feishu.cn/wiki/Ry3qwispXiCJrSk1AHYcRH9xnXd"
+        }
+      ]
+    },
+    {
+      "project_id": "dongfeng-4sr",
+      "project_name": "东风4SR / 8295 4SR",
+      "evidence": {
+        "drive_docs": 92,
+        "meetings": 11,
+        "chat_messages": 3,
+        "figma_links": 0,
+        "self_declared": 1,
+        "total": 106
+      },
+      "people": {
+        "李苏南": {
+          "score": 11.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 2,
+          "chat_messages": 1,
+          "meeting_organizer": 1,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "智能纪要：8397 & 4SR 内部对齐 2026年5月7日",
+          "url": "https://yousandi.feishu.cn/docx/FHLCd6QADov4Zfx5793cEVvjnyb"
+        },
+        {
+          "source": "drive_docs",
+          "title": "智能纪要：8397 & 4SR 内部对齐 2026年5月7日",
+          "url": "https://yousandi.feishu.cn/docx/FHLCd6QADov4Zfx5793cEVvjnyb"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风4sr+8397前瞻",
+          "url": "https://yousandi.feishu.cn/wiki/DP3NwgyKGiEaZ4keiskcdpV3n9f"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风4SR+8397平台项目",
+          "url": "https://yousandi.feishu.cn/wiki/J06BwlEGzibL0lkQHbUc1jvonrg"
+        },
+        {
+          "source": "drive_docs",
+          "title": "维拉工时数据报表 东风SR 260626",
+          "url": "https://yousandi.feishu.cn/wiki/WquFwhebwi9vh9kC0zjcpk5knhd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风4SR+8397项目库",
+          "url": "https://yousandi.feishu.cn/drive/folder/MmTPfuzDIlA84fdbBCec2rC9nQh"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风4SR&8397 FP&POC",
+          "url": "https://yousandi.feishu.cn/wiki/PxfuwAPt0iR5MGkKPMQcEwHanyg"
+        },
+        {
+          "source": "drive_docs",
+          "title": "东风4SR+8397POC项目 验收-开票-付款 追溯表",
+          "url": "https://yousandi.feishu.cn/wiki/OCIYwp0icihegRkn4ZvcD5NknZc"
+        }
+      ]
+    },
+    {
+      "project_id": "design-system-platform",
+      "project_name": "设计系统 / 动效平台化",
+      "evidence": {
+        "drive_docs": 102,
+        "meetings": 0,
+        "chat_messages": 0,
+        "figma_links": 0,
+        "self_declared": 1,
+        "total": 102
+      },
+      "people": {
+        "李玮": {
+          "score": 12.0,
+          "drive_edit_docs": 3,
+          "drive_owner_docs": 2,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "张劲": {
+          "score": 6.5,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 1,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "韩康佳": {
+          "score": 6.0,
+          "drive_edit_docs": 2,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李颖": {
+          "score": 6.0,
+          "drive_edit_docs": 2,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "顾颖芝": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "李苏南": {
+          "score": 3.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 0,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "DS007.3DEngine Library(Unity/Unreal工程库)",
+          "url": "https://yousandi.feishu.cn/wiki/E1yow74kKiFjG0krGLFcTK8anVd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "DS007.3DEngine Library(Unity/Unreal工程库)",
+          "url": "https://yousandi.feishu.cn/wiki/E1yow74kKiFjG0krGLFcTK8anVd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "张婕 26Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/NmL5dWkt6o1PwLxVrQec0XSWnXg#H5BMdfsdZoG00exjneQcKUshnsd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "韩康佳 2026Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/Z5Cyda5EPod0pvxdDJXcPeoGnPP#PPBGdwgymoix5sxnJyncBFXin3d"
+        },
+        {
+          "source": "drive_docs",
+          "title": "韩康佳 2026Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/Z5Cyda5EPod0pvxdDJXcPeoGnPP#PPBGdwgymoix5sxnJyncBFXin3d"
+        },
+        {
+          "source": "drive_docs",
+          "title": "精度数据可视化系统 UI 设计文档 V2.pdf",
+          "url": "https://yousandi.feishu.cn/wiki/Vm50wUmBxigkAxkYeO1ceCohn2c"
+        },
+        {
+          "source": "drive_docs",
+          "title": "精度数据可视化系统_UI设计文档_V1.1.pdf",
+          "url": "https://yousandi.feishu.cn/wiki/DESdwEm0IifrJ5kGlX0cmp0Tnqf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "系统方案设计说明书RK3588.docx",
+          "url": "https://yousandi.feishu.cn/file/YLchbOyKJokx3UxHiDtcNmEbnfh"
+        }
+      ]
+    },
+    {
+      "project_id": "lixiang-game",
+      "project_name": "理想游戏上车",
+      "evidence": {
+        "drive_docs": 70,
+        "meetings": 16,
+        "chat_messages": 2,
+        "figma_links": 0,
+        "self_declared": 2,
+        "total": 88
+      },
+      "people": {
+        "李玮": {
+          "score": 9.0,
+          "drive_edit_docs": 2,
+          "drive_owner_docs": 0,
+          "chat_messages": 1,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        },
+        "孙若一": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "理想游戏上车-虚拟控制器体验支持",
+          "url": "https://yousandi.feishu.cn/wiki/EtipwtlwliVesfkQcJccBR66nfe"
+        },
+        {
+          "source": "drive_docs",
+          "title": "理想游戏上车-虚拟控制器体验支持",
+          "url": "https://yousandi.feishu.cn/wiki/EtipwtlwliVesfkQcJccBR66nfe"
+        },
+        {
+          "source": "drive_docs",
+          "title": "张婕- Q4 okr review",
+          "url": "https://yousandi.feishu.cn/docx/F2dzdjCBUokZQ9xVMftclEQPnib#HWYRdPwTeoFpMExmCh5ctXFJndh"
+        },
+        {
+          "source": "drive_docs",
+          "title": "文字记录：车载游戏与车展Demo会议 2026年2月27日",
+          "url": "https://yousandi.feishu.cn/docx/EVPhdbsM7o9COWxXkYccxPr5nuf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "智能纪要：车载游戏与车展Demo会议 2026年2月27日",
+          "url": "https://yousandi.feishu.cn/docx/RsJHd43KYoTIrbxntYvcTYdVnQg"
+        },
+        {
+          "source": "drive_docs",
+          "title": "【09】车载游戏中心Demo 展台尺寸",
+          "url": "https://yousandi.feishu.cn/wiki/A1y0wOB5SigvUIkXwp1cQBMunpI"
+        },
+        {
+          "source": "drive_docs",
+          "title": "【09】车载游戏商店Demo APP产品需求",
+          "url": "https://yousandi.feishu.cn/wiki/TvNtwjBWkieG2tkfxw4cOXXHn1h"
+        },
+        {
+          "source": "drive_docs",
+          "title": "智能纪要：理想游戏上车-《饥饿鲨:世界》适配进展 DailySyncUp 2026年7月6日",
+          "url": "https://yousandi.feishu.cn/wiki/VKoZwBC04it4D3kuH42c1LyDnTf"
+        }
+      ]
+    },
+    {
+      "project_id": "benz-hmi",
+      "project_name": "奔驰HMI",
+      "evidence": {
+        "drive_docs": 20,
+        "meetings": 1,
+        "chat_messages": 0,
+        "figma_links": 0,
+        "self_declared": 1,
+        "total": 21
+      },
+      "people": {
+        "余宗历": {
+          "score": 8.0,
+          "drive_edit_docs": 2,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "王凯凯 +Q4 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/LguHdeoJgo56AoxzhlYcoiAGndf#LQoxd6ATeoJxwNxIUsEcnTfqncb"
+        },
+        {
+          "source": "drive_docs",
+          "title": "智能纪要：奔驰交流与上汽大众项目讨论 2026年4月7日",
+          "url": "https://yousandi.feishu.cn/docx/TpfEdPQE3o8TASxtBMWcbUzcnQd#doxcnipm9CxhwbGKLd9snWuLOXf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "奔驰Benz Hackathon",
+          "url": "https://yousandi.feishu.cn/wiki/Fg8jwHipaiOAYIkvcSzcMepznIg#NMoHdM8OWoEDJKxPzQkcZJZNnUc"
+        },
+        {
+          "source": "drive_docs",
+          "title": "2026北京车展HMI对标行动方案",
+          "url": "https://yousandi.feishu.cn/wiki/V6aGwv4NTiYJq6kTZo5cyJ1XnKh"
+        },
+        {
+          "source": "drive_docs",
+          "title": "奔驰Benz Hackathon",
+          "url": "https://yousandi.feishu.cn/wiki/Fg8jwHipaiOAYIkvcSzcMepznIg"
+        },
+        {
+          "source": "drive_docs",
+          "title": "HMI面试候选人评价",
+          "url": "https://yousandi.feishu.cn/wiki/G6otwQIkNiwZyAkqGfTcabdwncd"
+        },
+        {
+          "source": "drive_docs",
+          "title": "HMI PMO 知识库目录结构",
+          "url": "https://yousandi.feishu.cn/wiki/L9j5wtcruiKYwekIg6NchZrGnJL"
+        },
+        {
+          "source": "drive_docs",
+          "title": "26年北京车展重点车型拍摄计划",
+          "url": "https://yousandi.feishu.cn/wiki/GCmYwHtaTiD1ebkm1DEchysFnmf"
+        }
+      ]
+    },
+    {
+      "project_id": "gac-audio",
+      "project_name": "广汽音频可视化",
+      "evidence": {
+        "drive_docs": 3,
+        "meetings": 2,
+        "chat_messages": 0,
+        "figma_links": 0,
+        "self_declared": 1,
+        "total": 5
+      },
+      "people": {
+        "韩康佳": {
+          "score": 7.0,
+          "drive_edit_docs": 1,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 1,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "drive_docs",
+          "title": "2026 HMI 设计团队组织架构规划-report",
+          "url": "https://yousandi.feishu.cn/wiki/HKgOwdRt0ig4a3k7q29c71MFnjc"
+        },
+        {
+          "source": "drive_docs",
+          "title": "韩康佳 2026Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/Z5Cyda5EPod0pvxdDJXcPeoGnPP#TbjOd0iNSosrtQxq2sMcAvHznTf"
+        },
+        {
+          "source": "drive_docs",
+          "title": "韩康佳 2026Q1 OKR Review",
+          "url": "https://yousandi.feishu.cn/docx/Z5Cyda5EPod0pvxdDJXcPeoGnPP#TbjOd0iNSosrtQxq2sMcAvHznTf"
+        },
+        {
+          "source": "meetings",
+          "title": "韩康佳的视频会议 云文档：智能纪要：广汽本田音乐可视化项目会议 2026年1月22日 1月22日 16:31 | 组织者：韩康佳 | ID: 906 161 499",
+          "url": "https://applink.feishu.cn/client/vctab/open?source=chat&action=detail&meetingId=7598100330739616711"
+        },
+        {
+          "source": "meetings",
+          "title": "韩康佳的视频会议 云文档：智能纪要：广汽本田音乐可视化项目会议 2026年1月22日 1月22日 16:31 | 组织者：韩康佳 | ID: 906 161 499",
+          "url": "https://applink.feishu.cn/client/vctab/open?source=chat&action=detail&meetingId=7598100330739616711"
+        },
+        {
+          "source": "self_declared",
+          "title": "广汽音频可视化"
+        }
+      ]
+    },
+    {
+      "project_id": "jetour-light",
+      "project_name": "捷途灯语",
+      "evidence": {
+        "drive_docs": 0,
+        "meetings": 0,
+        "chat_messages": 0,
+        "figma_links": 0,
+        "self_declared": 1,
+        "total": 0
+      },
+      "people": {
+        "张云豪": {
+          "score": 2.0,
+          "drive_edit_docs": 0,
+          "drive_owner_docs": 0,
+          "chat_messages": 0,
+          "meeting_organizer": 0,
+          "self_declared": 1,
+          "domain_leader": 0,
+          "domain_partner": 0
+        }
+      },
+      "sample_evidence": [
+        {
+          "source": "self_declared",
+          "title": "捷途灯语"
+        }
+      ]
+    }
+  ],
+  "people": [
+    {
+      "name": "李颖",
+      "agent_id": "subagent-li-ying",
+      "evidence_score": 101.5,
+      "evidence_project_count": 5,
+      "self_declared_project_count": 4,
+      "load_delta_project_count": 1,
+      "domain_leader_count": 2,
+      "domain_partner_count": 10,
+      "evidence_counts": {
+        "drive_edit_docs": 29,
+        "drive_owner_docs": 3,
+        "self_declared": 5,
+        "domain_leader_roles": 2,
+        "domain_partner_roles": 10
+      },
+      "top_projects": [
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 46.5
+        },
+        {
+          "project_id": "auto-show-demo",
+          "project_name": "2026车展DEMO",
+          "score": 24.5
+        },
+        {
+          "project_id": "research-figma",
+          "project_name": "Figma / 创意研究画板",
+          "score": 16.5
+        },
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 8.0
+        },
+        {
+          "project_id": "design-system-platform",
+          "project_name": "设计系统 / 动效平台化",
+          "score": 6.0
+        }
+      ]
+    },
+    {
+      "name": "李玮",
+      "agent_id": "subagent-li-wei",
+      "evidence_score": 76.0,
+      "evidence_project_count": 6,
+      "self_declared_project_count": 3,
+      "load_delta_project_count": 3,
+      "domain_leader_count": 6,
+      "domain_partner_count": 11,
+      "evidence_counts": {
+        "drive_edit_docs": 17,
+        "drive_owner_docs": 10,
+        "chat_messages": 4,
+        "meeting_organizer": 1,
+        "self_declared": 2,
+        "domain_leader_roles": 6,
+        "domain_partner_roles": 11
+      },
+      "top_projects": [
+        {
+          "project_id": "auto-show-demo",
+          "project_name": "2026车展DEMO",
+          "score": 18.0
+        },
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 16.0
+        },
+        {
+          "project_id": "design-system-platform",
+          "project_name": "设计系统 / 动效平台化",
+          "score": 12.0
+        },
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 12.0
+        },
+        {
+          "project_id": "lixiang-game",
+          "project_name": "理想游戏上车",
+          "score": 9.0
+        }
+      ]
+    },
+    {
+      "name": "李苏南",
+      "agent_id": "subagent-li-sunan",
+      "evidence_score": 58.0,
+      "evidence_project_count": 6,
+      "self_declared_project_count": 5,
+      "load_delta_project_count": 1,
+      "domain_leader_count": 6,
+      "domain_partner_count": 14,
+      "evidence_counts": {
+        "drive_owner_docs": 10,
+        "drive_edit_docs": 10,
+        "chat_messages": 3,
+        "meeting_organizer": 2,
+        "self_declared": 3,
+        "domain_leader_roles": 6,
+        "domain_partner_roles": 14
+      },
+      "top_projects": [
+        {
+          "project_id": "dongfeng-8397",
+          "project_name": "东风8397",
+          "score": 31.5
+        },
+        {
+          "project_id": "dongfeng-4sr",
+          "project_name": "东风4SR / 8295 4SR",
+          "score": 11.0
+        },
+        {
+          "project_id": "benteng-e541",
+          "project_name": "奔腾E541 / 奔腾实验室",
+          "score": 7.0
+        },
+        {
+          "project_id": "research-figma",
+          "project_name": "Figma / 创意研究画板",
+          "score": 4.0
+        },
+        {
+          "project_id": "design-system-platform",
+          "project_name": "设计系统 / 动效平台化",
+          "score": 3.0
+        }
+      ]
+    },
+    {
+      "name": "韩康佳",
+      "agent_id": "subagent-han-kangjia",
+      "evidence_score": 55.5,
+      "evidence_project_count": 6,
+      "self_declared_project_count": 2,
+      "load_delta_project_count": 4,
+      "domain_leader_count": 2,
+      "domain_partner_count": 8,
+      "evidence_counts": {
+        "drive_edit_docs": 16,
+        "drive_owner_docs": 1,
+        "meeting_organizer": 1,
+        "self_declared": 2,
+        "domain_leader_roles": 2,
+        "domain_partner_roles": 8
+      },
+      "top_projects": [
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 17.0
+        },
+        {
+          "project_id": "research-figma",
+          "project_name": "Figma / 创意研究画板",
+          "score": 13.5
+        },
+        {
+          "project_id": "dongfeng-8397",
+          "project_name": "东风8397",
+          "score": 9.0
+        },
+        {
+          "project_id": "gac-audio",
+          "project_name": "广汽音频可视化",
+          "score": 7.0
+        },
+        {
+          "project_id": "design-system-platform",
+          "project_name": "设计系统 / 动效平台化",
+          "score": 6.0
+        }
+      ]
+    },
+    {
+      "name": "张劲",
+      "agent_id": "subagent-zhang-jin",
+      "evidence_score": 34.5,
+      "evidence_project_count": 4,
+      "self_declared_project_count": 3,
+      "load_delta_project_count": 1,
+      "domain_leader_count": 4,
+      "domain_partner_count": 16,
+      "evidence_counts": {
+        "drive_edit_docs": 6,
+        "drive_owner_docs": 7,
+        "meeting_organizer": 1,
+        "self_declared": 2,
+        "domain_leader_roles": 4,
+        "domain_partner_roles": 16
+      },
+      "top_projects": [
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 19.0
+        },
+        {
+          "project_id": "design-system-platform",
+          "project_name": "设计系统 / 动效平台化",
+          "score": 6.5
+        },
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 4.5
+        },
+        {
+          "project_id": "research-figma",
+          "project_name": "Figma / 创意研究画板",
+          "score": 4.5
+        }
+      ]
+    },
+    {
+      "name": "张云豪",
+      "agent_id": "subagent-zhang-yunhao",
+      "evidence_score": 18.0,
+      "evidence_project_count": 6,
+      "self_declared_project_count": 3,
+      "load_delta_project_count": 3,
+      "domain_leader_count": 3,
+      "domain_partner_count": 9,
+      "evidence_counts": {
+        "drive_edit_docs": 4,
+        "self_declared": 3,
+        "domain_leader_roles": 3,
+        "domain_partner_roles": 9
+      },
+      "top_projects": [
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 5.0
+        },
+        {
+          "project_id": "benteng-e541",
+          "project_name": "奔腾E541 / 奔腾实验室",
+          "score": 3.0
+        },
+        {
+          "project_id": "auto-show-demo",
+          "project_name": "2026车展DEMO",
+          "score": 3.0
+        },
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 3.0
+        },
+        {
+          "project_id": "dongfeng-8397",
+          "project_name": "东风8397",
+          "score": 2.0
+        }
+      ]
+    },
+    {
+      "name": "张帆",
+      "agent_id": "subagent-zhang-fan",
+      "evidence_score": 14.0,
+      "evidence_project_count": 2,
+      "self_declared_project_count": 3,
+      "load_delta_project_count": -1,
+      "domain_leader_count": 1,
+      "domain_partner_count": 9,
+      "evidence_counts": {
+        "drive_edit_docs": 4,
+        "self_declared": 1,
+        "domain_leader_roles": 1,
+        "domain_partner_roles": 9
+      },
+      "top_projects": [
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 12.0
+        },
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 2.0
+        }
+      ]
+    },
+    {
+      "name": "顾颖芝",
+      "agent_id": "subagent-gu-yingzhi",
+      "evidence_score": 13.0,
+      "evidence_project_count": 4,
+      "self_declared_project_count": 3,
+      "load_delta_project_count": 1,
+      "domain_leader_count": 4,
+      "domain_partner_count": 8,
+      "evidence_counts": {
+        "drive_edit_docs": 3,
+        "self_declared": 2,
+        "domain_leader_roles": 4,
+        "domain_partner_roles": 8
+      },
+      "top_projects": [
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 5.0
+        },
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 3.0
+        },
+        {
+          "project_id": "design-system-platform",
+          "project_name": "设计系统 / 动效平台化",
+          "score": 3.0
+        },
+        {
+          "project_id": "auto-show-demo",
+          "project_name": "2026车展DEMO",
+          "score": 2.0
+        }
+      ]
+    },
+    {
+      "name": "余宗历",
+      "agent_id": "subagent-yu-zongli",
+      "evidence_score": 13.0,
+      "evidence_project_count": 2,
+      "self_declared_project_count": 1,
+      "load_delta_project_count": 1,
+      "domain_leader_count": 0,
+      "domain_partner_count": 12,
+      "evidence_counts": {
+        "drive_edit_docs": 3,
+        "chat_messages": 2,
+        "self_declared": 1,
+        "domain_leader_roles": 0,
+        "domain_partner_roles": 12
+      },
+      "top_projects": [
+        {
+          "project_id": "benz-hmi",
+          "project_name": "奔驰HMI",
+          "score": 8.0
+        },
+        {
+          "project_id": "research-figma",
+          "project_name": "Figma / 创意研究画板",
+          "score": 5.0
+        }
+      ]
+    },
+    {
+      "name": "孙若一",
+      "agent_id": "subagent-sun-ruoyi",
+      "evidence_score": 10.0,
+      "evidence_project_count": 4,
+      "self_declared_project_count": 5,
+      "load_delta_project_count": -1,
+      "domain_leader_count": 0,
+      "domain_partner_count": 0,
+      "evidence_counts": {
+        "drive_edit_docs": 2,
+        "self_declared": 2,
+        "domain_leader_roles": 0,
+        "domain_partner_roles": 0
+      },
+      "top_projects": [
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 3.0
+        },
+        {
+          "project_id": "research-figma",
+          "project_name": "Figma / 创意研究画板",
+          "score": 3.0
+        },
+        {
+          "project_id": "lixiang-game",
+          "project_name": "理想游戏上车",
+          "score": 2.0
+        },
+        {
+          "project_id": "dongfeng-8397",
+          "project_name": "东风8397",
+          "score": 2.0
+        }
+      ]
+    },
+    {
+      "name": "刘锦峰",
+      "agent_id": "subagent-liu-jinfeng",
+      "evidence_score": 4.0,
+      "evidence_project_count": 2,
+      "self_declared_project_count": 2,
+      "load_delta_project_count": 0,
+      "domain_leader_count": 0,
+      "domain_partner_count": 0,
+      "evidence_counts": {
+        "self_declared": 2,
+        "domain_leader_roles": 0,
+        "domain_partner_roles": 0
+      },
+      "top_projects": [
+        {
+          "project_id": "hongqi-8397",
+          "project_name": "红旗8397",
+          "score": 2.0
+        },
+        {
+          "project_id": "dongfeng-8397",
+          "project_name": "东风8397",
+          "score": 2.0
+        }
+      ]
+    },
+    {
+      "name": "李昊星",
+      "agent_id": "subagent-li-haoxing",
+      "evidence_score": 3.0,
+      "evidence_project_count": 1,
+      "self_declared_project_count": 0,
+      "load_delta_project_count": 1,
+      "domain_leader_count": 0,
+      "domain_partner_count": 0,
+      "evidence_counts": {
+        "drive_edit_docs": 1,
+        "domain_leader_roles": 0,
+        "domain_partner_roles": 0
+      },
+      "top_projects": [
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 3.0
+        }
+      ]
+    },
+    {
+      "name": "陈宁子",
+      "agent_id": "subagent-chen-ningzi",
+      "evidence_score": 3.0,
+      "evidence_project_count": 1,
+      "self_declared_project_count": 0,
+      "load_delta_project_count": 1,
+      "domain_leader_count": 0,
+      "domain_partner_count": 0,
+      "evidence_counts": {
+        "drive_edit_docs": 1,
+        "domain_leader_roles": 0,
+        "domain_partner_roles": 0
+      },
+      "top_projects": [
+        {
+          "project_id": "aios-ai-workflow",
+          "project_name": "AIOS / AI Workflow / AI Worker",
+          "score": 3.0
+        }
+      ]
+    },
+    {
+      "name": "杜馨柯",
+      "agent_id": "subagent-du-xinke",
+      "evidence_score": 0.0,
+      "evidence_project_count": 0,
+      "self_declared_project_count": 0,
+      "load_delta_project_count": 0,
+      "domain_leader_count": 0,
+      "domain_partner_count": 0,
+      "evidence_counts": {
+        "domain_leader_roles": 0,
+        "domain_partner_roles": 0
+      },
+      "top_projects": [
+
+      ]
+    }
+  ],
+  "excluded_from_current_analysis": [
+    "李达",
+    "张婕"
+  ]
+}

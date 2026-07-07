@@ -1,0 +1,74 @@
+version: 1
+generated_at: 2026-07-07
+timezone: Asia/Shanghai
+
+dashboard:
+  title: Unity HMI 实时任务跟踪看板
+  identity: bot
+  base_token: null
+  dashboard_id: null
+  url: null
+  created_by: master-yangfan
+  refresh_frequency: daily
+  refresh_time_local: "09:00"
+
+permissions:
+  team_chat:
+    name: Unity HMI Design
+    member_type: openchat
+    member_id: oc_f2f29a95d46e0fcabfaff1636bbbfada
+    perm: view
+  lead_agent:
+    name: 杨帆
+    member_type: openid
+    member_id: ou_ab5cf61968f074140a3e2d73d8035a9c
+    perm: edit
+
+tables:
+  projects:
+    name: 项目状态
+    business_key: 项目ID
+    table_id: null
+  people:
+    name: 人员负载
+    business_key: 成员ID
+    table_id: null
+  sources:
+    name: 数据源健康
+    business_key: 数据源ID
+    table_id: null
+  risks:
+    name: 风险队列
+    business_key: 风险ID
+    table_id: null
+  changes:
+    name: 每日变化
+    business_key: 变化ID
+    table_id: null
+
+automation:
+  name: Unity HMI 实时任务看板每日更新
+  cadence: daily
+  local_command:
+    - python3 tools/generate-realtime-dashboard-state.py
+    - python3 tools/sync-lark-dashboard.py --sync
+
+required_lark_scopes:
+  base_create:
+    - base:app:create
+    - base:table:read
+    - base:table:create
+    - base:table:update
+    - base:table:delete
+  record_sync:
+    - base:record:read
+    - base:record:create
+    - base:record:update
+  dashboard:
+    - base:dashboard:read
+    - base:dashboard:create
+    - base:dashboard:update
+  permission:
+    - drive:drive.metadata:readonly
+    - drive:drive:readonly
+    - drive:permission:member:create

@@ -1,0 +1,151 @@
+version: 1
+generated_at: 2026-07-07
+timezone: Asia/Shanghai
+
+mapping_policy:
+  owner: master-yangfan
+  update_first: true
+  notes:
+    - 新项目、新 Jira key、新本地目录、新飞书资源 token 先登记到这里，再进入采集器。
+    - aliases 和 keywords 用于弱匹配；jira_project_keys、feishu_tokens、local_path_hints 用于强匹配。
+    - 张婕、李达不作为新任务 owner 候选。
+
+projects:
+  - project_id: aios-ai-workflow
+    name: AIOS / AI Workflow / AI Worker
+    status: active
+    primary_owner_agent: subagent-li-ying
+    aliases: [AIOS, AI Workflow, AI Worker, AI桌面, fufu, fufu 001, AI Agent, 飞书智能机器人]
+    keywords: [AI工具, 智能机器人, agent, workflow, 自动化, 提效]
+    jira_project_keys: []
+    feishu_tokens:
+      - D1NzwEISji82x7kCCEMckz5Ontq
+      - KahhduoL8oUFC3xnABOcXH3GnEc
+      - KFw0bq8kCawsBOsFWSncAcVCnfc
+    local_path_hints: [AIOS, AI_Workflow, AI-Worker, fufu]
+    domain_refs: [DD006, DM004]
+
+  - project_id: auto-show-demo
+    name: 2026车展DEMO
+    status: active
+    primary_owner_agent: subagent-li-ying
+    aliases: [2026车展DEMO, 车展DEMO, 车展, Demo01, HMI Demo]
+    keywords: [展车, demo, 演示, 车展, prototype]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [车展, AutoShow, Demo01, HMI_Demo]
+    domain_refs: [DD015, DD016, DD018]
+
+  - project_id: hongqi-8397
+    name: 红旗8397
+    status: active
+    primary_owner_agent: subagent-zhang-jin
+    aliases: [红旗8397, 一汽红旗, 红旗, 8397内部例会, 金葵花]
+    keywords: [语音, 角色, SR, 车控, 投影, 千人千面, VPA, 设计支持]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [红旗8397, Hongqi8397, HQ8397, 一汽红旗]
+    domain_refs: [DD002, DD006, DD014, DD015, DD018]
+    strong_evidence_needs_scope:
+      - 工时报表 红旗8397设计项目
+      - 红旗8397设计项目甘特图
+      - 红旗8397 实现问题/任务记录
+
+  - project_id: dongfeng-8397
+    name: 东风8397
+    status: active
+    primary_owner_agent: subagent-li-sunan
+    aliases: [东风8397, 东风xUnity, 东风+Unity, 东风 POC]
+    keywords: [东风, 8397, POC, Unity]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [东风8397, Dongfeng8397, DF8397]
+    domain_refs: [DD004, DD013, DD018]
+
+  - project_id: dongfeng-4sr
+    name: 东风4SR / 8295 4SR
+    status: active
+    primary_owner_agent: subagent-li-sunan
+    aliases: [东风4SR, 8295 4SR, 4SR项目, 东风8295]
+    keywords: [4SR, 8295, 东风]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [东风4SR, 8295, 4SR, DF4SR]
+    domain_refs: [DD004, DD013]
+
+  - project_id: benteng-e541
+    name: 奔腾E541 / 奔腾实验室
+    status: active
+    primary_owner_agent: subagent-li-sunan
+    aliases: [奔腾E541, E541, 奔腾实验室, 奔腾]
+    keywords: [实验室, 奔腾, E541]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [奔腾, E541, Benteng]
+    domain_refs: [DD004, DD018]
+
+  - project_id: lixiang-game
+    name: 理想游戏上车
+    status: active
+    primary_owner_agent: subagent-li-wei
+    aliases: [理想游戏, 理想游戏上车, 饥饿鲨, 车载游戏]
+    keywords: [虚拟控制器, 虚拟手柄, 游戏商城, game]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [理想游戏, LixiangGame, GameStore]
+    domain_refs: [DD017]
+
+  - project_id: benz-hmi
+    name: 奔驰HMI
+    status: active
+    primary_owner_agent: subagent-yu-zongli
+    aliases: [奔驰HMI, 奔驰, Benz HMI, Mercedes HMI]
+    keywords: [Mercedes, Benz, HMI]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [奔驰, Benz, Mercedes]
+    domain_refs: [DD013, DD018]
+
+  - project_id: gac-audio
+    name: 广汽音频可视化
+    status: active
+    primary_owner_agent: subagent-han-kangjia
+    aliases: [广汽音频可视化, 广汽本田音乐可视化, 广汽音频]
+    keywords: [音频可视化, 音乐可视化, media, audio]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [广汽音频, GACAudio, AudioViz]
+    domain_refs: [DD005]
+
+  - project_id: jetour-light
+    name: 捷途灯语
+    status: unknown
+    primary_owner_agent: subagent-zhang-yunhao
+    aliases: [捷途灯语, 捷途]
+    keywords: [灯语, light, animation]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [捷途灯语, JetourLight]
+    domain_refs: [DD012]
+
+  - project_id: design-system-platform
+    name: 设计系统 / 动效平台化
+    status: active
+    primary_owner_agent: subagent-li-wei
+    aliases: [设计系统, 动效平台化, UI kit, 3DEngine Library, Design System]
+    keywords: [组件库, 风格库, 图标库, 图片库, 动效库, 3D Assets Library]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [设计系统, DesignSystem, UIkit, MotionLibrary, 3DAssets]
+    domain_refs: [DS001, DS002, DS003, DS004, DS005, DS006, DS007]
+
+  - project_id: research-figma
+    name: Figma / 创意研究画板
+    status: active
+    primary_owner_agent: subagent-gu-yingzhi
+    aliases: [Figma, FigJam, 创意研究画板, GVDP]
+    keywords: [赛博朋克, moodboard, research, creative]
+    jira_project_keys: []
+    feishu_tokens: []
+    local_path_hints: [Figma, FigJam, Research, 创意研究]
+    domain_refs: [DD016, DS002, DS003]

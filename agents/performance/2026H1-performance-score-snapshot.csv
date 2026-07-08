@@ -1,0 +1,16 @@
+姓名,分析状态,组织团队,本地表状态,规则/本地分,证据归一分,角色责任分,主线贡献分,证据置信分,模型建议分,建议档位,建议动作
+余宗历,active,领域驱动,template_blank,78,13.0,36.0,29.3,65,38.6,D,补齐本地评价表与证据索引
+刘锦峰,active,超级合作,template_blank,68,4.0,0.0,15.3,50,24.0,D,补齐本地评价表与证据索引
+孙若一,active,超级合作,template_blank,68,10.0,0.0,24.6,50,27.9,D,补齐本地评价表与证据索引
+张云豪,active,领域驱动,template_blank,84,18.0,57.0,50.8,65,49.3,D,补齐本地评价表与证据索引
+张劲,active,领域驱动,template_blank,92,34.5,88.0,60.1,65,63.5,C,补齐本地评价表与证据索引
+张婕,excluded_transition,,template_blank,EXCLUDED,EXCLUDED,EXCLUDED,EXCLUDED,EXCLUDED,EXCLUDED,排除,不进入本轮主分析
+张帆,active,领域驱动,template_blank,76,14.0,37.0,29.8,65,38.7,D,补齐本地评价表与证据索引
+李昊星,active,超级合作,template_blank,50,3.0,0.0,9.7,50,18.0,D,补齐本地评价表与证据索引
+李玮,active,领域驱动,template_blank,88,76.0,93.0,86.2,65,83.0,B,补齐本地评价表与证据索引
+李苏南,active,超级合作,template_blank,92,58.0,100,80.3,65,77.6,B,补齐本地评价表与证据索引
+李颖,active,AI提效,template_blank,92,100,68.0,87.9,65,89.0,B+,补齐本地评价表与证据索引
+杜馨柯,active,超级合作,template_blank,55,0.0,0.0,5.5,0,14.8,D,补齐本地评价表与证据索引
+陈宁子,active,超级合作,template_blank,55,3.0,0.0,10.2,50,19.3,D,补齐本地评价表与证据索引
+韩康佳,active,领域驱动,template_blank,80,55.5,44.0,64.0,65,62.1,C,补齐本地评价表与证据索引
+顾颖芝,active,领域驱动,template_blank,84,13.0,64.0,43.6,65,47.1,D,补齐本地评价表与证据索引

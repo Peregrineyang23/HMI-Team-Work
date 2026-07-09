@@ -4,19 +4,23 @@ timezone: Asia/Shanghai
 
 dashboard:
   title: Unity HMI 实时任务跟踪看板
-  identity: bot
-  base_token: null
-  dashboard_id: null
-  url: null
+  identity: user
+  authorization_policy: never_request_delete_scopes
+  setup_status: ready_daily_sync
+  blocking_reason: null
+  blocking_scope: null
+  base_token: QIFybHOSUaU7HUsQ1h8c2eV5nY8
+  dashboard_id: blkxBQFl6g0CY98j
+  url: https://yousandi.feishu.cn/base/QIFybHOSUaU7HUsQ1h8c2eV5nY8
   created_by: master-yangfan
   refresh_frequency: daily
   refresh_time_local: "09:00"
 
 permissions:
   team_chat:
-    name: Unity HMI Design
+    name: DM006. Realtime Task Management
     member_type: openchat
-    member_id: oc_f2f29a95d46e0fcabfaff1636bbbfada
+    member_id: oc_824642a195aa4a6d1fd2861fd8c749da
     perm: view
   lead_agent:
     name: 杨帆
@@ -28,38 +32,49 @@ tables:
   projects:
     name: 项目状态
     business_key: 项目ID
-    table_id: null
+    table_id: tblHtagrKpugt785
+    current_view_id: vewBPGl4VN
   people:
     name: 人员负载
     business_key: 成员ID
-    table_id: null
+    table_id: tbljfV3gqqpsiMw8
+    current_view_id: vewDjF0S89
   sources:
     name: 数据源健康
     business_key: 数据源ID
-    table_id: null
+    table_id: tbl92nK2MQ38006b
+    current_view_id: vewEUoEWkJ
   risks:
     name: 风险队列
     business_key: 风险ID
-    table_id: null
+    table_id: tblm6RaQqz0WG3KD
+    current_view_id: vew8X0H0kj
   changes:
     name: 每日变化
     business_key: 变化ID
-    table_id: null
+    table_id: tbllhgJMAk2VgG4l
 
 automation:
   name: Unity HMI 实时任务看板每日更新
   cadence: daily
   local_command:
     - python3 tools/generate-realtime-dashboard-state.py
+    - python3 tools/calibrate-realtime-dashboard-from-weekly-report.py
     - python3 tools/sync-lark-dashboard.py --sync
+    - python3 tools/sync-lark-dashboard.py --dedupe
 
 required_lark_scopes:
+  policy:
+    - never request standalone delete scopes
   base_create:
     - base:app:create
     - base:table:read
     - base:table:create
     - base:table:update
-    - base:table:delete
+  field_sync:
+    - base:field:read
+    - base:field:create
+    - base:field:update
   record_sync:
     - base:record:read
     - base:record:create
@@ -68,6 +83,8 @@ required_lark_scopes:
     - base:dashboard:read
     - base:dashboard:create
     - base:dashboard:update
+  view_sync:
+    - base:view:write_only
   permission:
     - drive:drive.metadata:readonly
     - drive:drive:readonly

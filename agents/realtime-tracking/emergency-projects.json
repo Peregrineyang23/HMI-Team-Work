@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "generated_at": "2026-07-09T14:20:00+08:00",
+  "timezone": "Asia/Shanghai",
+  "projects": [
+    {
+      "project_id": "benteng-e541-report-video",
+      "name": "奔腾E541 汇报视频",
+      "parent_project_id": "benteng-e541",
+      "source": {
+        "source_id": "feishu_emergency_chat_oc_2180b75fd1f5927dad6aa74e15724d8d",
+        "source_system": "feishu",
+        "chat_id": "oc_2180b75fd1f5927dad6aa74e15724d8d",
+        "chat_name": "「内部」奔腾E541 汇报视频",
+        "message_count": 21,
+        "member_count": 6,
+        "first_observed_at": "2026-07-09 10:35:00",
+        "last_observed_at": "2026-07-09 14:01:00",
+        "evidence_refs": [
+          "om_x100b6bc4ea0ff8a0b17286c76450edf",
+          "om_x100b6bc549ada4a0b4b67e91ffa7020",
+          "om_x100b6bc6f964a4acc1ca6a44bfc398b",
+          "om_x100b6bc768a2d8a4b2118c2cac471bf",
+          "om_x100b6bc76986c8b4b3b9b423a029e26",
+          "om_x100b6bc7dc1b8ca8b4c8c6c73726846"
+        ]
+      },
+      "owner_agent": "subagent-zhang-fan",
+      "owner_name": "张帆",
+      "organization_team": "领域驱动",
+      "status": "blocked",
+      "evidence_score": 36,
+      "estimated_effort": null,
+      "confidence": 0.82,
+      "manual_adjustment": 1,
+      "local_artifacts": 0,
+      "tasks": {
+        "todo": 1,
+        "doing": 4,
+        "review": 0,
+        "blocked": 3,
+        "done": 0
+      },
+      "risks": [
+        {
+          "severity": "P0",
+          "text": "客户仍在确认李昊星负责内容，第四章节大概率不做，章节范围和节奏未锁定。"
+        },
+        {
+          "severity": "P1",
+          "text": "缺少明确 Figma 画板，UI 分层文件、车内饰前舱 3D 图和每章时长仍需补齐。"
+        },
+        {
+          "severity": "P1",
+          "text": "VPA 形象和动画需要统一使用李苏南提供素材，依赖外部素材交付与版本确认。"
+        }
+      ],
+      "deliverables": [
+        "Ai时代-第一章节脚本_0709",
+        "Ai时代-第一章节脚本_V2_0709",
+        "08棚拍图.zip",
+        "VPA 序列帧",
+        "分镜一-车道级UI底图.zip"
+      ],
+      "people_impacts": [
+        {
+          "agent_id": "subagent-zhang-fan",
+          "name": "张帆",
+          "role": "accountable_owner",
+          "evidence_score_delta": 8,
+          "visible_project_delta": 1,
+          "note": "突发汇报视频统筹、脚本/分镜交付、素材调度。"
+        },
+        {
+          "agent_id": "subagent-sun-ruoyi",
+          "name": "孙若一",
+          "role": "ui_asset_owner",
+          "evidence_score_delta": 6,
+          "visible_project_delta": 1,
+          "note": "UI 分层文件、模型/分辨率确认。"
+        },
+        {
+          "agent_id": "subagent-li-sunan",
+          "name": "李苏南",
+          "role": "vpa_asset_provider",
+          "evidence_score_delta": 7,
+          "visible_project_delta": 1,
+          "note": "VPA 形象动画、序列帧和多媒体空间素材支持。"
+        },
+        {
+          "agent_id": "subagent-gu-yingzhi",
+          "name": "顾颖芝",
+          "role": "figma_design_support",
+          "evidence_score_delta": 3,
+          "visible_project_delta": 1,
+          "note": "Figma/画板与设计素材确认。"
+        },
+        {
+          "agent_id": "subagent-li-haoxing",
+          "name": "李昊星",
+          "role": "client_content_confirmation",
+          "evidence_score_delta": 4,
+          "visible_project_delta": 1,
+          "note": "客户确认 UI 素材、车内饰前舱 3D 图、章节时长。"
+        }
+      ],
+      "notes": [
+        "这是 2026-07-09 上午突发项目，按群聊证据纳入实时任务跟踪看板。",
+        "该项目是奔腾E541主项目下的汇报视频专项，单独列行用于任务追踪和资源调度。"
+      ]
+    }
+  ]
+}

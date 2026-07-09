@@ -7,6 +7,7 @@ import argparse
 import json
 import subprocess
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -15,8 +16,14 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "agents" / "realtime-tracking" / "lark-dashboard.json"
 STATE_PATH = ROOT / "tmp" / "realtime-tracking" / "dashboard-state.json"
+SYNC_STATUS_FIELD = {
+    "name": "同步状态",
+    "type": "select",
+    "options": [{"name": value} for value in ["current", "superseded"]],
+}
 
 PROJECT_FIELDS = [
+    SYNC_STATUS_FIELD,
     {"name": "项目ID", "type": "text"},
     {"name": "项目名称", "type": "text"},
     {"name": "负责人", "type": "text"},
@@ -35,6 +42,7 @@ PROJECT_FIELDS = [
 ]
 
 PEOPLE_FIELDS = [
+    SYNC_STATUS_FIELD,
     {"name": "成员ID", "type": "text"},
     {"name": "成员", "type": "text"},
     {"name": "团队", "type": "text"},
@@ -51,6 +59,7 @@ PEOPLE_FIELDS = [
 ]
 
 SOURCE_FIELDS = [
+    SYNC_STATUS_FIELD,
     {"name": "数据源ID", "type": "text"},
     {"name": "数据源", "type": "text"},
     {"name": "状态", "type": "select", "options": [{"name": value} for value in ["online", "limited", "ready", "pending_credentials", "blocked_by_scope"]]},
@@ -61,6 +70,7 @@ SOURCE_FIELDS = [
 ]
 
 RISK_FIELDS = [
+    SYNC_STATUS_FIELD,
     {"name": "风险ID", "type": "text"},
     {"name": "项目ID", "type": "text"},
     {"name": "项目", "type": "text"},
@@ -74,6 +84,7 @@ RISK_FIELDS = [
 ]
 
 CHANGE_FIELDS = [
+    SYNC_STATUS_FIELD,
     {"name": "变化ID", "type": "text"},
     {"name": "对象类型", "type": "select", "options": [{"name": value} for value in ["project", "person", "source", "risk"]]},
     {"name": "对象ID", "type": "text"},
@@ -102,24 +113,31 @@ def save_config(path: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def run_lark(args: list[str], dry_run: bool = False) -> dict[str, Any]:
+def run_lark(args: list[str], dry_run: bool = False, retries: int = 3) -> dict[str, Any]:
     command = ["lark-cli", *args]
     if dry_run and "--dry-run" not in command:
         command.append("--dry-run")
-    proc = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
-    output = proc.stdout.strip()
-    error = proc.stderr.strip()
-    try:
-        payload = json.loads(output) if output else {}
-    except json.JSONDecodeError:
-        payload = {"raw_stdout": output}
-    if proc.returncode != 0:
+    last_error: dict[str, Any] | None = None
+    for attempt in range(retries + 1):
+        proc = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+        output = proc.stdout.strip()
+        error = proc.stderr.strip()
+        try:
+            payload = json.loads(output) if output else {}
+        except json.JSONDecodeError:
+            payload = {"raw_stdout": output}
+        if proc.returncode == 0:
+            return payload
         try:
             err_payload = json.loads(error) if error else payload
         except json.JSONDecodeError:
             err_payload = {"raw_stderr": error, "raw_stdout": output}
-        raise RuntimeError(json.dumps({"command": command, "returncode": proc.returncode, "error": err_payload}, ensure_ascii=False))
-    return payload
+        last_error = {"command": command, "returncode": proc.returncode, "error": err_payload}
+        retryable = bool(find_first_key(err_payload, {"retryable"})) or find_first_key(err_payload, {"code"}) in {2200, 1254291}
+        if not retryable or attempt >= retries:
+            break
+        time.sleep(2 + attempt * 2)
+    raise RuntimeError(json.dumps(last_error, ensure_ascii=False))
 
 
 def find_first_key(value: Any, keys: set[str]) -> Any:
@@ -152,6 +170,73 @@ def collect_records(value: Any) -> list[dict[str, Any]]:
     return records
 
 
+def list_field_names(base_token: str, table_id: str, identity: str) -> set[str]:
+    payload = run_lark(
+        [
+            "base",
+            "+field-list",
+            "--base-token",
+            base_token,
+            "--table-id",
+            table_id,
+            "--as",
+            identity,
+            "--format",
+            "json",
+        ]
+    )
+    names: set[str] = set()
+
+    def walk(value: Any) -> None:
+        if isinstance(value, dict):
+            name = value.get("name")
+            if name:
+                names.add(str(name))
+            for item in value.values():
+                walk(item)
+        elif isinstance(value, list):
+            for item in value:
+                walk(item)
+
+    walk(payload)
+    return names
+
+
+def list_table_records(base_token: str, table_id: str, identity: str) -> list[dict[str, Any]]:
+    payload = run_lark(
+        [
+            "base",
+            "+record-list",
+            "--base-token",
+            base_token,
+            "--table-id",
+            table_id,
+            "--limit",
+            "200",
+            "--as",
+            identity,
+            "--format",
+            "json",
+        ]
+    )
+    data = payload.get("data", {})
+    rows = data.get("data") or []
+    fields = data.get("fields") or []
+    record_ids = data.get("record_id_list") or []
+    records = []
+    for idx, row in enumerate(rows):
+        if not isinstance(row, list):
+            continue
+        record_id = record_ids[idx] if idx < len(record_ids) else None
+        records.append(
+            {
+                "record_id": record_id,
+                "fields": {field: row[pos] if pos < len(row) else None for pos, field in enumerate(fields)},
+            }
+        )
+    return records
+
+
 def feishu_datetime(value: str | None) -> str | None:
     if not value:
         return None
@@ -171,18 +256,16 @@ def snapshot_datetime(value: str | None) -> str | None:
 def create_base(config: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     title = config["dashboard"]["title"]
     identity = config["dashboard"].get("identity", "bot")
+    # Use the raw Base creation API instead of `base +base-create`; the shortcut
+    # declares a table-delete scope because it may replace the default table.
+    # This project never requests delete scopes.
     payload = run_lark(
         [
-            "base",
-            "+base-create",
-            "--name",
-            title,
-            "--table-name",
-            TABLE_SPECS["projects"][0],
-            "--fields",
-            json.dumps(PROJECT_FIELDS, ensure_ascii=False),
-            "--time-zone",
-            "Asia/Shanghai",
+            "api",
+            "POST",
+            "/open-apis/base/v3/bases",
+            "--data",
+            json.dumps({"name": title, "time_zone": "Asia/Shanghai"}, ensure_ascii=False),
             "--as",
             identity,
             "--format",
@@ -261,6 +344,37 @@ def ensure_tables(config: dict[str, Any], dry_run: bool = False) -> None:
                 config["tables"][key]["table_id"] = table_id
     if not dry_run:
         refresh_table_ids(config)
+        ensure_missing_fields(config)
+
+
+def ensure_missing_fields(config: dict[str, Any], dry_run: bool = False) -> None:
+    base_token = config["dashboard"]["base_token"]
+    identity = config["dashboard"].get("identity", "bot")
+    for key, (_table_name, fields) in TABLE_SPECS.items():
+        table_id = config["tables"][key].get("table_id")
+        if not table_id:
+            continue
+        existing = set() if dry_run else list_field_names(base_token, table_id, identity)
+        for field in fields:
+            if field["name"] in existing:
+                continue
+            run_lark(
+                [
+                    "base",
+                    "+field-create",
+                    "--base-token",
+                    base_token,
+                    "--table-id",
+                    table_id,
+                    "--json",
+                    json.dumps(field, ensure_ascii=False),
+                    "--as",
+                    identity,
+                    "--format",
+                    "json",
+                ],
+                dry_run=dry_run,
+            )
 
 
 def ensure_dashboard(config: dict[str, Any], dry_run: bool = False) -> None:
@@ -291,6 +405,7 @@ def ensure_dashboard(config: dict[str, Any], dry_run: bool = False) -> None:
         config["dashboard"]["dashboard_id"] = dashboard_id
 
     dashboard_id = config["dashboard"]["dashboard_id"]
+    current_filter = {"field_name": "同步状态", "operator": "is", "value": "current"}
     blocks = [
         (
             "看板说明",
@@ -299,12 +414,12 @@ def ensure_dashboard(config: dict[str, Any], dry_run: bool = False) -> None:
                 "text": "# Unity HMI 实时任务跟踪看板\n每日自动更新。evidence_score 是可见证据强度，不等于绩效分；estimated_effort 等待 Jira、Sheet/Base 和本地 artifact 校准。"
             },
         ),
-        ("项目数", "statistics", {"table_name": "项目状态", "count_all": True}),
-        ("开放风险", "statistics", {"table_name": "风险队列", "count_all": True, "filter": {"conjunction": "and", "conditions": [{"field_name": "状态", "operator": "is", "value": "open"}]}}),
-        ("项目证据分", "bar", {"table_name": "项目状态", "series": [{"field_name": "证据分", "rollup": "SUM"}], "group_by": [{"field_name": "项目名称", "mode": "integrated", "sort": {"type": "value", "order": "desc"}}]}),
-        ("项目状态分布", "pie", {"table_name": "项目状态", "count_all": True, "group_by": [{"field_name": "状态", "mode": "integrated"}]}),
-        ("人员可见负载", "bar", {"table_name": "人员负载", "series": [{"field_name": "证据分", "rollup": "SUM"}], "group_by": [{"field_name": "成员", "mode": "integrated", "sort": {"type": "value", "order": "desc"}}]}),
-        ("数据源状态", "pie", {"table_name": "数据源健康", "count_all": True, "group_by": [{"field_name": "状态", "mode": "integrated"}]}),
+        ("项目数", "statistics", {"table_name": "项目状态", "count_all": True, "filter": {"conjunction": "and", "conditions": [current_filter]}}),
+        ("开放风险", "statistics", {"table_name": "风险队列", "count_all": True, "filter": {"conjunction": "and", "conditions": [current_filter, {"field_name": "状态", "operator": "is", "value": "open"}]}}),
+        ("项目证据分", "bar", {"table_name": "项目状态", "series": [{"field_name": "证据分", "rollup": "SUM"}], "group_by": [{"field_name": "项目名称", "mode": "integrated", "sort": {"type": "value", "order": "desc"}}], "filter": {"conjunction": "and", "conditions": [current_filter]}}),
+        ("项目状态分布", "pie", {"table_name": "项目状态", "count_all": True, "group_by": [{"field_name": "状态", "mode": "integrated"}], "filter": {"conjunction": "and", "conditions": [current_filter]}}),
+        ("人员可见负载", "bar", {"table_name": "人员负载", "series": [{"field_name": "证据分", "rollup": "SUM"}], "group_by": [{"field_name": "成员", "mode": "integrated", "sort": {"type": "value", "order": "desc"}}], "filter": {"conjunction": "and", "conditions": [current_filter]}}),
+        ("数据源状态", "pie", {"table_name": "数据源健康", "count_all": True, "group_by": [{"field_name": "状态", "mode": "integrated"}], "filter": {"conjunction": "and", "conditions": [current_filter]}}),
     ]
     for name, block_type, data_config in blocks:
         payload = run_lark(
@@ -335,33 +450,15 @@ def ensure_dashboard(config: dict[str, Any], dry_run: bool = False) -> None:
 def find_record_id(base_token: str, table_id: str, key_field: str, key_value: str) -> str | None:
     config = load_config(CONFIG_PATH)
     identity = config["dashboard"].get("identity", "bot")
-    payload = run_lark(
-        [
-            "base",
-            "+record-search",
-            "--base-token",
-            base_token,
-            "--table-id",
-            table_id,
-            "--keyword",
-            key_value,
-            "--search-field",
-            key_field,
-            "--field-id",
-            key_field,
-            "--limit",
-            "10",
-            "--as",
-            identity,
-            "--format",
-            "json",
-        ]
-    )
-    for record in collect_records(payload):
+    fallback_id = None
+    for record in list_table_records(base_token, table_id, identity):
         fields = record.get("fields") or {}
         if str(fields.get(key_field, "")).strip() == key_value:
-            return record.get("record_id") or record.get("id")
-    return None
+            record_id = record.get("record_id") or record.get("id")
+            if str(fields.get("同步状态", "")).strip() != "superseded":
+                return record_id
+            fallback_id = fallback_id or record_id
+    return fallback_id
 
 
 def upsert_record(base_token: str, table_id: str, key_field: str, row: dict[str, Any], dry_run: bool = False) -> str:
@@ -392,6 +489,7 @@ def upsert_record(base_token: str, table_id: str, key_field: str, row: dict[str,
 def project_row(item: dict[str, Any]) -> dict[str, Any]:
     tasks = item.get("tasks", {})
     return {
+        "同步状态": "current",
         "项目ID": item["project_id"],
         "项目名称": item["name"],
         "负责人": item.get("owner_name"),
@@ -412,6 +510,7 @@ def project_row(item: dict[str, Any]) -> dict[str, Any]:
 
 def person_row(item: dict[str, Any]) -> dict[str, Any]:
     return {
+        "同步状态": "current",
         "成员ID": item.get("agent_id"),
         "成员": item.get("name"),
         "团队": item.get("organization_team"),
@@ -430,6 +529,7 @@ def person_row(item: dict[str, Any]) -> dict[str, Any]:
 
 def source_row(item: dict[str, Any]) -> dict[str, Any]:
     return {
+        "同步状态": "current",
         "数据源ID": item.get("source_id"),
         "数据源": item.get("name"),
         "状态": item.get("status"),
@@ -442,6 +542,7 @@ def source_row(item: dict[str, Any]) -> dict[str, Any]:
 
 def risk_row(item: dict[str, Any]) -> dict[str, Any]:
     return {
+        "同步状态": "current",
         "风险ID": item.get("risk_id"),
         "项目ID": item.get("project_id"),
         "项目": item.get("project_name"),
@@ -478,6 +579,57 @@ def sync_rows(config: dict[str, Any], state: dict[str, Any], dry_run: bool = Fal
     return summary
 
 
+def mark_superseded_duplicates(config: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
+    base_token = config["dashboard"]["base_token"]
+    identity = config["dashboard"].get("identity", "bot")
+    table_plan = [
+        ("projects", "项目ID"),
+        ("people", "成员ID"),
+        ("sources", "数据源ID"),
+        ("risks", "风险ID"),
+    ]
+    summary: dict[str, Any] = {}
+    for table_key, key_field in table_plan:
+        table_id = config["tables"][table_key]["table_id"]
+        records = list_table_records(base_token, table_id, identity)
+        seen: set[str] = set()
+        current = 0
+        superseded = 0
+        for record in records:
+            fields = record.get("fields") or {}
+            record_id = record.get("record_id")
+            key_value = str(fields.get(key_field, "")).strip()
+            status = "superseded" if not key_value or key_value in seen else "current"
+            if key_value and key_value not in seen:
+                seen.add(key_value)
+            if status == "current":
+                current += 1
+            else:
+                superseded += 1
+            if record_id and fields.get("同步状态") != status:
+                run_lark(
+                    [
+                        "base",
+                        "+record-upsert",
+                        "--base-token",
+                        base_token,
+                        "--table-id",
+                        table_id,
+                        "--record-id",
+                        record_id,
+                        "--json",
+                        json.dumps({"同步状态": status}, ensure_ascii=False),
+                        "--as",
+                        identity,
+                        "--format",
+                        "json",
+                    ],
+                    dry_run=dry_run,
+                )
+        summary[table_key] = {"current": current, "superseded": superseded, "total": len(records)}
+    return summary
+
+
 def grant_team(config: dict[str, Any], dry_run: bool = False) -> None:
     base_token = config["dashboard"]["base_token"]
     team = config["permissions"]["team_chat"]
@@ -510,6 +662,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Create and sync the Feishu Base realtime dashboard.")
     parser.add_argument("--create", action="store_true", help="Create the Base, tables, and dashboard when missing.")
     parser.add_argument("--sync", action="store_true", help="Sync dashboard state records.")
+    parser.add_argument("--dedupe", action="store_true", help="Mark duplicate business-key rows as superseded without deleting records.")
     parser.add_argument("--grant-team", action="store_true", help="Grant the Unity HMI Design chat view access.")
     parser.add_argument("--dry-run", action="store_true", help="Print Feishu requests without executing writes.")
     args = parser.parse_args()
@@ -527,6 +680,7 @@ def main() -> int:
         if not config["dashboard"].get("base_token"):
             raise SystemExit("缺少 base_token。请先运行 --create，或在 agents/realtime-tracking/lark-dashboard.json 中填入现有 Base。")
         ensure_tables(config, dry_run=args.dry_run)
+        ensure_missing_fields(config, dry_run=args.dry_run)
         if not STATE_PATH.exists():
             raise SystemExit("缺少 dashboard-state.json。请先运行 tools/generate-realtime-dashboard-state.py。")
         state = json.loads(STATE_PATH.read_text(encoding="utf-8"))
@@ -534,6 +688,15 @@ def main() -> int:
         if not args.dry_run:
             save_config(CONFIG_PATH, config)
         print(json.dumps({"status": "ok", "sync": summary}, ensure_ascii=False))
+
+    if args.dedupe:
+        if not config["dashboard"].get("base_token"):
+            raise SystemExit("缺少 base_token，无法去重标记。")
+        ensure_tables(config, dry_run=args.dry_run)
+        summary = mark_superseded_duplicates(config, dry_run=args.dry_run)
+        if not args.dry_run:
+            save_config(CONFIG_PATH, config)
+        print(json.dumps({"status": "ok", "dedupe": summary}, ensure_ascii=False))
 
     if args.grant_team:
         if not config["dashboard"].get("base_token"):

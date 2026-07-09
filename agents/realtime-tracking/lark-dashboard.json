@@ -4,13 +4,15 @@
   "timezone": "Asia/Shanghai",
   "dashboard": {
     "title": "Unity HMI 实时任务跟踪看板",
-    "identity": "bot",
-    "setup_status": "blocked_by_app_scope",
-    "blocking_reason": "飞书 CLI 应用尚未在开发者后台申请 base:app:create，用户授权无法完成。",
-    "scope_apply_url": "https://open.feishu.cn/page/scope-apply?clientID=cli_aa96499f7ce29cbd&scopes=base%3Aapp%3Acreate",
-    "base_token": null,
-    "dashboard_id": null,
-    "url": null,
+    "identity": "user",
+    "authorization_policy": "never_request_delete_scopes",
+    "setup_status": "ready_daily_sync",
+    "blocking_reason": null,
+    "blocking_scope": null,
+    "scope_apply_url": null,
+    "base_token": "QIFybHOSUaU7HUsQ1h8c2eV5nY8",
+    "dashboard_id": "blkxBQFl6g0CY98j",
+    "url": "https://yousandi.feishu.cn/base/QIFybHOSUaU7HUsQ1h8c2eV5nY8",
     "created_by": "master-yangfan",
     "refresh_frequency": "daily",
     "refresh_time_local": "09:00"
@@ -30,11 +32,35 @@
     }
   },
   "tables": {
-    "projects": {"name": "项目状态", "business_key": "项目ID", "table_id": null},
-    "people": {"name": "人员负载", "business_key": "成员ID", "table_id": null},
-    "sources": {"name": "数据源健康", "business_key": "数据源ID", "table_id": null},
-    "risks": {"name": "风险队列", "business_key": "风险ID", "table_id": null},
-    "changes": {"name": "每日变化", "business_key": "变化ID", "table_id": null}
+    "projects": {
+      "name": "项目状态",
+      "business_key": "项目ID",
+      "table_id": "tblHtagrKpugt785",
+      "current_view_id": "vewBPGl4VN"
+    },
+    "people": {
+      "name": "人员负载",
+      "business_key": "成员ID",
+      "table_id": "tbljfV3gqqpsiMw8",
+      "current_view_id": "vewDjF0S89"
+    },
+    "sources": {
+      "name": "数据源健康",
+      "business_key": "数据源ID",
+      "table_id": "tbl92nK2MQ38006b",
+      "current_view_id": "vewEUoEWkJ"
+    },
+    "risks": {
+      "name": "风险队列",
+      "business_key": "风险ID",
+      "table_id": "tblm6RaQqz0WG3KD",
+      "current_view_id": "vew8X0H0kj"
+    },
+    "changes": {
+      "name": "每日变化",
+      "business_key": "变化ID",
+      "table_id": "tbllhgJMAk2VgG4l"
+    }
   },
   "automation": {
     "name": "Unity HMI 实时任务看板每日更新",
@@ -45,7 +71,9 @@
     "fallback_identity": "bot",
     "local_command": [
       "python3 tools/generate-realtime-dashboard-state.py",
+      "python3 tools/calibrate-realtime-dashboard-from-weekly-report.py",
       "python3 tools/sync-lark-dashboard.py --sync",
+      "python3 tools/sync-lark-dashboard.py --dedupe",
       "python3 tools/send-lark-dashboard-digest.py --send"
     ]
   }

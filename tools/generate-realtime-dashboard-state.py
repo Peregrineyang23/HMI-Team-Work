@@ -12,6 +12,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 WORKLOAD_EVIDENCE = ROOT / "agents" / "analysis" / "workload-evidence-2026.json"
 LOCAL_ARTIFACT_INDEX = ROOT / "tmp" / "local-artifact-index.json"
+EMERGENCY_PROJECTS = ROOT / "agents" / "realtime-tracking" / "emergency-projects.json"
 STATE_OUTPUT = ROOT / "tmp" / "realtime-tracking" / "dashboard-state.json"
 
 
@@ -164,6 +165,7 @@ def source_rows(evidence: dict[str, Any], local_index: dict[str, Any], generated
 def build_state() -> dict[str, Any]:
     evidence = load_json(WORKLOAD_EVIDENCE, {})
     local_index = load_json(LOCAL_ARTIFACT_INDEX, {"count": 0, "artifacts": []})
+    emergency_data = load_json(EMERGENCY_PROJECTS, {"projects": []})
     generated_at = datetime.now().astimezone().isoformat(timespec="seconds")
     snapshot_date = generated_at[:10]
 
@@ -218,6 +220,52 @@ def build_state() -> dict[str, Any]:
                 }
             )
 
+    project_ids = {item["project_id"] for item in projects}
+    emergency_projects = emergency_data.get("projects", [])
+    for item in emergency_projects:
+        project_id = item["project_id"]
+        if project_id in project_ids:
+            continue
+        risk_labels = [
+            risk.get("text", "")
+            for risk in item.get("risks", [])
+            if risk.get("text")
+        ]
+        project_row = {
+            "project_id": project_id,
+            "name": item["name"],
+            "owner_agent": item.get("owner_agent"),
+            "owner_name": item.get("owner_name"),
+            "organization_team": item.get("organization_team"),
+            "status": item.get("status", "doing"),
+            "evidence_score": item.get("evidence_score", 0),
+            "estimated_effort": item.get("estimated_effort"),
+            "confidence": item.get("confidence", 0.75),
+            "manual_adjustment": item.get("manual_adjustment", 0),
+            "local_artifacts": item.get("local_artifacts", 0),
+            "tasks": item.get("tasks", {"todo": 0, "doing": 1, "review": 0, "blocked": 0, "done": 0}),
+            "risks": risk_labels,
+            "updated_at": generated_at,
+            "snapshot_date": snapshot_date,
+        }
+        projects.append(project_row)
+        project_ids.add(project_id)
+        for index, risk in enumerate(item.get("risks", []), start=1):
+            risks.append(
+                {
+                    "risk_id": f"{project_id}-emergency-{index}",
+                    "project_id": project_id,
+                    "project_name": item["name"],
+                    "severity": risk.get("severity", "P1"),
+                    "status": "open",
+                    "risk": risk.get("text", ""),
+                    "owner_name": item.get("owner_name") or "杨帆",
+                    "confidence": item.get("confidence", 0.75),
+                    "updated_at": generated_at,
+                    "snapshot_date": snapshot_date,
+                }
+            )
+
     people = []
     for person in evidence.get("people", []):
         agent_id = person.get("agent_id")
@@ -240,7 +288,57 @@ def build_state() -> dict[str, Any]:
             }
         )
 
+    people_by_agent = {person.get("agent_id"): person for person in people}
+    for project in emergency_projects:
+        for impact in project.get("people_impacts", []):
+            agent_id = impact.get("agent_id")
+            if not agent_id:
+                continue
+            person = people_by_agent.get(agent_id)
+            if not person:
+                person = {
+                    "agent_id": agent_id,
+                    "name": impact.get("name"),
+                    "organization_team": TEAM_BY_AGENT.get(agent_id, "未分组"),
+                    "evidence_score": 0,
+                    "visible_project_count": 0,
+                    "manual_project_count": 0,
+                    "project_delta": 0,
+                    "estimated_effort": None,
+                    "confidence": 0.5,
+                    "manual_adjustment": 0,
+                    "management_note": "",
+                    "updated_at": generated_at,
+                    "snapshot_date": snapshot_date,
+                }
+                people.append(person)
+                people_by_agent[agent_id] = person
+            person["evidence_score"] = round(float(person.get("evidence_score", 0) or 0) + float(impact.get("evidence_score_delta", 0) or 0), 2)
+            person["visible_project_count"] = int(person.get("visible_project_count", 0) or 0) + int(impact.get("visible_project_delta", 0) or 0)
+            person["manual_adjustment"] = int(person.get("manual_adjustment", 0) or 0) + 1
+            note = impact.get("note", "")
+            if note:
+                existing_note = person.get("management_note") or ""
+                person["management_note"] = f"{existing_note}；{note}" if existing_note else note
+            person["confidence"] = round(min(float(person.get("confidence", 0.5) or 0.5) + 0.04, 0.9), 2)
+            person["updated_at"] = generated_at
+
     sources = source_rows(evidence, local_index, generated_at)
+    for project in emergency_projects:
+        source = project.get("source", {})
+        if not source.get("source_id"):
+            continue
+        sources.append(
+            {
+                "source_id": source["source_id"],
+                "name": source.get("chat_name") or project.get("name"),
+                "status": "online",
+                "count": source.get("message_count", 0),
+                "last_sync_at": source.get("last_observed_at"),
+                "limitation": "突发项目群聊证据；用于任务跟踪，不等于绩效",
+                "updated_at": generated_at,
+            }
+        )
     metrics = {
         "project_count": len(projects),
         "people_count": len(people),

@@ -1,0 +1,36 @@
+version: 0.3
+release_level: PRIVATE
+created_at: 2026-07-09
+timezone: Asia/Shanghai
+purpose: >
+  Unified team-wide 2026H1 self-evaluation and manager calibration workflow
+  for all active Unity HMI Design members.
+based_on:
+  - agents/performance/performance-score-model-v0.2.yml
+  - agents/performance/2026H1-lynn-evaluation-audit.md
+  - agents/performance/2026H1-abby-evaluation-audit.md
+deliverables:
+  rules: agents/performance/2026H1-team-calibration/01-unified-data-mining-and-scoring-rules.md
+  agent_prompt: agents/performance/2026H1-team-calibration/02-agent-self-evaluation-prompt.md
+  evidence_template: agents/performance/2026H1-team-calibration/03-desensitized-evidence-index-template.csv
+  one_week_plan: agents/performance/2026H1-team-calibration/04-one-week-action-plan.md
+  manager_checklist: agents/performance/2026H1-team-calibration/05-manager-final-calibration-checklist.md
+  team_message: agents/performance/2026H1-team-calibration/06-team-message-to-send.md
+policy:
+  use_score_ranges_before_final_manager_score: true
+  require_desensitized_evidence_index: true
+  local_file_counts_are_scope_signals_not_direct_scores: true
+  figma_versions_are_iteration_signals_not_quality_scores: true
+  message_counts_are_communication_density_not_quality_scores: true
+  bonus_requires_extra_impact_evidence: true
+  deductions_require_explicit_negative_evidence: true
+  exclusions_are_manager_private: true
+  employee_agents_must_not_receive_peer_mapping: true
+  use_anonymized_member_ids_for_shared_tracking: true
+timeline:
+  start: 2026-07-09
+  v0_evidence_due: 2026-07-10
+  score_range_v1_due: 2026-07-12
+  manager_calibration_v1_due: 2026-07-13
+  final_draft_due: 2026-07-15
+  final_confirmation_due: 2026-07-16

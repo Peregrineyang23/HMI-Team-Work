@@ -1,7 +1,7 @@
 # 2026H1 统一数据挖掘与打分规则
 
 - release_level: PUBLIC
-- version: 0.3
+- version: 0.5
 - effective_date: 2026-07-09
 - evaluation_period: 2026-01-01 to 2026-06-30
 - background_tolerance: 2026-07-01 to 2026-07-07 may be used only as project continuation context, not core H1 scoring.
@@ -59,8 +59,8 @@ Each agent should try to collect at least 3 categories:
 
 | Category | Examples | Required Fields |
 | --- | --- | --- |
-| Cloud collaboration | Feishu docs, meetings, minutes, group messages, drive files | URL/token, title, timestamp, actor, project, action |
-| Online design | Figma/MasterGo/Sketch cloud version history | file key, role, versions, pages/sections/artboards, modified by |
+| Cloud collaboration | Feishu docs, meetings, minutes, group messages, drive files, reactions, comments, explicit approvals | URL/token, title, timestamp, actor, project, action |
+| Online design | Figma/MasterGo/Sketch cloud version history, comments, reactions, approvals | file key, role, versions, pages/sections/artboards, modified by |
 | Local artifacts | `.blend`, `.aep`, `.psd`, `.max`, `.sketch`, `.fbx`, `.mp4`, `.key`, `.pptx` | redacted path, hash, size, created/modified time, project, artifact type |
 | Task systems | Jira/Base/Gantt/issues | issue ID, assignee, status transition, close time, priority |
 | Git/Unity | commits, branches, tags, changed files | repo, commit hash, author, date, summary |
@@ -122,8 +122,29 @@ Use the original evaluation table dimensions:
 11. AI workflow claims require either adoption evidence or before/after evidence. Code size, script count, or server count can show complexity, but not efficiency impact by itself.
 12. Shared file contribution must be role-adjusted. Low edit ratios in large shared files should be treated as participation or context evidence unless ownership or final adoption is confirmed.
 13. Bonus items must not duplicate base responsibilities. External praise, business impact, reusable methodology, or major initiative claims require written, raw, or manager-confirmed impact evidence.
+14. Positive recognition signals must be weighted by source authority and content clarity. Likes/reactions are weaker than written approval; written customer approval and explicit manager approval are high-confidence evidence.
+15. "One-pass approval" must include a review or delivery record showing the work was accepted without material rework. A self-claimed "one-pass" statement is C-level until cross-validated.
+16. Manager or master-agent replies count as high-confidence signals only when the reply clearly confirms quality, adoption, prioritization, or business value. Generic acknowledgements such as "收到", "辛苦了", or emoji-only reactions are collaboration signals, not quality proof.
+17. Recognition evidence can raise confidence or unlock the upper end of a score range, but it must still map to the relevant scoring dimension. It should not create duplicate bonus if the same impact is already counted in the base score.
 
-## 10. Minimum Output Standard
+## 10. Recognition Evidence Weighting
+
+Use this table when weighting Figma, Feishu, Feishu Docs, customer, and manager feedback.
+
+| Recognition Evidence | Evidence Grade | Confidence | Suggested Score Use |
+| --- | --- | --- | --- |
+| Customer written approval, acceptance, sign-off, or explicit positive feedback tied to a deliverable | S | high | Can support A-level quality, adoption, bonus, or upward manager calibration. |
+| Manager/master-agent explicit written confirmation of quality, adoption, key contribution, or business value | S | high | Can unlock the upper end of `manager_recommended_range`; can support bonus if impact exceeds base duty. |
+| Verified "one-pass approval" with review/delivery record and no material rework | S/A | high or medium-high | Strong support for quality, execution, and responsibility dimensions. |
+| Figma/MasterGo/Feishu Doc comment that requests only minor polish or confirms direction is correct | A | medium-high | Supports quality and feedback-response score, but does not alone prove final adoption. |
+| Feishu/Figma/Doc likes or reactions from manager, PM, customer, or cross-functional stakeholder | A/B | medium-high or medium | Positive recognition signal; raises confidence when tied to a specific deliverable. Reaction count alone is not quality proof. |
+| Likes/reactions from peers without written context | B | medium | Supports collaboration morale or visibility only; do not use for A-level quality by itself. |
+| Generic acknowledgement such as "OK", "收到", "辛苦了", or emoji-only reaction | B/C | medium-low | Process/collaboration signal only unless paired with other adoption evidence. |
+| Self-claimed praise or unverified verbal praise | C | medium-low | Gap note or manual review only. |
+
+Recognition evidence should be captured in `evidence-index.csv` with `source_type` values such as `figma_comment`, `figma_reaction`, `feishu_reaction`, `feishu_doc_comment`, `customer_feedback`, `manager_reply`, or `one_pass_approval`.
+
+## 11. Minimum Output Standard
 
 Each agent must produce:
 

@@ -11,7 +11,7 @@
 - deadline: 2026-07-12
 - owner_subagent_id: subagent-zhang-fan
 - dependencies: 飞书 user 身份、im:message:readonly、im:chat:read、目标群可见权限
-- acceptance_criteria: 奔腾视频源 last_observed_at 对齐群内最新消息；采集完整分页；看板重新生成并同步 Base；权限或分页失败时命令非零退出。
+- acceptance_criteria: 奔腾视频源 last_observed_at 对齐群内最新消息；采集完整分页；底层表与目标仪表盘 blkxBQFl6g0CY98j 同步更新并可见版本/截止时间；权限或分页失败时命令非零退出。
 - feedback_channel: master_agent / realtime dashboard automation result
 
 ## Notes

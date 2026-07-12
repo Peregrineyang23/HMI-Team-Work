@@ -601,6 +601,73 @@ def sync_rows(config: dict[str, Any], state: dict[str, Any], dry_run: bool = Fal
     return summary
 
 
+def refresh_dashboard_header(config: dict[str, Any], state: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
+    base_token = config["dashboard"]["base_token"]
+    dashboard_id = config["dashboard"].get("dashboard_id")
+    identity = config["dashboard"].get("identity", "bot")
+    if not dashboard_id:
+        raise RuntimeError("缺少 dashboard_id，无法刷新仪表盘版本和数据截止时间。")
+
+    dashboard_name = (
+        f"Unity HMI 实时任务跟踪看板｜{state.get('dashboard_version', 'unknown')}｜"
+        f"数据截止 {state.get('collection_cutoff_at', 'unknown')}"
+    )
+    run_lark(
+        [
+            "base", "+dashboard-update", "--base-token", base_token,
+            "--dashboard-id", dashboard_id, "--name", dashboard_name,
+            "--as", identity, "--format", "json",
+        ],
+        dry_run=dry_run,
+    )
+
+    payload = run_lark(
+        [
+            "base", "+dashboard-get", "--base-token", base_token,
+            "--dashboard-id", dashboard_id, "--as", identity, "--format", "json",
+        ],
+        dry_run=dry_run,
+    )
+    if dry_run:
+        return {"dashboard_id": dashboard_id, "status": "dry_run"}
+    blocks = payload.get("data", {}).get("dashboard", {}).get("blocks", [])
+    header = next((block for block in blocks if str(block.get("block_name", "")).startswith("看板说明")), None)
+    if not header or not header.get("block_id"):
+        raise RuntimeError(f"仪表盘 {dashboard_id} 缺少‘看板说明’组件，无法展示版本和截止时间。")
+
+    source = next(
+        (
+            item for item in state.get("sources", [])
+            if item.get("source_id") == "feishu_emergency_chat_oc_2180b75fd1f5927dad6aa74e15724d8d"
+        ),
+        {},
+    )
+    text = (
+        "# Unity HMI 实时任务跟踪看板\n"
+        f"**看板版本：{state.get('dashboard_version', 'unknown')}**\n"
+        f"**数据采集截止：{state.get('collection_cutoff_at', 'unknown')}（Asia/Shanghai）**\n"
+        f"**本次生成：{state.get('generated_at', 'unknown')}**\n"
+        f"奔腾E541 汇报视频群：{source.get('count', 0)} 条有效消息，最近消息 {source.get('last_sync_at', 'unknown')}。\n"
+        "evidence_score 是可见证据强度，不等于绩效分；本地文件仅扫描显式配置目录。"
+    )
+    run_lark(
+        [
+            "base", "+dashboard-block-update", "--base-token", base_token,
+            "--dashboard-id", dashboard_id, "--block-id", header["block_id"],
+            "--data-config", json.dumps({"text": text}, ensure_ascii=False),
+            "--as", identity, "--format", "json",
+        ],
+        dry_run=dry_run,
+    )
+    return {
+        "dashboard_id": dashboard_id,
+        "dashboard_name": dashboard_name,
+        "header_block_id": header["block_id"],
+        "version": state.get("dashboard_version"),
+        "collection_cutoff_at": state.get("collection_cutoff_at"),
+    }
+
+
 def mark_superseded_duplicates(config: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     base_token = config["dashboard"]["base_token"]
     identity = config["dashboard"].get("identity", "bot")
@@ -707,9 +774,10 @@ def main() -> int:
             raise SystemExit("缺少 dashboard-state.json。请先运行 tools/generate-realtime-dashboard-state.py。")
         state = json.loads(STATE_PATH.read_text(encoding="utf-8"))
         summary = sync_rows(config, state, dry_run=args.dry_run)
+        dashboard_summary = refresh_dashboard_header(config, state, dry_run=args.dry_run)
         if not args.dry_run:
             save_config(CONFIG_PATH, config)
-        print(json.dumps({"status": "ok", "sync": summary}, ensure_ascii=False))
+        print(json.dumps({"status": "ok", "sync": summary, "dashboard": dashboard_summary}, ensure_ascii=False))
 
     if args.dedupe:
         if not config["dashboard"].get("base_token"):

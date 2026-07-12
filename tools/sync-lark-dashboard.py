@@ -39,6 +39,8 @@ PROJECT_FIELDS = [
     {"name": "风险", "type": "text"},
     {"name": "更新时间", "type": "datetime"},
     {"name": "快照日期", "type": "datetime"},
+    {"name": "看板版本", "type": "text"},
+    {"name": "数据截止", "type": "datetime"},
 ]
 
 PEOPLE_FIELDS = [
@@ -56,6 +58,8 @@ PEOPLE_FIELDS = [
     {"name": "管理动作", "type": "text"},
     {"name": "更新时间", "type": "datetime"},
     {"name": "快照日期", "type": "datetime"},
+    {"name": "看板版本", "type": "text"},
+    {"name": "数据截止", "type": "datetime"},
 ]
 
 SOURCE_FIELDS = [
@@ -67,6 +71,8 @@ SOURCE_FIELDS = [
     {"name": "最近同步", "type": "text"},
     {"name": "限制", "type": "text"},
     {"name": "更新时间", "type": "datetime"},
+    {"name": "看板版本", "type": "text"},
+    {"name": "数据截止", "type": "datetime"},
 ]
 
 RISK_FIELDS = [
@@ -81,6 +87,8 @@ RISK_FIELDS = [
     {"name": "置信度", "type": "number"},
     {"name": "更新时间", "type": "datetime"},
     {"name": "快照日期", "type": "datetime"},
+    {"name": "看板版本", "type": "text"},
+    {"name": "数据截止", "type": "datetime"},
 ]
 
 CHANGE_FIELDS = [
@@ -505,6 +513,8 @@ def project_row(item: dict[str, Any]) -> dict[str, Any]:
         "风险": "；".join(item.get("risks", [])),
         "更新时间": feishu_datetime(item.get("updated_at")),
         "快照日期": snapshot_datetime(item.get("snapshot_date")),
+        "看板版本": item.get("_dashboard_version", ""),
+        "数据截止": feishu_datetime(item.get("_collection_cutoff_at")),
     }
 
 
@@ -524,6 +534,8 @@ def person_row(item: dict[str, Any]) -> dict[str, Any]:
         "管理动作": item.get("management_note", ""),
         "更新时间": feishu_datetime(item.get("updated_at")),
         "快照日期": snapshot_datetime(item.get("snapshot_date")),
+        "看板版本": item.get("_dashboard_version", ""),
+        "数据截止": feishu_datetime(item.get("_collection_cutoff_at")),
     }
 
 
@@ -537,6 +549,8 @@ def source_row(item: dict[str, Any]) -> dict[str, Any]:
         "最近同步": item.get("last_sync_at") or "",
         "限制": item.get("limitation", ""),
         "更新时间": feishu_datetime(item.get("updated_at")),
+        "看板版本": item.get("_dashboard_version", ""),
+        "数据截止": feishu_datetime(item.get("_collection_cutoff_at")),
     }
 
 
@@ -553,16 +567,24 @@ def risk_row(item: dict[str, Any]) -> dict[str, Any]:
         "置信度": item.get("confidence", 0),
         "更新时间": feishu_datetime(item.get("updated_at")),
         "快照日期": snapshot_datetime(item.get("snapshot_date")),
+        "看板版本": item.get("_dashboard_version", ""),
+        "数据截止": feishu_datetime(item.get("_collection_cutoff_at")),
     }
 
 
 def sync_rows(config: dict[str, Any], state: dict[str, Any], dry_run: bool = False) -> dict[str, Any]:
     base_token = config["dashboard"]["base_token"]
+    version = state.get("dashboard_version", "")
+    cutoff = state.get("collection_cutoff_at", "")
+
+    def with_dashboard_meta(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return [dict(item, _dashboard_version=version, _collection_cutoff_at=cutoff) for item in items]
+
     sync_plan = [
-        ("projects", "项目ID", [project_row(item) for item in state.get("projects", [])]),
-        ("people", "成员ID", [person_row(item) for item in state.get("people", []) if item.get("agent_id")]),
-        ("sources", "数据源ID", [source_row(item) for item in state.get("sources", [])]),
-        ("risks", "风险ID", [risk_row(item) for item in state.get("risks", [])]),
+        ("projects", "项目ID", [project_row(item) for item in with_dashboard_meta(state.get("projects", []))]),
+        ("people", "成员ID", [person_row(item) for item in with_dashboard_meta([item for item in state.get("people", []) if item.get("agent_id")])]),
+        ("sources", "数据源ID", [source_row(item) for item in with_dashboard_meta(state.get("sources", []))]),
+        ("risks", "风险ID", [risk_row(item) for item in with_dashboard_meta(state.get("risks", []))]),
     ]
     summary: dict[str, Any] = {}
     for table_key, key_field, rows in sync_plan:

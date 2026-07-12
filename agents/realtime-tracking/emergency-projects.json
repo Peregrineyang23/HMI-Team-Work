@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-07-09T14:20:00+08:00",
+  "generated_at": "2026-07-12T17:15:05+08:00",
   "timezone": "Asia/Shanghai",
   "projects": [
     {
@@ -12,47 +12,66 @@
         "source_system": "feishu",
         "chat_id": "oc_2180b75fd1f5927dad6aa74e15724d8d",
         "chat_name": "「内部」奔腾E541 汇报视频",
-        "message_count": 21,
+        "message_count": 74,
         "member_count": 6,
         "first_observed_at": "2026-07-09 10:35:00",
-        "last_observed_at": "2026-07-09 14:01:00",
+        "last_observed_at": "2026-07-12 09:03",
         "evidence_refs": [
-          "om_x100b6bc4ea0ff8a0b17286c76450edf",
-          "om_x100b6bc549ada4a0b4b67e91ffa7020",
-          "om_x100b6bc6f964a4acc1ca6a44bfc398b",
-          "om_x100b6bc768a2d8a4b2118c2cac471bf",
-          "om_x100b6bc76986c8b4b3b9b423a029e26",
-          "om_x100b6bc7dc1b8ca8b4c8c6c73726846"
-        ]
+          "om_x100b6a38ba0f14acc445e4874b20889",
+          "om_x100b6a394e4b2108c3f36109aaffbb2",
+          "om_x100b6a3945fab8b0c17cb7b5d9c5b40",
+          "om_x100b6a393f9a30a0b20da9d46ff2934",
+          "om_x100b6a3a8140d8a0c38e239141eef92",
+          "om_x100b6a3a9ec89878c3a7c8699ea01de",
+          "om_x100b6a251d7170a0b11474676fc6712",
+          "om_x100b6a2d81c1fcacb2845ab3c06331f",
+          "om_x100b6a2d9d40b0a8b3d253b099a074e",
+          "om_x100b6a2da5f7f4a8b15f1f870778b59",
+          "om_x100b6a2f841414acb1a9e64c38e994a",
+          "om_x100b6a2844dba4bcb36c5ce129db536",
+          "om_x100b6a2809c664a4b048c72cd55059d",
+          "om_x100b6a28e9f704a0c25aa128efa523d",
+          "om_x100b6a28e956eca8c07ae5cea8ccf31",
+          "om_x100b6a158d18c4a0b4c7564ecc4c6fd",
+          "om_x100b6a15af9c8134b1bdb0ba043e17b",
+          "om_x100b6a1a34dcb4a8c236073a25863f9",
+          "om_x100b6a1a33eb3ca8c1c60c47ae27581",
+          "om_x100b6a1a330090b0c4e1d6993f32494"
+        ],
+        "deleted_message_count": 3,
+        "last_message_id": "om_x100b6a1a330090b0c4e1d6993f32494",
+        "collected_at": "2026-07-12T17:15:05+08:00",
+        "collection_identity": "user",
+        "collection_complete": true
       },
       "owner_agent": "subagent-zhang-fan",
       "owner_name": "张帆",
       "organization_team": "领域驱动",
-      "status": "blocked",
-      "evidence_score": 36,
+      "status": "review",
+      "evidence_score": 74,
       "estimated_effort": null,
       "confidence": 0.82,
       "manual_adjustment": 1,
       "local_artifacts": 0,
       "tasks": {
-        "todo": 1,
-        "doing": 4,
-        "review": 0,
-        "blocked": 3,
+        "todo": 0,
+        "doing": 2,
+        "review": 2,
+        "blocked": 0,
         "done": 0
       },
       "risks": [
         {
-          "severity": "P0",
-          "text": "客户仍在确认李昊星负责内容，第四章节大概率不做，章节范围和节奏未锁定。"
+          "severity": "P1",
+          "text": "第一、三章节已进入视频反馈调整，最终画质提升仍等待节奏、卡片尺寸和内饰光影版本通过。"
         },
         {
           "severity": "P1",
-          "text": "缺少明确 Figma 画板，UI 分层文件、车内饰前舱 3D 图和每章时长仍需补齐。"
+          "text": "雪景树木清晰度、积雪表现与 SR 色彩仍需统一视觉标准并完成最终确认。"
         },
         {
           "severity": "P1",
-          "text": "VPA 形象和动画需要统一使用李苏南提供素材，依赖外部素材交付与版本确认。"
+          "text": "完整视频仍需完成各章节合片、配乐与最终验收。"
         }
       ],
       "deliverables": [
@@ -60,7 +79,11 @@
         "Ai时代-第一章节脚本_V2_0709",
         "08棚拍图.zip",
         "VPA 序列帧",
-        "分镜一-车道级UI底图.zip"
+        "分镜一-车道级UI底图.zip",
+        "奔腾悦意08演示视频章节三.mp4",
+        "第一章节视频",
+        "章节1（3）.mp4.zip",
+        "7月12日节奏、卡片尺寸与内饰光影调整版"
       ],
       "people_impacts": [
         {
@@ -106,7 +129,8 @@
       ],
       "notes": [
         "这是 2026-07-09 上午突发项目，按群聊证据纳入实时任务跟踪看板。",
-        "该项目是奔腾E541主项目下的汇报视频专项，单独列行用于任务追踪和资源调度。"
+        "该项目是奔腾E541主项目下的汇报视频专项，单独列行用于任务追踪和资源调度。",
+        "2026-07-12 已完成全量分页复采；状态由初始阻塞更新为评审调整中。"
       ]
     }
   ]

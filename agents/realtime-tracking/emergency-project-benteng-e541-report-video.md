@@ -1,10 +1,10 @@
 # 突发项目记录：奔腾E541 汇报视频
 
-- captured_at: 2026-07-09
+- captured_at: 2026-07-12
 - source_chat_id: `oc_2180b75fd1f5927dad6aa74e15724d8d`
 - source_chat_name: 「内部」奔腾E541 汇报视频
-- evidence_window: 2026-07-09 10:35 - 14:01
-- visible_messages: 21
+- evidence_window: 2026-07-09 10:35 - 2026-07-12 09:03
+- visible_messages: 74
 - included_members: 张帆、孙若一、李苏南、顾颖芝、李昊星、杨帆
 - accountable_owner: 张帆 (`subagent-zhang-fan`)
 
@@ -30,7 +30,7 @@
 
 - project_id: `benteng-e541-report-video`
 - parent_project_id: `benteng-e541`
-- status: `blocked`
-- evidence_score: 36
+- status: `review`
+- evidence_score: 74
 - confidence: 0.82
 - 数据源：`feishu_emergency_chat_oc_2180b75fd1f5927dad6aa74e15724d8d`

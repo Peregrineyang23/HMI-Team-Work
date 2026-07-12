@@ -74,7 +74,8 @@
       "python3 tools/calibrate-realtime-dashboard-from-weekly-report.py",
       "python3 tools/sync-lark-dashboard.py --sync",
       "python3 tools/sync-lark-dashboard.py --dedupe",
-      "python3 tools/send-lark-dashboard-digest.py --send"
+      "python3 tools/send-lark-dashboard-digest.py --send",
+      "python3 tools/commit-realtime-dashboard-update.py"
     ]
   }
 }

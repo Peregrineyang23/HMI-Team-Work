@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -168,6 +169,13 @@ def build_state() -> dict[str, Any]:
     emergency_data = load_json(EMERGENCY_PROJECTS, {"projects": []})
     generated_at = datetime.now().astimezone().isoformat(timespec="seconds")
     snapshot_date = generated_at[:10]
+    dashboard_version = datetime.fromisoformat(generated_at).strftime("v%Y.%m.%d.%H%M%S")
+    observed_cutoffs = [
+        project.get("source", {}).get("last_observed_at")
+        for project in emergency_data.get("projects", [])
+        if project.get("source", {}).get("last_observed_at")
+    ]
+    collection_cutoff_at = max(observed_cutoffs) if observed_cutoffs else generated_at
 
     local_by_project: dict[str, int] = {}
     for artifact in local_index.get("artifacts", []):
@@ -351,7 +359,9 @@ def build_state() -> dict[str, Any]:
 
     return {
         "version": 1,
+        "dashboard_version": dashboard_version,
         "generated_at": generated_at,
+        "collection_cutoff_at": collection_cutoff_at,
         "snapshot_date": snapshot_date,
         "window": "2026-ytd",
         "timezone": "Asia/Shanghai",
@@ -370,6 +380,8 @@ def build_state() -> dict[str, Any]:
 
 
 def main() -> int:
+    refresh_script = ROOT / "tools" / "refresh-realtime-feishu-sources.py"
+    subprocess.run(["python3", str(refresh_script)], cwd=ROOT, check=True)
     state = build_state()
     STATE_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     STATE_OUTPUT.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")

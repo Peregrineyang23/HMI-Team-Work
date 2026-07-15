@@ -1,0 +1,62 @@
+version: 0.7
+release_level: PRIVATE
+created_at: 2026-07-14
+timezone: Asia/Shanghai
+purpose: >
+  Extend v0.6 with short-tenure normalization, strategic project
+  priority for bonus review, and mandatory written basis for every
+  bonus and deduction row.
+based_on:
+  - agents/performance/performance-score-model-v0.6.yml
+  - agents/performance/2026H1-team-calibration/01-unified-data-mining-and-scoring-rules.md
+primary_weights:
+  ui_ue_output_quality: 50
+  project_execution: 20
+  design_capability_ai: 15
+  collaboration: 10
+  responsibility: 5
+short_tenure:
+  whole_score_month_multiplier: false
+  prorate_delivery_expectation: true
+  normalize_volume_by_active_months: true
+  report_tenure_coverage_separately: true
+  less_than_three_months_requires_stronger_acceptance_for_high_band: true
+strategic_project_priority:
+  P0: 北京车展 AIOS
+  P1: 红旗8397
+  P2: 东风8397
+  P3: other_or_manager_designated
+bonus_basis_required_fields:
+  - project_priority
+  - personal_role
+  - incremental_value
+  - acceptance_or_result
+  - non_duplication_note
+workbook_layout:
+  bonus_columns:
+    - item
+    - score
+    - evaluation_basis
+  deduction_columns:
+    - item
+    - score
+    - evaluation_basis
+decision:
+  publish_person_specific_scores: false
+  preserve_person_mapping_in_manager_private_files_only: true
+evidence_counting_clarifications:
+  render_sequences:
+    rule: count_as_deliverable_family_not_individual_files
+    purpose: prevent_png_exr_frame_explosion_from_inflating_output_score
+  figma_version_share:
+    supports:
+      - authorship_attribution
+      - continuity_of_involvement
+    does_not_alone_support:
+      - design_quality
+      - final_adoption
+      - node_level_independent_contribution
+  ai_tool_usage:
+    base_score_requires: adopted_workflow_evidence
+    high_score_requires: before_after_or_reuse_evidence
+    bonus_requires: incremental_value_not_already_counted_in_base_score

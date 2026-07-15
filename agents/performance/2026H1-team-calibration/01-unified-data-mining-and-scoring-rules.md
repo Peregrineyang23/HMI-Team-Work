@@ -1,8 +1,8 @@
 # 2026H1 统一数据挖掘与打分规则
 
 - release_level: PUBLIC
-- version: 0.5
-- effective_date: 2026-07-09
+- version: 0.7
+- effective_date: 2026-07-14
 - evaluation_period: 2026-01-01 to 2026-06-30
 - background_tolerance: 2026-07-01 to 2026-07-07 may be used only as project continuation context, not core H1 scoring.
 
@@ -126,6 +126,14 @@ Use the original evaluation table dimensions:
 15. "One-pass approval" must include a review or delivery record showing the work was accepted without material rework. A self-claimed "one-pass" statement is C-level until cross-validated.
 16. Manager or master-agent replies count as high-confidence signals only when the reply clearly confirms quality, adoption, prioritization, or business value. Generic acknowledgements such as "收到", "辛苦了", or emoji-only reactions are collaboration signals, not quality proof.
 17. Recognition evidence can raise confidence or unlock the upper end of a score range, but it must still map to the relevant scoring dimension. It should not create duplicate bonus if the same impact is already counted in the base score.
+18. Evidence confidence is capped by the weakest required link. If a claim depends on a customer/manager message but the raw message cannot be reviewed, the claim is at most A / medium-high even when a local artifact confirms delivery.
+19. Evidence grade is based on accessible verification, not the wording of the title. Labels such as "customer approved", "director recognized", or "one-pass" do not make an item S-grade by themselves.
+20. Period boundaries must be applied to the underlying activity, not only the current file. A design file inspected after the period must separate in-period versions, pages, tasks, and adopted outputs from post-period additions.
+21. Current node count, file size, or page count may describe current complexity. It cannot be backdated to H1 unless an H1 snapshot, version, export, or timestamped artifact proves that state existed during the period.
+22. Platform assets, design systems, methods, scripts, and workflows receive extra-impact credit only when reuse, adoption, governance ownership, or measurable project use is verified. Creation alone remains base contribution evidence.
+23. Coordination and leadership are outcome-scored. Group count, meeting count, message count, assignment count, and attendance are scope signals; higher scores require decisions, owner assignment, risk closure, delivery acceptance, or cross-team adoption.
+24. Bonus rows must match the named bonus category and include a non-duplication explanation. A methodology claim cannot be placed under external award/praise, and the same impact cannot be counted in quality, innovation, sharing, and bonus without separating the incremental value.
+25. Final totals and bands must be formula-driven or mechanically reconciled from item scores, bonus, and deductions. A narrative recommendation cannot override an inconsistent arithmetic total.
 
 ## 10. Recognition Evidence Weighting
 
@@ -144,7 +152,51 @@ Use this table when weighting Figma, Feishu, Feishu Docs, customer, and manager 
 
 Recognition evidence should be captured in `evidence-index.csv` with `source_type` values such as `figma_comment`, `figma_reaction`, `feishu_reaction`, `feishu_doc_comment`, `customer_feedback`, `manager_reply`, or `one_pass_approval`.
 
-## 11. Minimum Output Standard
+## 11. Role-Calibrated Evidence
+
+The five primary dimensions and weights remain the same for every member. Role calibration changes acceptable evidence, not the total weight.
+
+| Contribution Pattern | Strong Evidence | Evidence That Is Only A Signal |
+| --- | --- | --- |
+| Project owner / delivery owner | accepted milestone, risk closure, requirement decisions, final handoff, stakeholder confirmation | project count, file count, meeting attendance |
+| Specialist / design contributor | attributable adopted output, review quality, low rework, source handoff, implementation fidelity | version count, node count, artifact size |
+| Coordinator / team organizer | decision record, clear assignment, dependency closure, reduced rework, delivery recovery | group count, message count, calendar count |
+| Platform / method builder | reuse by another person or project, governance ownership, documented workflow, measurable project use | framework existence, code size, page count |
+| AI workflow builder | adopted workflow, before/after effort, run log, repeatability, other-user reuse | tool count, prompt count, server count |
+
+Role calibration must not lower a support or coordination role merely because it produces fewer design files. It must also not raise a platform claim without adoption evidence.
+
+## 12. Short-Tenure Normalization
+
+Employees with less than a full evaluation period must be evaluated against responsibilities and delivery targets prorated to their actual active period.
+
+1. Do not multiply the whole performance score by `months_employed / 6`. Quality, acceptance, collaboration, responsibility, and role performance remain fully scoreable within the observed period.
+2. Output volume, project count, task count, and meeting count must be normalized by active months before comparing with full-period employees.
+3. Record `active_period`, `tenure_coverage`, and `normalization_note` in the private manager calibration sheet.
+4. Half-year cumulative contribution may report tenure coverage separately, but it must not replace the performance score.
+5. For less than three months of evidence, A/B+ claims require stronger attribution and acceptance because the observation window is short.
+6. Short-tenure bonus requires an attributable accepted result on a manager-designated priority project. Learning activity, inherited files, or normal onboarding work is not bonus evidence.
+
+## 13. Strategic Project Priority For Bonus Review
+
+Manager-designated project priority for the current review:
+
+| Priority | Project | Bonus Review Order |
+| --- | --- | --- |
+| P0 | 北京车展 AIOS | Highest |
+| P1 | 红旗8397 | High |
+| P2 | 东风8397 | Medium-high |
+| P3 | Other projects | Standard unless separately designated |
+
+Project priority affects the order and strength of bonus review, not the five primary dimension weights.
+
+1. A high-priority project does not automatically grant bonus points.
+2. Bonus evidence must state project priority, personal role, incremental value beyond base duty, acceptance/result, and non-duplication rationale.
+3. When one outcome appears in multiple projects or bonus categories, count it once using the highest applicable project priority.
+4. The bonus and deduction sections of the workbook must include an `评价依据` column. A numeric adjustment without a written basis is incomplete.
+5. Zero bonus or deduction rows should state why the threshold was not triggered when the manager has reviewed that category.
+
+## 14. Minimum Output Standard
 
 Each agent must produce:
 

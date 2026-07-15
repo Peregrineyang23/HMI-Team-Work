@@ -1,0 +1,39 @@
+version: 0.6
+release_level: PRIVATE
+created_at: 2026-07-13
+timezone: Asia/Shanghai
+purpose: >
+  Mainline 2026H1 performance model adding temporal slicing,
+  weakest-link confidence caps, role-calibrated evidence, platform
+  adoption gates, bonus-category validation, and formula reconciliation.
+based_on:
+  - agents/performance/performance-score-model-v0.5.yml
+  - agents/performance/2026H1-team-calibration/01-unified-data-mining-and-scoring-rules.md
+primary_weights:
+  ui_ue_output_quality: 50
+  project_execution: 20
+  design_capability_ai: 15
+  collaboration: 10
+  responsibility: 5
+policy_additions:
+  weakest_link_confidence_cap: true
+  inaccessible_recognition_max_grade: A
+  inaccessible_recognition_max_confidence: medium-high
+  temporal_snapshot_required_for_period_backdating: true
+  post_period_growth_is_context_only: true
+  role_calibration_changes_evidence_not_weight: true
+  coordination_requires_decision_or_closure_outcome: true
+  platform_bonus_requires_adoption_or_reuse: true
+  bonus_category_must_match_claim: true
+  base_and_bonus_non_duplication_required: true
+  formula_reconciliation_required: true
+role_patterns:
+  - project_owner
+  - specialist_contributor
+  - coordinator
+  - platform_method_builder
+  - ai_workflow_builder
+decision:
+  submit_to_mainline_rules: true
+  publish_person_specific_scores: false
+  preserve_person_mapping_in_manager_private_files_only: true

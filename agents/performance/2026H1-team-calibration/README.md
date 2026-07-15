@@ -1,7 +1,7 @@
 # 2026H1 Team Performance Calibration Pack
 
 - release_level: PRIVATE
-- version: 0.3
+- version: 0.7
 - created_at: 2026-07-09
 - timezone: Asia/Shanghai
 - owner: manager
@@ -18,7 +18,7 @@
 | `04-one-week-action-plan.md` | PRIVATE | Manager / master agent | Contains execution controls and should not be sent as the primary agent prompt. |
 | `05-manager-final-calibration-checklist.md` | PRIVATE | Manager / master agent | Final scoring and calibration checklist. |
 | `README.md` | PRIVATE | Manager / master agent | This index explains release boundaries. |
-| `performance-score-model-v0.3.yml` | PRIVATE | Manager / master agent / tooling | Machine-readable model manifest. |
+| `performance-score-model-v0.7.yml` | PRIVATE | Manager / master agent / tooling | Machine-readable model manifest. |
 
 ## Deliverables
 
@@ -30,13 +30,15 @@
 | `04-one-week-action-plan.md` | July 9 to July 16 execution plan, checkpoints, owners, and outputs. |
 | `05-manager-final-calibration-checklist.md` | Final manager review checklist for score calibration. |
 | `06-team-message-to-send.md` | Short team-facing message for distributing the task. |
+| `../performance-score-model-v0.6.yml` | Private machine-readable baseline required by v0.7. |
+| `../performance-score-model-v0.7.yml` | Current private machine-readable mainline policy manifest. |
 
 ## Current Constraints
 
 - Some member data packages are not ready yet. They should still follow the same workflow and submit a v0 evidence index first.
 - Primary calibration scope is controlled by the manager-side roster and must not be inferred by employee agents.
 - Departure, exclusion, and special-case handling must stay in manager-private materials.
-- Current model v0.2 is evidence-visible scoring, not final performance scoring.
+- Current mainline v0.7 adds short-tenure normalization, strategic-project bonus review, mandatory written adjustment bases, render-sequence deduplication, Figma authorship boundaries, and AI non-duplication controls. It remains a decision aid rather than an automatic final-performance oracle.
 
 ## Required Output From Every Active Member Agent
 

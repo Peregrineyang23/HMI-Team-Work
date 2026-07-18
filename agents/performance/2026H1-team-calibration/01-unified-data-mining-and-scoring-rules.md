@@ -2,7 +2,9 @@
 
 - release_level: PUBLIC
 - version: 0.7
+- status: FINAL
 - effective_date: 2026-07-14
+- frozen_at: 2026-07-18
 - evaluation_period: 2026-01-01 to 2026-06-30
 - background_tolerance: 2026-07-01 to 2026-07-07 may be used only as project continuation context, not core H1 scoring.
 
@@ -80,7 +82,7 @@ Never include:
 Use instead:
 
 - `project_id` and `artifact_id`.
-- Redacted path such as `<LOCAL_PROJECT_ROOT>/红旗8397/...`.
+- Redacted path such as `<LOCAL_PROJECT_ROOT>/<PROJECT_ALIAS>/...`.
 - Hash prefix, file size, extension, and modified time.
 - Message counts and sampled message categories rather than full text.
 - Short paraphrase of sensitive feedback instead of raw quote.
@@ -179,13 +181,13 @@ Employees with less than a full evaluation period must be evaluated against resp
 
 ## 13. Strategic Project Priority For Bonus Review
 
-Manager-designated project priority for the current review:
+Manager-designated project priority for the current review. The private project-to-priority mapping is maintained outside this public rulebook.
 
 | Priority | Project | Bonus Review Order |
 | --- | --- | --- |
-| P0 | 北京车展 AIOS | Highest |
-| P1 | 红旗8397 | High |
-| P2 | 东风8397 | Medium-high |
+| P0 | Manager-designated highest-priority project | Highest |
+| P1 | Manager-designated high-priority project | High |
+| P2 | Manager-designated medium-high-priority project | Medium-high |
 | P3 | Other projects | Standard unless separately designated |
 
 Project priority affects the order and strength of bonus review, not the five primary dimension weights.

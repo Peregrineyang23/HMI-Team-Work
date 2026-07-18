@@ -1,3 +1,19 @@
 lark-auth-*.png
 tmp/
 .DS_Store
+outputs/
+tools/__pycache__/
+agents/performance/private/
+
+# Manager-private performance materials. Keep local; never publish.
+agents/performance/*-evaluation-audit.md
+agents/performance/*-score-snapshot*.csv
+agents/performance/*-weight-model.xlsx
+agents/performance/*-model-summary.md
+agents/performance/*-rule-consolidation.md
+agents/performance/*-recognition-recalibration.md
+agents/performance/performance-score-model-v0.[1-6].yml
+agents/performance/2026H1-boss-manual-alignment-*.md
+agents/performance/2026H1-v0.6-recalibration.md
+agents/performance/2026H1-yunhao-liwei-latest-submission-audit.md
+agents/performance/2026H1-zhang-jin-v2-comparison.md

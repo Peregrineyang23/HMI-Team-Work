@@ -1,8 +1,10 @@
 # 2026H1 Team Performance Calibration Pack
 
-- release_level: PRIVATE
+- release_level: PUBLIC_DESENSITIZED
 - version: 0.7
+- status: FINAL
 - created_at: 2026-07-09
+- frozen_at: 2026-07-18
 - timezone: Asia/Shanghai
 - owner: manager
 - purpose: Provide a unified, desensitized, evidence-based self-evaluation and scoring workflow for all Unity HMI Design subagents.
@@ -15,10 +17,11 @@
 | `02-agent-self-evaluation-prompt.md` | PUBLIC | Employee agents | Send one-to-one after replacing placeholders for that member only. |
 | `03-desensitized-evidence-index-template.csv` | PUBLIC | Employee agents | Shared evidence index schema. |
 | `06-team-message-to-send.md` | PUBLIC | Team chat or employee agents | Team-wide task message with no individual scoring context. |
-| `04-one-week-action-plan.md` | PRIVATE | Manager / master agent | Contains execution controls and should not be sent as the primary agent prompt. |
-| `05-manager-final-calibration-checklist.md` | PRIVATE | Manager / master agent | Final scoring and calibration checklist. |
-| `README.md` | PRIVATE | Manager / master agent | This index explains release boundaries. |
-| `performance-score-model-v0.7.yml` | PRIVATE | Manager / master agent / tooling | Machine-readable model manifest. |
+| `04-one-week-action-plan.md` | INTERNAL_SAFE | Manager / master agent | Process plan without person-score mapping. |
+| `05-manager-final-calibration-checklist.md` | INTERNAL_SAFE | Manager / master agent | Final scoring and calibration checklist without person-score mapping. |
+| `README.md` | PUBLIC_DESENSITIZED | Manager / master agent | This index explains release boundaries. |
+| `performance-score-model-v0.7.yml` | PUBLIC_DESENSITIZED | Employee agents / tooling | Frozen machine-readable policy without private mappings. |
+| `2026H1-performance-quantification-retrospective-public.md` | PUBLIC_DESENSITIZED | Management / employee agents | Aggregate-only retrospective without person-score mapping. |
 
 ## Deliverables
 
@@ -30,15 +33,16 @@
 | `04-one-week-action-plan.md` | July 9 to July 16 execution plan, checkpoints, owners, and outputs. |
 | `05-manager-final-calibration-checklist.md` | Final manager review checklist for score calibration. |
 | `06-team-message-to-send.md` | Short team-facing message for distributing the task. |
-| `../performance-score-model-v0.6.yml` | Private machine-readable baseline required by v0.7. |
-| `../performance-score-model-v0.7.yml` | Current private machine-readable mainline policy manifest. |
+| `../performance-score-model-v0.7.yml` | Frozen, desensitized machine-readable mainline policy. |
+| `../2026H1-performance-quantification-retrospective-public.md` | Aggregate retrospective, rule evolution, and anonymous insights. |
 
 ## Current Constraints
 
-- Some member data packages are not ready yet. They should still follow the same workflow and submit a v0 evidence index first.
 - Primary calibration scope is controlled by the manager-side roster and must not be inferred by employee agents.
 - Departure, exclusion, and special-case handling must stay in manager-private materials.
-- Current mainline v0.7 adds short-tenure normalization, strategic-project bonus review, mandatory written adjustment bases, render-sequence deduplication, Figma authorship boundaries, and AI non-duplication controls. It remains a decision aid rather than an automatic final-performance oracle.
+- Final mainline v0.7 adds short-tenure normalization, manager-designated priority bonus review, mandatory written adjustment bases, render-sequence deduplication, Figma authorship boundaries, and AI non-duplication controls.
+- Person-score mappings, private source references, customer/project identities, and raw messages remain in local manager-only materials and are never part of this package.
+- v0.7 is frozen for 2026H1. Any future semantic rule change starts from v0.8.
 
 ## Required Output From Every Active Member Agent
 

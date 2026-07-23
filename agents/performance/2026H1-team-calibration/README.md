@@ -22,6 +22,7 @@
 | `README.md` | PUBLIC_DESENSITIZED | Manager / master agent | This index explains release boundaries. |
 | `performance-score-model-v0.7.yml` | PUBLIC_DESENSITIZED | Employee agents / tooling | Frozen machine-readable policy without private mappings. |
 | `2026H1-performance-quantification-retrospective-public.md` | PUBLIC_DESENSITIZED | Management / employee agents | Aggregate-only retrospective without person-score mapping. |
+| `2026H1-employee-performance-and-kpi-guideline-public.md` | PUBLIC_DESENSITIZED | All employees / employee agents | Employee-facing KPI principles, evidence rules, and ongoing recording guidance. |
 
 ## Deliverables
 
@@ -35,6 +36,7 @@
 | `06-team-message-to-send.md` | Short team-facing message for distributing the task. |
 | `../performance-score-model-v0.7.yml` | Frozen, desensitized machine-readable mainline policy. |
 | `../2026H1-performance-quantification-retrospective-public.md` | Aggregate retrospective, rule evolution, and anonymous insights. |
+| `../2026H1-employee-performance-and-kpi-guideline-public.md` | Final employee-facing performance and KPI guide. |
 
 ## Current Constraints
 

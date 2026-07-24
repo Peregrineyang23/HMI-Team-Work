@@ -4,6 +4,8 @@ status: final
 created_at: 2026-07-14
 frozen_at: 2026-07-18
 final_for: 2026H1
+clarified_at: 2026-07-24
+clarification_id: V07-C01
 timezone: Asia/Shanghai
 purpose: >
   Final desensitized scoring policy for 2026H1. It defines short-tenure
@@ -64,6 +66,29 @@ version_policy:
     - formatting_corrections
   future_rule_changes_start_from: 0.8
 evidence_counting_clarifications:
+  external_manager_aggregate_rating:
+    authentic_source_proves: evaluator_rating_and_written_judgment
+    without_project_facts:
+      performance_claim_confidence: medium_high
+      may_support:
+        - correction_of_internal_visibility_bias
+        - bounded_base_score_calibration
+        - conservative_external_recognition_bonus
+      may_not_alone_support:
+        - automatic_conversion_from_ten_point_scale
+        - a_band_unlock
+        - high_bonus
+        - unmentioned_subitem_increase
+    a_band_or_high_bonus_requires:
+      - two_to_three_representative_project_facts
+      - personal_role
+      - attributable_action
+      - acceptance_adoption_or_impact
+      - reviewable_source
+    non_duplication: >
+      If the aggregate rating calibrates base dimensions, any separate
+      recognition bonus must represent independent recognition value
+      and use a conservative score.
   render_sequences:
     rule: count_as_deliverable_family_not_individual_files
     purpose: prevent_png_exr_frame_explosion_from_inflating_output_score

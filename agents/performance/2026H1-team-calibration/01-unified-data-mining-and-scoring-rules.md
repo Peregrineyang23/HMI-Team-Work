@@ -5,6 +5,8 @@
 - status: FINAL
 - effective_date: 2026-07-14
 - frozen_at: 2026-07-18
+- clarified_at: 2026-07-24
+- clarification: V07-C01 external manager aggregate rating evidence boundary
 - evaluation_period: 2026-01-01 to 2026-06-30
 - background_tolerance: 2026-07-01 to 2026-07-07 may be used only as project continuation context, not core H1 scoring.
 
@@ -136,6 +138,9 @@ Use the original evaluation table dimensions:
 23. Coordination and leadership are outcome-scored. Group count, meeting count, message count, assignment count, and attendance are scope signals; higher scores require decisions, owner assignment, risk closure, delivery acceptance, or cross-team adoption.
 24. Bonus rows must match the named bonus category and include a non-duplication explanation. A methodology claim cannot be placed under external award/praise, and the same impact cannot be counted in quality, innovation, sharing, and bonus without separating the incremental value.
 25. Final totals and bands must be formula-driven or mechanically reconciled from item scores, bonus, and deductions. A narrative recommendation cannot override an inconsistent arithmetic total.
+26. A written aggregate score from an onsite manager, customer-side manager, or long-term external supervisor is authoritative evidence of that evaluator's judgment, but not automatically direct evidence of each underlying performance fact. Without project, role, deliverable, acceptance, or impact details, it is medium-high confidence for bounded calibration and cannot alone unlock A band or high bonus.
+27. Only subitems explicitly supported by the evaluator's wording may be adjusted. A high aggregate rating must not automatically raise unmentioned AI efficiency, research, design-system, documentation, or team-reuse subitems.
+28. Before an aggregate external rating supports A band or high bonus, cross-validate at least 2-3 representative project facts with personal role, attributable action, acceptance/adoption/impact, and a reviewable source.
 
 ## 10. Recognition Evidence Weighting
 

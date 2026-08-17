@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "generated_at": "2026-08-10T17:02:15+08:00",
+  "timezone": "Asia/Shanghai",
+  "projects": [
+    {
+      "project_id": "benteng-e541-report-video",
+      "name": "奔腾E541 汇报视频",
+      "parent_project_id": "benteng-e541",
+      "source": {
+        "source_id": "feishu_emergency_chat_oc_2180b75fd1f5927dad6aa74e15724d8d",
+        "source_system": "feishu",
+        "chat_id": "oc_2180b75fd1f5927dad6aa74e15724d8d",
+        "chat_name": "「内部」奔腾E541 汇报视频",
+        "message_count": 182,
+        "member_count": 6,
+        "first_observed_at": "2026-07-09 10:35:00",
+        "last_observed_at": "2026-07-15 16:48",
+        "evidence_refs": [
+          "om_x100b6a576f1b5cb4b1a80b508d78ce8",
+          "om_x100b6a576c48f8a0b1742b06f4bf740",
+          "om_x100b6a57673dd8a8c078c0812d0e3ef",
+          "om_x100b6a5762ed38a0b2034b01be98347",
+          "om_x100b6a57774498acb3275f9b55b0d9e",
+          "om_x100b6a57192d10a8df9085050b509c9",
+          "om_x100b6a57140f28a8c1b2fbf464ed343",
+          "om_x100b6a5715a7c0a0c3a552273f6dd03",
+          "om_x100b6a57122870a8c43d4288e231432",
+          "om_x100b6a5bc676b4a8b4956d9a9b30f35",
+          "om_x100b6a458ca374a4b28c2755c4fe5d7",
+          "om_x100b6a458aa400b8b036127bd8c788f",
+          "om_x100b6a45b30d8880df35fbaed1994ff",
+          "om_x100b6a45b1e14cb0dd49fe80030f020",
+          "om_x100b6a464c24d0b0c455ffd5b58df02",
+          "om_x100b6a46493e14b0c07392b08958da4",
+          "om_x100b6a464740b0acdfb21f13dcb9094",
+          "om_x100b6a4647077c80c022d54587cdbdc",
+          "om_x100b6a467ea1f080b2567708d2dc8c7",
+          "om_x100b6a40d94918b4b2405e5546cea17"
+        ],
+        "deleted_message_count": 7,
+        "last_message_id": "om_x100b6a40d94918b4b2405e5546cea17",
+        "collected_at": "2026-08-10T17:02:15+08:00",
+        "collection_identity": "user",
+        "collection_complete": true
+      },
+      "owner_agent": "subagent-zhang-fan",
+      "owner_name": "张帆",
+      "organization_team": "领域驱动",
+      "status": "review",
+      "evidence_score": 74,
+      "estimated_effort": null,
+      "confidence": 0.82,
+      "manual_adjustment": 1,
+      "local_artifacts": 0,
+      "tasks": {
+        "todo": 0,
+        "doing": 2,
+        "review": 2,
+        "blocked": 0,
+        "done": 0
+      },
+      "risks": [
+        {
+          "severity": "P1",
+          "text": "第一、三章节已进入视频反馈调整，最终画质提升仍等待节奏、卡片尺寸和内饰光影版本通过。"
+        },
+        {
+          "severity": "P1",
+          "text": "雪景树木清晰度、积雪表现与 SR 色彩仍需统一视觉标准并完成最终确认。"
+        },
+        {
+          "severity": "P1",
+          "text": "完整视频仍需完成各章节合片、配乐与最终验收。"
+        }
+      ],
+      "deliverables": [
+        "Ai时代-第一章节脚本_0709",
+        "Ai时代-第一章节脚本_V2_0709",
+        "08棚拍图.zip",
+        "VPA 序列帧",
+        "分镜一-车道级UI底图.zip",
+        "奔腾悦意08演示视频章节三.mp4",
+        "第一章节视频",
+        "章节1（3）.mp4.zip",
+        "7月12日节奏、卡片尺寸与内饰光影调整版"
+      ],
+      "people_impacts": [
+        {
+          "agent_id": "subagent-zhang-fan",
+          "name": "张帆",
+          "role": "accountable_owner",
+          "evidence_score_delta": 8,
+          "visible_project_delta": 1,
+          "note": "突发汇报视频统筹、脚本/分镜交付、素材调度。"
+        },
+        {
+          "agent_id": "subagent-sun-ruoyi",
+          "name": "孙若一",
+          "role": "ui_asset_owner",
+          "evidence_score_delta": 6,
+          "visible_project_delta": 1,
+          "note": "UI 分层文件、模型/分辨率确认。"
+        },
+        {
+          "agent_id": "subagent-li-sunan",
+          "name": "李苏南",
+          "role": "vpa_asset_provider",
+          "evidence_score_delta": 7,
+          "visible_project_delta": 1,
+          "note": "VPA 形象动画、序列帧和多媒体空间素材支持。"
+        },
+        {
+          "agent_id": "subagent-gu-yingzhi",
+          "name": "顾颖芝",
+          "role": "figma_design_support",
+          "evidence_score_delta": 3,
+          "visible_project_delta": 1,
+          "note": "Figma/画板与设计素材确认。"
+        },
+        {
+          "agent_id": "subagent-li-haoxing",
+          "name": "李昊星",
+          "role": "client_content_confirmation",
+          "evidence_score_delta": 4,
+          "visible_project_delta": 1,
+          "note": "客户确认 UI 素材、车内饰前舱 3D 图、章节时长。"
+        }
+      ],
+      "notes": [
+        "这是 2026-07-09 上午突发项目，按群聊证据纳入实时任务跟踪看板。",
+        "该项目是奔腾E541主项目下的汇报视频专项，单独列行用于任务追踪和资源调度。",
+        "2026-07-12 已完成全量分页复采；状态由初始阻塞更新为评审调整中。"
+      ]
+    }
+  ]
+}

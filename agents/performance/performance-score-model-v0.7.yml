@@ -1,0 +1,106 @@
+version: 0.7
+release_level: PUBLIC_DESENSITIZED
+status: final
+created_at: 2026-07-14
+frozen_at: 2026-07-18
+final_for: 2026H1
+clarified_at: 2026-07-24
+clarification_id: V07-C01
+timezone: Asia/Shanghai
+purpose: >
+  Final desensitized scoring policy for 2026H1. It defines short-tenure
+  normalization, manager-designated priority for bonus review, evidence
+  controls, and mandatory written basis for every adjustment row.
+primary_weights:
+  ui_ue_output_quality: 50
+  project_execution: 20
+  design_capability_ai: 15
+  collaboration: 10
+  responsibility: 5
+short_tenure:
+  whole_score_month_multiplier: false
+  prorate_delivery_expectation: true
+  normalize_volume_by_active_months: true
+  report_tenure_coverage_separately: true
+  less_than_three_months_requires_stronger_acceptance_for_high_band: true
+strategic_project_priority:
+  P0: manager_designated_highest_priority
+  P1: manager_designated_high_priority
+  P2: manager_designated_medium_high_priority
+  P3: other_or_manager_designated
+bonus_basis_required_fields:
+  - project_priority
+  - personal_role
+  - incremental_value
+  - acceptance_or_result
+  - non_duplication_note
+workbook_layout:
+  bonus_columns:
+    - item
+    - score
+    - evaluation_basis
+  deduction_columns:
+    - item
+    - score
+    - evaluation_basis
+decision:
+  publish_person_specific_scores: false
+  preserve_person_mapping_in_manager_private_files_only: true
+privacy:
+  prohibit_public_fields:
+    - person_name_to_score_mapping
+    - personal_identifiers
+    - local_absolute_paths
+    - private_message_content
+    - customer_or_confidential_project_names
+    - access_tokens_or_source_ids
+  public_outputs_may_include:
+    - aggregate_score_distribution
+    - anonymous_update_insights
+    - scoring_rules
+    - desensitized_templates
+version_policy:
+  semantic_changes_after_freeze: prohibited_for_2026H1
+  allowed_after_freeze:
+    - non_scoring_errata
+    - formatting_corrections
+  future_rule_changes_start_from: 0.8
+evidence_counting_clarifications:
+  external_manager_aggregate_rating:
+    authentic_source_proves: evaluator_rating_and_written_judgment
+    without_project_facts:
+      performance_claim_confidence: medium_high
+      may_support:
+        - correction_of_internal_visibility_bias
+        - bounded_base_score_calibration
+        - conservative_external_recognition_bonus
+      may_not_alone_support:
+        - automatic_conversion_from_ten_point_scale
+        - a_band_unlock
+        - high_bonus
+        - unmentioned_subitem_increase
+    a_band_or_high_bonus_requires:
+      - two_to_three_representative_project_facts
+      - personal_role
+      - attributable_action
+      - acceptance_adoption_or_impact
+      - reviewable_source
+    non_duplication: >
+      If the aggregate rating calibrates base dimensions, any separate
+      recognition bonus must represent independent recognition value
+      and use a conservative score.
+  render_sequences:
+    rule: count_as_deliverable_family_not_individual_files
+    purpose: prevent_png_exr_frame_explosion_from_inflating_output_score
+  figma_version_share:
+    supports:
+      - authorship_attribution
+      - continuity_of_involvement
+    does_not_alone_support:
+      - design_quality
+      - final_adoption
+      - node_level_independent_contribution
+  ai_tool_usage:
+    base_score_requires: adopted_workflow_evidence
+    high_score_requires: before_after_or_reuse_evidence
+    bonus_requires: incremental_value_not_already_counted_in_base_score

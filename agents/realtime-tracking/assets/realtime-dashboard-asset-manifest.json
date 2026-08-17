@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "generated_at": "2026-07-09T15:45:00+08:00",
+  "timezone": "Asia/Shanghai",
+  "package_name": "unity-hmi-realtime-tracking-agent-20260709.zip",
+  "feishu_assets": {
+    "base_url": "https://yousandi.feishu.cn/base/QIFybHOSUaU7HUsQ1h8c2eV5nY8",
+    "base_token": "QIFybHOSUaU7HUsQ1h8c2eV5nY8",
+    "dashboard_id": "blkxBQFl6g0CY98j",
+    "team_chat": {
+      "name": "DM006. Realtime Task Management",
+      "chat_id": "oc_824642a195aa4a6d1fd2861fd8c749da",
+      "permission": "view"
+    },
+    "tables": {
+      "projects": {
+        "name": "项目状态",
+        "table_id": "tblHtagrKpugt785",
+        "current_view_id": "vewBPGl4VN"
+      },
+      "people": {
+        "name": "人员负载",
+        "table_id": "tbljfV3gqqpsiMw8",
+        "current_view_id": "vewDjF0S89"
+      },
+      "sources": {
+        "name": "数据源健康",
+        "table_id": "tbl92nK2MQ38006b",
+        "current_view_id": "vewEUoEWkJ"
+      },
+      "risks": {
+        "name": "风险队列",
+        "table_id": "tblm6RaQqz0WG3KD",
+        "current_view_id": "vew8X0H0kj"
+      },
+      "changes": {
+        "name": "每日变化",
+        "table_id": "tbllhgJMAk2VgG4l"
+      }
+    }
+  },
+  "current_counts": {
+    "projects": 13,
+    "people": 14,
+    "sources": 8,
+    "risks": 20
+  },
+  "emergency_projects": [
+    {
+      "project_id": "benteng-e541-report-video",
+      "name": "奔腾E541 汇报视频",
+      "source_chat_id": "oc_2180b75fd1f5927dad6aa74e15724d8d",
+      "owner_agent": "subagent-zhang-fan",
+      "status": "blocked"
+    }
+  ],
+  "package_files": [
+    "agents/realtime-tracking/agent.md",
+    "agents/realtime-tracking/assets/realtime-dashboard-asset-manifest.json",
+    "agents/realtime-tracking/dashboard-spec.md",
+    "agents/realtime-tracking/data-sources.yml",
+    "agents/realtime-tracking/emergency-project-benteng-e541-report-video.md",
+    "agents/realtime-tracking/emergency-projects.json",
+    "agents/realtime-tracking/evidence-schema.yml",
+    "agents/realtime-tracking/lark-dashboard.json",
+    "agents/realtime-tracking/lark-dashboard.yml",
+    "agents/realtime-tracking/lark-permission-setup.md",
+    "agents/realtime-tracking/mining-plan.md",
+    "agents/realtime-tracking/project-map.yml",
+    "agents/realtime-tracking/realtime-task-dashboard.html",
+    "agents/realtime-tracking/weekly-report-calibration.md",
+    "tools/calibrate-realtime-dashboard-from-weekly-report.py",
+    "tools/generate-realtime-dashboard-state.py",
+    "tools/scan-local-artifacts.py",
+    "tools/send-lark-dashboard-digest.py",
+    "tools/sync-lark-dashboard.py"
+  ],
+  "validation_commands": [
+    "python3 -m py_compile tools/generate-realtime-dashboard-state.py tools/sync-lark-dashboard.py tools/calibrate-realtime-dashboard-from-weekly-report.py",
+    "python3 tools/generate-realtime-dashboard-state.py",
+    "python3 tools/calibrate-realtime-dashboard-from-weekly-report.py",
+    "python3 tools/sync-lark-dashboard.py --sync",
+    "python3 tools/sync-lark-dashboard.py --dedupe"
+  ],
+  "policies": [
+    "never request standalone delete scopes",
+    "do not assign new work to 张婕 or 李达",
+    "scan only explicitly configured local directories",
+    "send fallback digest only to DM006. Realtime Task Management"
+  ]
+}
